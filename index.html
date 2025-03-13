@@ -1,59 +1,112 @@
-// src/app/page.tsx
-import Link from 'next/link'
-import { motion } from 'framer-motion'
-import Image from 'next/image'
-
-export default function Home() {
-  return (
-    <main className="pt-24">
-      <section className="min-h-[90vh] flex flex-col justify-center py-16">
-        <div className="container">
-          <h1 className="title-large mb-16">
-            53 STUDIOS
-          </h1>
-          <div className="max-w-3xl">
-            <p className="text-body mb-8">
-              An interactive design firm that believes in bringing client needs into functional spaces integrating Design and Craftsmanship.
-            </p>
-            <p className="text-body">
-              Our architectural approach combines innovative solutions with timeless aesthetics, creating spaces that inspire and endure.
-            </p>
-          </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>53 Studios – Architecture & Design</title>
+    <meta name="description" content="An interactive design firm that believes in bringing client needs into functional spaces integrating Design and Craftsmanship.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Loading screen -->
+    <div class="loader" id="loader">
+        <div class="loader-header">
+            <div>53 Studios</div>
+            <div id="progress-counter">0</div>
         </div>
-      </section>
-
-      <section className="py-20">
-        <div className="container">
-          <div className="flex justify-between items-center mb-12">
-            <h2 className="text-small uppercase tracking-wider">Highlights</h2>
-            <Link href="/projects" className="text-sm underline">
-              Explore projects
-            </Link>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Link href="/projects/waterfront-residence" className="block group">
-              <div className="aspect-[4/3] overflow-hidden bg-neutral-900">
-                <img 
-                  src="https://cdn.prod.website-files.com/6783d77212b58244ace7036d/67a37b4b6d3ce6df4b8377ad_StudioOlimpo_Works_01_Retroscena_01.avif" 
-                  alt="Waterfront Residence" 
-                  className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105"
-                />
-              </div>
-            </Link>
-            
-            <Link href="/projects/modern-office" className="block group">
-              <div className="aspect-[4/3] overflow-hidden bg-neutral-900">
-                <img 
-                  src="https://cdn.prod.website-files.com/6783d77212b58244ace7036d/67a24d2efdad01250ef5efa1_StudioOlimpo_Works_02_ScarpeCarrioli_01-p-1080.avif" 
-                  alt="Modern Office Complex" 
-                  className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105"
-                />
-              </div>
-            </Link>
-          </div>
+        <div class="loader-image-container">
+            <img src="https://web-assets.same.dev/1139581368/563017777.jpeg" class="loader-image" id="loader-image-1" alt="">
+            <img src="https://web-assets.same.dev/640439654/2944829769.jpeg" class="loader-image" id="loader-image-2" alt="">
+            <img src="https://web-assets.same.dev/1016914352/1778267100.jpeg" class="loader-image" id="loader-image-3" alt="">
+            <img src="https://web-assets.same.dev/3128258328/3844539447.jpeg" class="loader-image" id="loader-image-4" alt="">
         </div>
-      </section>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <a href="/" class="logo">5<span class="logo-line"></span>3</a>
+        <button class="menu-button" id="menu-toggle">MENU</button>
+    </header>
+
+    <!-- Menu overlay -->
+    <div class="menu-overlay" id="menu-overlay">
+        <ul class="menu-list">
+            <li class="menu-item">
+                <a href="/projects.html" class="menu-link">
+                    <span class="menu-number">01</span>
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="/about.html" class="menu-link">
+                    <span class="menu-number">02</span>
+                    <span>About</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="/contact.html" class="menu-link">
+                    <span class="menu-number">03</span>
+                    <span>Contact</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main content -->
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1 class="title">53 STUDIOS</h1>
+                <p class="intro-text">
+                    An interactive design firm that believes in bringing client needs into functional spaces integrating Design and Craftsmanship.
+                </p>
+                <p class="intro-text">
+                    Our architectural approach combines innovative solutions with timeless aesthetics, creating spaces that inspire and endure.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Highlights</h2>
+                    <a href="/projects.html" class="section-link">Explore projects</a>
+                </div>
+                <div class="projects-grid">
+                    <a href="/projects.html" class="project-item">
+                        <img src="https://cdn.prod.website-files.com/6783d77212b58244ace7036d/67a37b4b6d3ce6df4b8377ad_StudioOlimpo_Works_01_Retroscena_01.avif" alt="Waterfront Residence" class="project-image">
+                    </a>
+                    <a href="/projects.html" class="project-item">
+                        <img src="https://cdn.prod.website-files.com/6783d77212b58244ace7036d/67a24d2efdad01250ef5efa1_StudioOlimpo_Works_02_ScarpeCarrioli_01-p-1080.avif" alt="Modern Office Complex" class="project-image">
+                    </a>
+                </div>
+            </div>
+        </section>
     </main>
-  )
-}
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <svg width="60" height="16" viewBox="0 0 92 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.4081 1.056L15.0481 6.112L14.7921 6.208C13.0641 1.984 10.8561 0.735998 8.45613 0.735998C5.51213 0.735998 4.13613 2.528 4.13613 4.704C4.13613 7.936 7.04813 9.088 10.0881 10.496C13.3201 11.968 16.6481 13.568 16.6481 17.92C16.6481 22.624 12.8081 24.48 8.42413 24.48C6.24813 24.48 4.00813 24 2.08813 23.264L1.44813 18.08L1.70413 17.984C3.62413 22.048 5.86413 23.84 9.19213 23.84C12.5841 23.84 14.2481 21.824 14.2481 19.104C14.2481 15.616 11.5921 14.24 8.68013 12.928C5.41613 11.424 2.08813 9.984 2.08813 5.888C2.08813 1.888 5.22413 0.0959988 9.22413 0.0959988C11.1441 0.0959988 13.0001 0.511999 14.4081 1.056Z" fill="currentColor"/>
+                    <line x1="23.7363" y1="12" x2="59.7363" y2="12" stroke="currentColor"/>
+                    <path d="M78.4483 24.48C72.1123 24.48 66.6083 19.168 66.6083 12.32C66.6083 5.472 72.1123 0.0959988 78.4483 0.0959988C84.8163 0.0959988 90.3523 5.472 90.3523 12.32C90.3523 19.168 84.8163 24.48 78.4483 24.48ZM78.4483 23.84C84.2083 23.84 87.3443 18.944 87.3443 12.32C87.3443 5.728 84.2083 0.735998 78.4483 0.735998C72.7203 0.735998 69.6163 5.728 69.6163 12.32C69.6163 18.912 72.7203 23.84 78.4483 23.84Z" fill="currentColor"/>
+                </svg>
+            </div>
+            <p class="footer-tagline">
+                Functional design <em>and</em> timeless craftsmanship.
+            </p>
+            <p class="footer-tagline">
+                Striving <em>for</em> innovation, grounded <em>in</em> practicality, guided <em>by</em> client needs
+            </p>
+            <div class="footer-bottom">
+                <div class="copyright">© 2025 53 Studios</div>
+                <a href="#" class="preferences-link">Preferences</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

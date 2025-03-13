@@ -1,54 +1,113 @@
-// src/app/about/page.tsx
-export default function AboutPage() {
-  return (
-    <main className="pt-32 pb-20">
-      <div className="container">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-24">
-          <div>
-            <img 
-              src="https://web-assets.same.dev/1927858068/1059453972.avif" 
-              alt="53 Studios Team" 
-              className="w-full aspect-square object-cover"
-            />
-          </div>
-          <div className="flex flex-col justify-center">
-            <h1 className="text-3xl mb-6 font-canela">About</h1>
-            <h2 className="text-3xl mb-12 font-canela">53 Studios</h2>
-            
-            <p className="text-body mb-6">
-              Founded in 2021, 53 Studios started as a close-knit team of architects and designers with a shared passion for creating functional, aesthetically pleasing spaces. Over time, the firm has grown from a small collective to managing over 10 projects, delivering high-quality designs that blend innovation with craftsmanship. Based in Chennai, India, we specialize in architectural design, interior solutions, and construction, ensuring each project reflects our commitment to excellence.
-            </p>
-            <p className="text-body">
-              At 53 Studios, our architectural philosophy is rooted in the seamless integration of form and function. We believe that exceptional architecture should not only captivate visually but also enhance the daily experiences of those who inhabit the spaces we create. Drawing inspiration from both contemporary trends and timeless principles, our design approach prioritizes sustainability, context-sensitivity, and human-centered solutions. Each project begins with a deep understanding of the client's needs and the site's unique characteristics, allowing us to craft spaces that are both innovative and intimately connected to their surroundings. Through meticulous attention to detail and a collaborative design process, we transform conceptual visions into tangible environments that stand the test of time.
-            </p>
-          </div>
-        </div>
-        
-        <div className="mb-24">
-          <h2 className="text-xl mb-12 text-small uppercase tracking-wider">Our Expertise</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div>
-              <p className="text-body">
-                We approach each architectural project with a fresh perspective, diving deep into the unique requirements and context. Our process is driven by thoughtful questioning and exploration that uncovers innovative solutions. With a comprehensive understanding of each project's scope, we develop designs that are both creative and practical, resulting in spaces that truly resonate with their users and environment.
-              </p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About – 53 Studios</title>
+    <meta name="description" content="Founded in 2021, 53 Studios started as a close-knit team of architects and designers with a shared passion for creating functional, aesthetically pleasing spaces.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="/" class="logo">5<span class="logo-line"></span>3</a>
+        <button class="menu-button" id="menu-toggle">MENU</button>
+    </header>
+
+    <!-- Menu overlay -->
+    <div class="menu-overlay" id="menu-overlay">
+        <ul class="menu-list">
+            <li class="menu-item">
+                <a href="/projects.html" class="menu-link">
+                    <span class="menu-number">01</span>
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="/about.html" class="menu-link">
+                    <span class="menu-number">02</span>
+                    <span>About</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="/contact.html" class="menu-link">
+                    <span class="menu-number">03</span>
+                    <span>Contact</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main content -->
+    <main>
+        <div class="container">
+            <div class="about-section">
+                <div class="about-grid">
+                    <div>
+                        <img src="https://web-assets.same.dev/1927858068/1059453972.avif" alt="53 Studios Team" class="about-image">
+                    </div>
+                    <div>
+                        <h1 class="about-title">About</h1>
+                        <h2 class="about-title">53 Studios</h2>
+                        <p class="about-text">
+                            Founded in 2021, 53 Studios started as a close-knit team of architects and designers with a shared passion for creating functional, aesthetically pleasing spaces. Over time, the firm has grown from a small collective to managing over 10 projects, delivering high-quality designs that blend innovation with craftsmanship. Based in Chennai, India, we specialize in architectural design, interior solutions, and construction, ensuring each project reflects our commitment to excellence.
+                        </p>
+                        <p class="about-text">
+                            At 53 Studios, our architectural philosophy is rooted in the seamless integration of form and function. We believe that exceptional architecture should not only captivate visually but also enhance the daily experiences of those who inhabit the spaces we create. Drawing inspiration from both contemporary trends and timeless principles, our design approach prioritizes sustainability, context-sensitivity, and human-centered solutions. Each project begins with a deep understanding of the client's needs and the site's unique characteristics, allowing us to craft spaces that are both innovative and intimately connected to their surroundings. Through meticulous attention to detail and a collaborative design process, we transform conceptual visions into tangible environments that stand the test of time.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="services-section">
+                    <h2 class="section-title">Our Expertise</h2>
+                    <div class="services-grid">
+                        <div>
+                            <p class="services-text">
+                                We approach each architectural project with a fresh perspective, diving deep into the unique requirements and context. Our process is driven by thoughtful questioning and exploration that uncovers innovative solutions. With a comprehensive understanding of each project's scope, we develop designs that are both creative and practical, resulting in spaces that truly resonate with their users and environment.
+                            </p>
+                        </div>
+                        <div class="services-list">
+                            <div>
+                                <p>Architectural Design</p>
+                                <p>Interior Design</p>
+                                <p>3D Visualization</p>
+                                <p>Project Management</p>
+                            </div>
+                            <div>
+                                <p>Construction Planning</p>
+                                <p>Sustainability Consulting</p>
+                                <p>Space Planning</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <p className="text-body mb-2">Architectural Design</p>
-                <p className="text-body mb-2">Interior Design</p>
-                <p className="text-body mb-2">3D Visualization</p>
-                <p className="text-body">Project Management</p>
-              </div>
-              <div>
-                <p className="text-body mb-2">Construction Planning</p>
-                <p className="text-body mb-2">Sustainability Consulting</p>
-                <p className="text-body">Space Planning</p>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
     </main>
-  )
-}
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <svg width="60" height="16" viewBox="0 0 92 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.4081 1.056L15.0481 6.112L14.7921 6.208C13.0641 1.984 10.8561 0.735998 8.45613 0.735998C5.51213 0.735998 4.13613 2.528 4.13613 4.704C4.13613 7.936 7.04813 9.088 10.0881 10.496C13.3201 11.968 16.6481 13.568 16.6481 17.92C16.6481 22.624 12.8081 24.48 8.42413 24.48C6.24813 24.48 4.00813 24 2.08813 23.264L1.44813 18.08L1.70413 17.984C3.62413 22.048 5.86413 23.84 9.19213 23.84C12.5841 23.84 14.2481 21.824 14.2481 19.104C14.2481 15.616 11.5921 14.24 8.68013 12.928C5.41613 11.424 2.08813 9.984 2.08813 5.888C2.08813 1.888 5.22413 0.0959988 9.22413 0.0959988C11.1441 0.0959988 13.0001 0.511999 14.4081 1.056Z" fill="currentColor"/>
+                    <line x1="23.7363" y1="12" x2="59.7363" y2="12" stroke="currentColor"/>
+                    <path d="M78.4483 24.48C72.1123 24.48 66.6083 19.168 66.6083 12.32C66.6083 5.472 72.1123 0.0959988 78.4483 0.0959988C84.8163 0.0959988 90.3523 5.472 90.3523 12.32C90.3523 19.168 84.8163 24.48 78.4483 24.48ZM78.4483 23.84C84.2083 23.84 87.3443 18.944 87.3443 12.32C87.3443 5.728 84.2083 0.735998 78.4483 0.735998C72.7203 0.735998 69.6163 5.728 69.6163 12.32C69.6163 18.912 72.7203 23.84 78.4483 23.84Z" fill="currentColor"/>
+                </svg>
+            </div>
+            <p class="footer-tagline">
+                Functional design <em>and</em> timeless craftsmanship.
+            </p>
+            <p class="footer-tagline">
+                Striving <em>for</em> innovation, grounded <em>in</em> practicality, guided <em>by</em> client needs
+            </p>
+            <div class="footer-bottom">
+                <div class="copyright">© 2025 53 Studios</div>
+                <a href="#" class="preferences-link">Preferences</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
