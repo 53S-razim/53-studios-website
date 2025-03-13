@@ -131,23 +131,21 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-        const updateCursor = () => {
-            // Smooth dot movement
-            dotX += (mouseX - dotX) * 0.2;
-            dotY += (mouseY - dotY) * 0.2;
-            
-            // Smoother circle movement (lags behind dot slightly)
-            circleX += (mouseX - circleX) * 0.1;
-            circleY += (mouseY - circleY) * 0.1;
-            
-            cursorDot.style.transform = `translate(${dotX}px, ${dotY}px)`;
-            cursorCircle.style.transform = `translate(${circleX}px, ${circleY}px)`;
-            
-            requestAnimationFrame(updateCursor);
-        };
-        
-        requestAnimationFrame(updateCursor);
-    };
+        // Update the cursor movement in script.js - replace the updateCursor function
+const updateCursor = () => {
+    // More precise cursor movement
+    dotX = mouseX;
+    dotY = mouseY;
+    
+    // Circle follows with slight delay
+    circleX += (mouseX - circleX) * 0.3;
+    circleY += (mouseY - circleY) * 0.3;
+    
+    cursorDot.style.transform = `translate(${dotX}px, ${dotY}px)`;
+    cursorCircle.style.transform = `translate(${circleX}px, ${circleY}px)`;
+    
+    requestAnimationFrame(updateCursor);
+};
 
     // Smooth scroll and animations
     const initScrollAnimations = () => {
