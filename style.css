@@ -168,33 +168,23 @@ body.light-theme .menu-button {
     background-color: white !important;
 }
 
-/* Animate text change from "MENU" to "CLOSE" */
+/* Fix for the "CLOSE" text being cut off - add this to style.css */
 .menu-button .text-content {
     display: block;
     position: relative;
     overflow: hidden;
     height: 1.2em;
+    width: auto;
+    min-width: 60px; /* Ensure enough width for "CLOSE" */
 }
 
 .menu-button .text-primary,
 .menu-button .text-secondary {
     display: block;
+    width: 100%;
+    text-align: right; /* Align to right */
     transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
-}
-
-.menu-button .text-secondary {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translateY(100%);
-}
-
-.menu-button.active .text-primary {
-    transform: translateY(-100%);
-}
-
-.menu-button.active .text-secondary {
-    transform: translateY(0);
+    white-space: nowrap; /* Prevent wrapping */
 }
 
 /* Improved menu overlay */
