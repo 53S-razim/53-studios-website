@@ -1034,3 +1034,20 @@ button:not(.menu-button):hover::after,
 .opacity-70 {
     opacity: 0.7;
 }
+
+/* Fix menu button color in overlay - guaranteed to override everything */
+.menu-overlay.active ~ header .menu-button,
+.menu-overlay.active ~ header .menu-button .text-content,
+.menu-overlay.active ~ header .menu-button .text-primary,
+.menu-overlay.active ~ header .menu-button .text-secondary {
+    color: white !important;
+}
+
+.menu-overlay.active ~ header .menu-button::after {
+    background-color: white !important;
+}
+
+/* Add a delay to ensure this happens after the menu animation */
+.menu-overlay.active ~ header {
+    transition: color 0.3s 0.5s;
+}

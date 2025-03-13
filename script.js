@@ -84,12 +84,18 @@ document.addEventListener('DOMContentLoaded', function() {
             if (menuOverlay.classList.contains('active')) {
                 menuOverlay.classList.remove('active');
                 menuToggle.classList.remove('active');
-                // Re-enable scrolling
+                // Reset color for light theme
+            	if (document.body.classList.contains('light-theme')) {
+                menuToggle.style.color = '';
+            	}
+		// Re-enable scrolling
                 document.body.style.overflow = '';
             } else {
                 menuOverlay.classList.add('active');
                 menuToggle.classList.add('active');
-                // Disable scrolling when menu is open
+                // Force white text on menu button
+            	menuToggle.style.color = 'white';
+		// Disable scrolling when menu is open
                 document.body.style.overflow = 'hidden';
             }
         });
