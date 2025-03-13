@@ -79,24 +79,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const menuToggle = document.getElementById('menu-toggle');
     const menuOverlay = document.getElementById('menu-overlay');
     
+    // Replace the menu toggle section in script.js
     if (menuToggle && menuOverlay) {
-        menuToggle.addEventListener('click', () => {
+    	menuToggle.addEventListener('click', () => {
             if (menuOverlay.classList.contains('active')) {
-                menuOverlay.classList.remove('active');
-                menuToggle.classList.remove('active');
-                // Reset color for light theme
-            	if (document.body.classList.contains('light-theme')) {
-                menuToggle.style.color = '';
-            	}
-		// Re-enable scrolling
-                document.body.style.overflow = '';
+            	// Menu is open and being closed
+            	menuOverlay.classList.remove('active');
+           	 menuToggle.textContent = 'MENU'; // Set text directly to MENU
+            	// Re-enable scrolling
+            	document.body.style.overflow = '';
             } else {
-                menuOverlay.classList.add('active');
-                menuToggle.classList.add('active');
-                // Force white text on menu button
-            	menuToggle.style.color = 'white';
-		// Disable scrolling when menu is open
-                document.body.style.overflow = 'hidden';
+            	// Menu is closed and being opened
+           	 menuOverlay.classList.add('active');
+            	menuToggle.textContent = 'CLOSE'; // Set text directly to CLOSE
+            	// Disable scrolling when menu is open
+            	document.body.style.overflow = 'hidden';
             }
         });
     }

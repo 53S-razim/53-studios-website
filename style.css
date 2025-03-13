@@ -124,7 +124,7 @@ body.light-theme .logo {
     margin: 0 6px;
 }
 
-/* Menu button with improved animation */
+/* Simplified menu button animation - replace the existing menu-button styles */
 .menu-button {
     background: none;
     border: none;
@@ -136,6 +136,9 @@ body.light-theme .logo {
     letter-spacing: 0.05em;
     position: relative;
     padding: 5px 0;
+    width: auto;
+    min-width: 60px;
+    text-align: right;
 }
 
 body.light-theme .menu-button {
@@ -155,6 +158,15 @@ body.light-theme .menu-button {
 
 .menu-button:hover::after {
     width: 100%;
+}
+
+/* Force white color for menu button when menu is open */
+.menu-overlay.active ~ header .menu-button {
+    color: white !important;
+}
+
+.menu-overlay.active ~ header .menu-button::after {
+    background-color: white !important;
 }
 
 /* Fix menu button color when menu is open */
