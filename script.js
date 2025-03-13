@@ -75,26 +75,23 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 100);
     }
     
-    // Updated menu toggle with animation
-    const menuToggle = document.getElementById('menu-toggle');
+    // Updated menu toggle with two separate buttons
+    const menuToggleOpen = document.getElementById('menu-toggle-open');
+    const menuToggleClose = document.getElementById('menu-toggle-close');
     const menuOverlay = document.getElementById('menu-overlay');
     
-    // Replace the menu toggle section in script.js
-    if (menuToggle && menuOverlay) {
-    	menuToggle.addEventListener('click', () => {
-            if (menuOverlay.classList.contains('active')) {
-            	// Menu is open and being closed
-            	menuOverlay.classList.remove('active');
-           	 menuToggle.textContent = 'MENU'; // Set text directly to MENU
-            	// Re-enable scrolling
-            	document.body.style.overflow = '';
-            } else {
-            	// Menu is closed and being opened
-           	 menuOverlay.classList.add('active');
-            	menuToggle.textContent = 'CLOSE'; // Set text directly to CLOSE
-            	// Disable scrolling when menu is open
-            	document.body.style.overflow = 'hidden';
-            }
+    if (menuToggleOpen && menuToggleClose && menuOverlay) {
+    	// Open menu when clicking MENU
+        menuToggleOpen.addEventListener('click', () => {
+            menuOverlay.classList.add('active');
+            // Disable scrolling when menu is open
+            document.body.style.overflow = 'hidden';
+        });
+        // Close menu when clicking CLOSE
+        menuToggleClose.addEventListener('click', () => {
+            menuOverlay.classList.remove('active');
+            // Re-enable scrolling
+            document.body.style.overflow = '';    
         });
     }
 

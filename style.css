@@ -180,6 +180,74 @@ body.light-theme .menu-button {
     background-color: white !important;
 }
 
+/* Menu button container for positioning */
+.menu-button-container {
+    position: relative;
+    width: 70px; /* Ensure enough width */
+    height: 30px; /* Ensure enough height */
+    text-align: right;
+}
+
+/* Base styles for both buttons */
+.menu-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-family: 'PP Neue Montreal', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px 0;
+}
+
+/* MENU button visible by default */
+.menu-open {
+    opacity: 1;
+    visibility: visible;
+    color: var(--color-dark);
+}
+
+body:not(.light-theme) .menu-open {
+    color: white;
+}
+
+/* CLOSE button hidden by default */
+.menu-close {
+    opacity: 0;
+    visibility: hidden;
+    color: white !important; /* Always white */
+}
+
+/* When menu is active, swap the visibility */
+.menu-overlay.active ~ header .menu-open {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.menu-overlay.active ~ header .menu-close {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Underline effect for both buttons */
+.menu-button::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 1px;
+    background-color: currentColor;
+    transition: width 0.3s ease;
+}
+
+.menu-button:hover::after {
+    width: 100%;
+}
+
 /* Fix for the "CLOSE" text being cut off - add this to style.css */
 .menu-button .text-content {
     display: block;
