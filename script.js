@@ -1,12 +1,13 @@
-// Replace the loading animation section in script.js
+// Loading animation and page initialization
 document.addEventListener('DOMContentLoaded', function() {
-    // Simpler loading animation that doesn't depend on images
+    // Simpler loading animation that's more reliable
     const progressCounter = document.getElementById('progress-counter');
     const loader = document.getElementById('loader');
     
     if (progressCounter && loader) {
         let progress = 0;
-        // Make sure loading always completes
+        
+        // Force loading to complete within reasonable time
         const interval = setInterval(() => {
             progress += 1;
             progressCounter.textContent = Math.floor(progress);
@@ -65,8 +66,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }, 5000);
     }
-    
-    // Rest of your script.js code...
     
     // Updated menu toggle with animation
     const menuToggle = document.getElementById('menu-toggle');
@@ -157,21 +156,23 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-        // Update the cursor movement in script.js - replace the updateCursor function
-const updateCursor = () => {
-    // More precise cursor movement
-    dotX = mouseX;
-    dotY = mouseY;
-    
-    // Circle follows with slight delay
-    circleX += (mouseX - circleX) * 0.3;
-    circleY += (mouseY - circleY) * 0.3;
-    
-    cursorDot.style.transform = `translate(${dotX}px, ${dotY}px)`;
-    cursorCircle.style.transform = `translate(${circleX}px, ${circleY}px)`;
-    
-    requestAnimationFrame(updateCursor);
-};
+        const updateCursor = () => {
+            // More precise cursor movement
+            dotX = mouseX;
+            dotY = mouseY;
+            
+            // Circle follows with slight delay
+            circleX += (mouseX - circleX) * 0.3;
+            circleY += (mouseY - circleY) * 0.3;
+            
+            cursorDot.style.transform = `translate(${dotX}px, ${dotY}px)`;
+            cursorCircle.style.transform = `translate(${circleX}px, ${circleY}px)`;
+            
+            requestAnimationFrame(updateCursor);
+        };
+        
+        requestAnimationFrame(updateCursor);
+    };
 
     // Smooth scroll and animations
     const initScrollAnimations = () => {

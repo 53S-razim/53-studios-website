@@ -47,6 +47,41 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+/* Light theme */
+body.light-theme {
+    background-color: var(--color-light);
+    color: var(--color-dark);
+}
+
+body.light-theme header {
+    color: var(--color-dark);
+}
+
+body.light-theme .logo-line,
+body.light-theme .menu-button::after,
+body.light-theme a::after {
+    background-color: var(--color-dark);
+}
+
+body.light-theme .cursor-dot,
+body.light-theme .cursor-circle {
+    mix-blend-mode: normal;
+}
+
+body.light-theme .cursor-dot {
+    background-color: var(--color-dark);
+}
+
+body.light-theme .cursor-circle {
+    border-color: var(--color-dark);
+}
+
+body.light-theme .section-link::after,
+body.light-theme a:not(.logo):not(.menu-link)::after,
+body.light-theme .preferences-link::after {
+    background-color: var(--color-dark);
+}
+
 .container {
     width: 100%;
     max-width: 1440px;
@@ -77,6 +112,10 @@ header {
     align-items: center;
 }
 
+body.light-theme .logo {
+    color: var(--color-dark);
+}
+
 .logo-line {
     display: inline-block;
     width: 24px;
@@ -97,6 +136,10 @@ header {
     letter-spacing: 0.05em;
     position: relative;
     padding: 5px 0;
+}
+
+body.light-theme .menu-button {
+    color: var(--color-dark);
 }
 
 .menu-button::after {
@@ -301,6 +344,10 @@ main {
     position: relative;
 }
 
+body.light-theme .section-link {
+    color: var(--color-dark);
+}
+
 .section-link::after {
     content: '';
     position: absolute;
@@ -347,6 +394,10 @@ footer {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+body.light-theme footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
 .footer-logo {
     text-align: center;
     margin-bottom: calc(var(--spacing-unit) * 6);
@@ -383,6 +434,10 @@ footer {
     color: white;
     text-decoration: none;
     position: relative;
+}
+
+body.light-theme .preferences-link {
+    color: var(--color-dark);
 }
 
 .preferences-link::after {
@@ -496,11 +551,11 @@ footer {
 
 .about-image {
     width: 100%;
-    max-width: 500px; /* Add this line to limit the maximum width */
+    max-width: 500px; /* Limit the maximum width */
     height: auto;
     aspect-ratio: 1/1;
     object-fit: cover;
-    margin: 0 auto; /* This centers the image if it's smaller than its container */
+    margin: 0 auto; /* Center the image */
 }
 
 .about-title {
@@ -536,6 +591,10 @@ footer {
     text-decoration: none;
     display: inline-block;
     margin-bottom: calc(var(--spacing-unit) * 6);
+}
+
+body.light-theme .contact-email {
+    color: var(--color-dark);
 }
 
 .contact-description {
@@ -587,10 +646,21 @@ footer {
     font-family: 'PP Neue Montreal', sans-serif;
 }
 
+body.light-theme .form-input,
+body.light-theme .form-textarea {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    color: var(--color-dark);
+}
+
 .form-input:focus,
 .form-textarea:focus {
     outline: none;
     border-color: white;
+}
+
+body.light-theme .form-input:focus,
+body.light-theme .form-textarea:focus {
+    border-color: var(--color-dark);
 }
 
 .form-textarea {
@@ -609,8 +679,17 @@ footer {
     font-family: 'PP Neue Montreal', sans-serif;
 }
 
+body.light-theme .form-submit {
+    background-color: var(--color-dark);
+    color: white;
+}
+
 .form-submit:hover {
     background-color: rgba(255, 255, 255, 0.9);
+}
+
+body.light-theme .form-submit:hover {
+    background-color: rgba(12, 12, 12, 0.9);
 }
 
 .form-success {
@@ -630,6 +709,10 @@ footer {
     gap: calc(var(--spacing-unit) * 6);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding-top: calc(var(--spacing-unit) * 6);
+}
+
+body.light-theme .contact-info {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 @media (min-width: 768px) {
@@ -653,6 +736,10 @@ footer {
     text-decoration: underline;
 }
 
+body.light-theme .contact-info-link {
+    color: var(--color-dark);
+}
+
 .contact-info-text {
     line-height: 1.6;
 }
@@ -672,7 +759,7 @@ footer {
     }
 }
 
-/* Replace custom cursor styles in style.css */
+/* Custom cursor styles - smaller and more accurate */
 .cursor-dot {
     width: 3px; /* Even smaller dot */
     height: 3px; /* Even smaller dot */
@@ -714,32 +801,12 @@ body.cursor-hover .cursor-circle {
     height: 40px; /* Even smaller hover size */
 }
 
-/* Invert cursors on light theme */
-body.light-theme .cursor-dot {
-    background-color: black;
-}
-
-body.light-theme .cursor-circle {
-    border-color: black;
-}
-
-/* Hide default cursor when custom cursor is active */
-body.has-custom-cursor {
-    cursor: none;
-}
-
-/* Update in style.css */
+/* Add pointer cursor to interactive elements */
 body.has-custom-cursor a,
 body.has-custom-cursor button,
 body.has-custom-cursor [role="button"],
 body.has-custom-cursor .clickable {
     cursor: pointer !important; /* Force pointer cursor */
-}
-
-/* Smaller expansion on hover */
-body.cursor-hover .cursor-circle {
-    width: 60px; /* Smaller hover size */
-    height: 60px; /* Smaller hover size */
 }
 
 /* Interactive link styles */
@@ -952,31 +1019,6 @@ button:not(.menu-button):hover::after,
     justify-content: center;
 }
 
-/* Add this to style.css */
-body.light-theme {
-    background-color: var(--color-light);
-    color: var(--color-dark);
-}
-
-body.light-theme header {
-    color: var(--color-dark);
-}
-
-body.light-theme .logo-line,
-body.light-theme .menu-button::after,
-body.light-theme a::after {
-    background-color: var(--color-dark);
-}
-
-body.light-theme .cursor-dot,
-body.light-theme .cursor-circle {
-    mix-blend-mode: normal;
-}
-
-body.light-theme .cursor-dot {
-    background-color: var(--color-dark);
-}
-
-body.light-theme .cursor-circle {
-    border-color: var(--color-dark);
+.opacity-70 {
+    opacity: 0.7;
 }
