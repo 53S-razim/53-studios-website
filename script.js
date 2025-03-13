@@ -4,12 +4,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const progressCounter = document.getElementById('progress-counter');
     
     // Only show loading when clicking on home link or first visit
-    const shouldShowLoader = sessionStorage.getItem('visitedBefore') !== 'true' || 
-                             window.location.pathname.endsWith('index.html') ||
-                             window.location.pathname === '/' ||
-                             window.location.pathname.endsWith('/');
+    const isHomePage = window.location.pathname === '/' || 
+                       window.location.pathname.endsWith('index.html') ||
+                       window.location.pathname.endsWith('/');
     
-    if (shouldShowLoader && loader && progressCounter) {
+    if (isHomePage && loader && progressCounter) {
         // Show loader
         loader.style.display = 'flex';
         
@@ -42,16 +41,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     setTimeout(() => {
                         loader.style.display = 'none';
-                        sessionStorage.setItem('visitedBefore', 'true');
                         
                         // Trigger initial animation
                         document.querySelectorAll('.initial-animate').forEach(el => {
                             el.classList.add('active');
                         });
                         
-                        // Animate main title if exists
-                        if (document.querySelector('.main-title')) {
-                            animateMainTitle();
+                        // Animate split title if on homepage
+                        if (document.querySelector('.split-title-container')) {
+                            animateSplitTitle();
                         }
                     }, 500);
                 }, 300);
@@ -63,21 +61,20 @@ document.addEventListener('DOMContentLoaded', function() {
             if (loader && loader.style.display !== 'none') {
                 clearInterval(interval);
                 loader.style.display = 'none';
-                sessionStorage.setItem('visitedBefore', 'true');
                 
                 // Trigger initial animation
                 document.querySelectorAll('.initial-animate').forEach(el => {
                     el.classList.add('active');
                 });
                 
-                // Animate main title if exists
-                if (document.querySelector('.main-title')) {
-                    animateMainTitle();
+                // Animate split title if on homepage
+                if (document.querySelector('.split-title-container')) {
+                    animateSplitTitle();
                 }
             }
         }, 5000);
     } else if (loader) {
-        // Not first visit or homepage, hide loader immediately
+        // Not homepage, hide loader immediately
         loader.style.display = 'none';
         
         // Trigger initial animation immediately
@@ -85,48 +82,49 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.initial-animate').forEach(el => {
                 el.classList.add('active');
             });
-            
-            // Animate main title if exists
-            if (document.querySelector('.main-title')) {
-                animateMainTitle();
-            }
         }, 100);
     }
     
-    // Main title animation function
-    function animateMainTitle() {
-        const mainTitle = document.querySelector('.main-title');
-        const mainTitleWrapper = document.querySelector('.main-title-wrapper');
+    // Split title animation function
+    function animateSplitTitle() {
+        const leftTitle = document.querySelector('.left-title .main-title');
+        const rightTitle = document.querySelector('.right-title .main-title');
         
-        if (mainTitle && mainTitleWrapper) {
-            mainTitleWrapper.classList.add('animate');
-            mainTitle.classList.add('animate');
+        if (leftTitle && rightTitle) {
+            setTimeout(() => {
+                leftTitle.classList.add('animate');
+            }, 300);
+            
+            setTimeout(() => {
+                rightTitle.classList.add('animate');
+            }, 600);
         }
     }
     
-    // Handle home page links to reset loading animation
-    document.querySelectorAll('a[href="index.html"], a[href="/"], a[href="./"], a[href="./index.html"]').forEach(link => {
-        link.addEventListener('click', () => {
-            sessionStorage.removeItem('visitedBefore');
-        });
-    });
-    
-    // Menu toggle with X button
+    // Menu toggle with X button - FIX to prevent overlap
     const menuToggle = document.getElementById('menu-toggle');
     const closeButton = document.getElementById('close-button');
     const menuOverlay = document.getElementById('menu-overlay');
     
     if (menuToggle && closeButton && menuOverlay) {
         // Open menu
-        menuToggle.addEventListener('click', () => {
+        menuToggle.addEventListener('click', function() {
             menuOverlay.classList.add('active');
+            // Hide menu button when overlay is active
+            menuToggle.style.opacity = '0';
+            menuToggle.style.visibility = 'hidden';
             // Disable scrolling when menu is open
             document.body.style.overflow = 'hidden';
         });
         
         // Close menu
-        closeButton.addEventListener('click', () => {
+        closeButton.addEventListener('click', function() {
             menuOverlay.classList.remove('active');
+            // Wait for the animation to complete before showing menu button again
+            setTimeout(() => {
+                menuToggle.style.opacity = '1';
+                menuToggle.style.visibility = 'visible';
+            }, 600);
             // Re-enable scrolling
             document.body.style.overflow = '';
         });
@@ -162,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Custom cursor - single cursor with 3D effect
+    // Custom cursor with 3D effect - adjusted size and position
     const initCustomCursor = () => {
         // Don't add custom cursor on touch devices
         if ('ontouchstart' in window) return;
@@ -184,21 +182,23 @@ document.addEventListener('DOMContentLoaded', function() {
             mouseY = e.clientY;
         });
         
-        // Add hover effect to interactive elements
+        // Enhanced hover effect with more dramatic cursor changes
         const interactiveElements = document.querySelectorAll('a, button, [role="button"], .project-item, .menu-link, .clickable');
         interactiveElements.forEach(el => {
             el.addEventListener('mouseenter', () => {
                 document.body.classList.add('cursor-hover');
+                el.classList.add('element-hover');
             });
             el.addEventListener('mouseleave', () => {
                 document.body.classList.remove('cursor-hover');
+                el.classList.remove('element-hover');
             });
         });
         
         const updateCursor = () => {
-            // Much slower movement for circle (25% slower)
-            circleX += (mouseX - circleX) * 0.06; // Significantly slower - reduced from 0.08
-            circleY += (mouseY - circleY) * 0.06; // Significantly slower - reduced from 0.08
+            // Slower movement for cursor (following the mouse tip)
+            circleX += (mouseX - circleX) * 0.12;
+            circleY += (mouseY - circleY) * 0.12;
             
             cursorCircle.style.transform = `translate(${circleX}px, ${circleY}px)`;
             
@@ -208,9 +208,85 @@ document.addEventListener('DOMContentLoaded', function() {
         requestAnimationFrame(updateCursor);
     };
 
-    // Smooth scroll and animations
+    // Menu link hover animations with enhanced effects
+    const initMenuHoverEffects = () => {
+        const menuLinks = document.querySelectorAll('.menu-link');
+        
+        menuLinks.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                // Add hover class to current item
+                link.classList.add('menu-link-hover');
+                
+                // Add dim class to all other menu items
+                menuLinks.forEach(otherLink => {
+                    if (otherLink !== link) {
+                        otherLink.classList.add('menu-link-dim');
+                    }
+                });
+            });
+            
+            link.addEventListener('mouseleave', () => {
+                // Remove hover class from current item
+                link.classList.remove('menu-link-hover');
+                
+                // Remove dim class from all items
+                menuLinks.forEach(otherLink => {
+                    otherLink.classList.remove('menu-link-dim');
+                });
+            });
+        });
+    };
+
+    // Enhanced page transitions
+    const initPageTransitions = () => {
+        // Create transition element
+        const transitionEl = document.createElement('div');
+        transitionEl.className = 'page-transition';
+        document.body.appendChild(transitionEl);
+        
+        // Add click handlers to all internal links with enhanced animation
+        document.querySelectorAll('a[href^="/"], a[href^="./"], a[href^="../"], a[href$=".html"]').forEach(link => {
+            // Skip links that should open in new tabs or external links
+            if (link.getAttribute('target') === '_blank' || link.getAttribute('rel') === 'external') {
+                return;
+            }
+            
+            link.addEventListener('click', e => {
+                const href = link.getAttribute('href');
+                
+                // Skip anchor links
+                if (href.startsWith('#')) {
+                    return;
+                }
+                
+                e.preventDefault();
+                
+                // More dramatic animation for clicked links
+                link.classList.add('link-clicked');
+                
+                // Trigger transition animation
+                transitionEl.classList.add('active');
+                
+                // Navigate to new page after animation
+                setTimeout(() => {
+                    window.location.href = href;
+                }, 800); // Longer delay for more dramatic transition
+            });
+        });
+        
+        // Animate transition out when page loads
+        if (document.readyState === 'complete') {
+            transitionEl.classList.add('exit');
+        } else {
+            window.addEventListener('load', () => {
+                transitionEl.classList.add('exit');
+            });
+        }
+    };
+
+    // Smooth scroll and animations with enhanced effects
     const initScrollAnimations = () => {
-        // Add animation classes to elements if they don't already have .initial-animate
+        // Add animation classes to elements
         document.querySelectorAll('.title:not(.initial-animate):not(.main-title)').forEach(el => {
             el.classList.add('fade-in-up');
         });
@@ -240,7 +316,7 @@ document.addEventListener('DOMContentLoaded', function() {
             el.classList.add('fade-in-up');
         });
         
-        // Check for elements in viewport
+        // Check for elements in viewport with enhanced effects
         const checkInView = () => {
             const animatedElements = document.querySelectorAll('.fade-in-up:not(.initial-animate), .scale-in:not(.initial-animate)');
             const windowHeight = window.innerHeight;
@@ -251,6 +327,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 if (rect.top <= triggerPoint) {
                     el.classList.add('visible');
+                    
+                    // Add additional animation class for more drama
+                    setTimeout(() => {
+                        el.classList.add('animate-complete');
+                    }, 500);
                 }
             });
         };
@@ -262,103 +343,11 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(checkInView, 500);
     };
 
-    // Menu link hover animations - enhance menu interactions
-    const initMenuHoverEffects = () => {
-        const menuLinks = document.querySelectorAll('.menu-link');
-        
-        menuLinks.forEach(link => {
-            link.addEventListener('mouseenter', () => {
-                // Add hover class to current item
-                link.classList.add('menu-link-hover');
-                
-                // Add dim class to all other menu items
-                menuLinks.forEach(otherLink => {
-                    if (otherLink !== link) {
-                        otherLink.classList.add('menu-link-dim');
-                    }
-                });
-            });
-            
-            link.addEventListener('mouseleave', () => {
-                // Remove hover class from current item
-                link.classList.remove('menu-link-hover');
-                
-                // Remove dim class from all items
-                menuLinks.forEach(otherLink => {
-                    otherLink.classList.remove('menu-link-dim');
-                });
-            });
-        });
-    };
-
-    // Smooth page transitions
-    const initPageTransitions = () => {
-        // Create transition element
-        const transitionEl = document.createElement('div');
-        transitionEl.className = 'page-transition';
-        document.body.appendChild(transitionEl);
-        
-        // Add click handlers to all internal links
-        document.querySelectorAll('a[href^="/"], a[href^="./"], a[href^="../"], a[href$=".html"]').forEach(link => {
-            // Skip links that should open in new tabs or external links
-            if (link.getAttribute('target') === '_blank' || link.getAttribute('rel') === 'external') {
-                return;
-            }
-            
-            link.addEventListener('click', e => {
-                const href = link.getAttribute('href');
-                
-                // Skip anchor links
-                if (href.startsWith('#')) {
-                    return;
-                }
-                
-                e.preventDefault();
-                
-                // Reset session storage for index.html to trigger loader
-                if (href === "index.html" || href === "/" || href === "./index.html" || href === "./") {
-                    sessionStorage.removeItem('visitedBefore');
-                }
-                
-                // Trigger transition animation
-                transitionEl.classList.add('active');
-                
-                // Navigate to new page after animation
-                setTimeout(() => {
-                    window.location.href = href;
-                }, 600);
-            });
-        });
-        
-        // Animate transition out when page loads
-        if (document.readyState === 'complete') {
-            transitionEl.classList.add('exit');
-        } else {
-            window.addEventListener('load', () => {
-                transitionEl.classList.add('exit');
-            });
-        }
-    };
-
     // Initialize all features
     initCustomCursor();
     initScrollAnimations();
     initMenuHoverEffects();
     initPageTransitions();
-    
-    // Add initial-animate classes programmatically if not already added in HTML
-    if (document.querySelector('.title:not(.main-title)') && !document.querySelector('.title:not(.main-title).initial-animate')) {
-        const titleEl = document.querySelector('.title:not(.main-title)');
-        titleEl.classList.add('initial-animate', 'delay-1');
-        
-        // Add to adjacent intro-text elements if they exist
-        const introTextEls = document.querySelectorAll('.intro-text');
-        if (introTextEls.length > 0) {
-            introTextEls.forEach((el, index) => {
-                el.classList.add('initial-animate', `delay-${index + 2}`);
-            });
-        }
-    }
     
     // Add 'active' class to initial-animate elements after a delay
     setTimeout(() => {
