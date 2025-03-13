@@ -219,61 +219,51 @@ body.light-theme .menu-button {
     max-width: 600px;
 }
 
-.menu-item {
-    margin-bottom: 0;
-    overflow: hidden;
-    padding: 20px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+/* Fix menu button color when menu is open */
+.menu-overlay.active + header .menu-button {
+    color: white !important;
 }
 
-.menu-item:first-child {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+.menu-overlay.active + header .menu-button::after {
+    background-color: white !important;
 }
 
-.menu-link {
-    display: flex;
-    align-items: center;
-    font-family: 'Canela', serif;
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    font-weight: 300;
-    color: white;
-    text-decoration: none;
-    position: relative;
-}
-
-.menu-link span {
-    display: block;
-    transform: translateY(100%);
-    opacity: 0;
-    transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1), 
-                opacity 0.8s cubic-bezier(0.76, 0, 0.24, 1);
-}
-
-.menu-overlay.active .menu-link span {
-    transform: translateY(0);
-    opacity: 1;
-}
-
-.menu-number {
-    font-family: 'PP Neue Montreal', sans-serif;
-    font-size: 0.875rem;
-    opacity: 0.7;
-    margin-right: calc(var(--spacing-unit) * 3);
-}
-
-.menu-link::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -5px;
-    width: 0;
-    height: 1px;
+/* Updated cursor styles to match Studio Olimpo exactly */
+.cursor-dot {
+    width: 5px;
+    height: 5px;
     background-color: white;
-    transition: width 0.3s ease;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    will-change: transform;
+    mix-blend-mode: difference;
 }
 
-.menu-link:hover::after {
-    width: 100%;
+.cursor-circle {
+    width: 25px;
+    height: 25px;
+    border: 1px solid white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1), 
+                height 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    will-change: transform;
+    mix-blend-mode: difference;
+}
+
+body.cursor-hover .cursor-circle {
+    width: 50px;
+    height: 50px;
 }
 
 /* Stagger menu item animations */
@@ -759,10 +749,10 @@ body.light-theme .contact-info-link {
     }
 }
 
-/* Custom cursor styles - smaller and more accurate */
+/* Custom cursor styles - match Studio Olimpo exactly */
 .cursor-dot {
-    width: 3px; /* Even smaller dot */
-    height: 3px; /* Even smaller dot */
+    width: 5px;
+    height: 5px;
     background-color: white;
     border-radius: 50%;
     transform: translate(-50%, -50%);
@@ -772,21 +762,29 @@ body.light-theme .contact-info-link {
     left: 0;
     z-index: 9999;
     will-change: transform;
+    mix-blend-mode: difference;
 }
 
 .cursor-circle {
-    width: 20px; /* Smaller circle */
-    height: 20px; /* Smaller circle */
+    width: 25px;
+    height: 25px;
     border: 1px solid white;
     border-radius: 50%;
     transform: translate(-50%, -50%);
-    transition: width 0.3s, height 0.3s;
+    transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1), 
+                height 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     pointer-events: none;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 9999;
     will-change: transform;
+    mix-blend-mode: difference;
+}
+
+body.cursor-hover .cursor-circle {
+    width: 50px;
+    height: 50px;
 }
 
 /* Make cursor invert colors based on background */

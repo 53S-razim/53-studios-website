@@ -1,13 +1,16 @@
 // Loading animation and page initialization
 document.addEventListener('DOMContentLoaded', function() {
-    // Simpler loading animation that's more reliable
-    const progressCounter = document.getElementById('progress-counter');
+    // Check if this is the first visit
+    const hasVisited = localStorage.getItem('hasVisitedBefore');
     const loader = document.getElementById('loader');
+    const progressCounter = document.getElementById('progress-counter');
     
-    if (progressCounter && loader) {
-        let progress = 0;
+    // Only show loader on first visit
+    if (!hasVisited && loader && progressCounter) {
+        // Show loader
+        loader.style.display = 'flex';
         
-        // Force loading to complete within reasonable time
+        let progress = 0;
         const interval = setInterval(() => {
             progress += 1;
             progressCounter.textContent = Math.floor(progress);
@@ -29,42 +32,48 @@ document.addEventListener('DOMContentLoaded', function() {
             if (progress >= 100) {
                 clearInterval(interval);
                 
-                // Ensure loader is removed
+                // Hide loader
                 setTimeout(() => {
-                    if (loader) {
-                        loader.style.opacity = '0';
-                        loader.style.pointerEvents = 'none';
+                    loader.style.opacity = '0';
+                    loader.style.pointerEvents = 'none';
+                    
+                    setTimeout(() => {
+                        loader.style.display = 'none';
+                        // Set flag for future visits
+                        localStorage.setItem('hasVisitedBefore', 'true');
                         
-                        setTimeout(() => {
-                            loader.style.display = 'none';
-                            // Trigger initial animation
-                            document.querySelectorAll('.initial-animate').forEach(el => {
-                                el.classList.add('active');
-                            });
-                        }, 500);
-                    }
+                        // Trigger initial animation
+                        document.querySelectorAll('.initial-animate').forEach(el => {
+                            el.classList.add('active');
+                        });
+                    }, 500);
                 }, 300);
             }
         }, 30);
         
-        // Fallback: If loading gets stuck, force completion after 5 seconds
+        // Fallback
         setTimeout(() => {
-            if (loader && loader.style.display !== 'none') {
+            if (loader.style.display !== 'none') {
+                localStorage.setItem('hasVisitedBefore', 'true');
                 clearInterval(interval);
-                progressCounter.textContent = '100';
+                loader.style.display = 'none';
                 
-                loader.style.opacity = '0';
-                loader.style.pointerEvents = 'none';
-                
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                    // Trigger initial animation
-                    document.querySelectorAll('.initial-animate').forEach(el => {
-                        el.classList.add('active');
-                    });
-                }, 500);
+                // Trigger initial animation
+                document.querySelectorAll('.initial-animate').forEach(el => {
+                    el.classList.add('active');
+                });
             }
         }, 5000);
+    } else if (loader) {
+        // Already visited, hide loader immediately
+        loader.style.display = 'none';
+        
+        // Trigger initial animation immediately
+        setTimeout(() => {
+            document.querySelectorAll('.initial-animate').forEach(el => {
+                el.classList.add('active');
+            });
+        }, 100);
     }
     
     // Updated menu toggle with animation
@@ -157,13 +166,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         const updateCursor = () => {
-            // More precise cursor movement
+            // Immediate position for dot (more precise)
             dotX = mouseX;
             dotY = mouseY;
             
-            // Circle follows with slight delay
-            circleX += (mouseX - circleX) * 0.3;
-            circleY += (mouseY - circleY) * 0.3;
+            // Smooth, slower movement for circle (more Studio Olimpo-like)
+            circleX += (mouseX - circleX) * 0.15; // Slower follow
+            circleY += (mouseY - circleY) * 0.15; // Slower follow
             
             cursorDot.style.transform = `translate(${dotX}px, ${dotY}px)`;
             cursorCircle.style.transform = `translate(${circleX}px, ${circleY}px)`;
@@ -251,6 +260,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 
                 e.preventDefault();
+                
+                // Clear localStorage when going to home to see loading on next visit
+                if (href === "/" || href === "/index.html" || href === "index.html") {
+                    localStorage.removeItem('hasVisitedBefore');
+                }
                 
                 // Trigger transition animation
                 transitionEl.classList.add('active');
