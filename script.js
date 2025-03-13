@@ -1,4 +1,4 @@
-// Loading animation
+// Loading animation and page initialization
 document.addEventListener('DOMContentLoaded', function() {
     let progress = 0;
     const progressCounter = document.getElementById('progress-counter');
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (progressCounter && loader && images.every(img => img)) {
         const interval = setInterval(() => {
-            progress += 1;
+            progress += 2; // Faster progress
             progressCounter.textContent = progress;
             
             const imageIndex = Math.floor((progress / 100) * images.length);
@@ -32,13 +32,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     loader.style.pointerEvents = 'none';
                     setTimeout(() => {
                         loader.style.display = 'none';
+                        // Trigger initial animation after loader is done
+                        document.querySelectorAll('.initial-animate').forEach(el => {
+                            el.classList.add('active');
+                        });
                     }, 500);
-                }, 500);
+                }, 300);
             }
-        }, 20);
+        }, 15); // Faster timing
     }
     
-    // Improved menu toggle with animation
+    // Updated menu toggle with animation
     const menuToggle = document.getElementById('menu-toggle');
     const menuOverlay = document.getElementById('menu-overlay');
     
@@ -46,12 +50,12 @@ document.addEventListener('DOMContentLoaded', function() {
         menuToggle.addEventListener('click', () => {
             if (menuOverlay.classList.contains('active')) {
                 menuOverlay.classList.remove('active');
-                menuToggle.textContent = 'MENU';
+                menuToggle.classList.remove('active');
                 // Re-enable scrolling
                 document.body.style.overflow = '';
             } else {
                 menuOverlay.classList.add('active');
-                menuToggle.textContent = 'CLOSE';
+                menuToggle.classList.add('active');
                 // Disable scrolling when menu is open
                 document.body.style.overflow = 'hidden';
             }
@@ -117,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         // Add hover effect to interactive elements
-        const interactiveElements = document.querySelectorAll('a, button, [role="button"], .project-item, .menu-link');
+        const interactiveElements = document.querySelectorAll('a, button, [role="button"], .project-item, .menu-link, .clickable');
         interactiveElements.forEach(el => {
             el.addEventListener('mouseenter', () => {
                 document.body.classList.add('cursor-hover');
@@ -147,12 +151,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Smooth scroll and animations
     const initScrollAnimations = () => {
-        // Add animation classes to elements
-        document.querySelectorAll('.title').forEach(el => {
+        // Add animation classes to elements if they don't already have .initial-animate
+        document.querySelectorAll('.title:not(.initial-animate)').forEach(el => {
             el.classList.add('fade-in-up');
         });
         
-        document.querySelectorAll('.intro-text').forEach(el => {
+        document.querySelectorAll('.intro-text:not(.initial-animate)').forEach(el => {
             el.classList.add('fade-in-up');
         });
         
@@ -165,21 +169,21 @@ document.addEventListener('DOMContentLoaded', function() {
             el.classList.add('stagger-item');
         });
         
-        document.querySelectorAll('.about-title').forEach(el => {
+        document.querySelectorAll('.about-title:not(.initial-animate)').forEach(el => {
             el.classList.add('fade-in-up');
         });
         
-        document.querySelectorAll('.about-text').forEach(el => {
+        document.querySelectorAll('.about-text:not(.initial-animate)').forEach(el => {
             el.classList.add('fade-in-up');
         });
         
-        document.querySelectorAll('.contact-title, .contact-email, .contact-description').forEach(el => {
+        document.querySelectorAll('.contact-title:not(.initial-animate), .contact-email:not(.initial-animate), .contact-description:not(.initial-animate)').forEach(el => {
             el.classList.add('fade-in-up');
         });
         
         // Check for elements in viewport
         const checkInView = () => {
-            const animatedElements = document.querySelectorAll('.fade-in-up, .scale-in');
+            const animatedElements = document.querySelectorAll('.fade-in-up:not(.initial-animate), .scale-in:not(.initial-animate)');
             const windowHeight = window.innerHeight;
             
             animatedElements.forEach(el => {
@@ -247,4 +251,25 @@ document.addEventListener('DOMContentLoaded', function() {
     initCustomCursor();
     initScrollAnimations();
     initPageTransitions();
+    
+    // Add initial-animate classes programmatically if not already added in HTML
+    if (document.querySelector('.title') && !document.querySelector('.title.initial-animate')) {
+        const titleEl = document.querySelector('.title');
+        titleEl.classList.add('initial-animate', 'delay-1');
+        
+        // Add to adjacent intro-text elements if they exist
+        const introTextEls = document.querySelectorAll('.intro-text');
+        if (introTextEls.length > 0) {
+            introTextEls.forEach((el, index) => {
+                el.classList.add('initial-animate', `delay-${index + 2}`);
+            });
+        }
+    }
+    
+    // Add 'active' class to initial-animate elements after a delay
+    setTimeout(() => {
+        document.querySelectorAll('.initial-animate').forEach(el => {
+            el.classList.add('active');
+        });
+    }, 800);
 });
