@@ -1,3 +1,25 @@
+// Global function to close menu
+function closeMenu() {
+    const menuToggle = document.getElementById('menu-toggle');
+    const menuOverlay = document.getElementById('menu-overlay');
+    
+    if (menuOverlay) {
+        console.log("Closing menu from global function");
+        menuOverlay.classList.remove('active');
+        
+        // Re-enable scrolling
+        document.body.style.overflow = '';
+        
+        // Make menu button visible again
+        if (menuToggle) {
+            setTimeout(() => {
+                menuToggle.style.opacity = '1';
+                menuToggle.style.visibility = 'visible';
+            }, 600);
+        }
+    }
+}
+
 // Loading animation and page initialization
 document.addEventListener('DOMContentLoaded', function() {
     const loader = document.getElementById('loader');
@@ -101,32 +123,38 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Menu toggle with X button - FIX to prevent overlap
+    // Menu toggle with X button - Simplified to ensure X button works
     const menuToggle = document.getElementById('menu-toggle');
-    const closeButton = document.getElementById('close-button');
     const menuOverlay = document.getElementById('menu-overlay');
-    
-    if (menuToggle && closeButton && menuOverlay) {
+    const closeButton = document.getElementById('close-button');
+
+    if (menuToggle && menuOverlay) {
         // Open menu
         menuToggle.addEventListener('click', function() {
+            console.log("Opening menu");
             menuOverlay.classList.add('active');
-            // Hide menu button when overlay is active
+            // Hide menu button
             menuToggle.style.opacity = '0';
             menuToggle.style.visibility = 'hidden';
-            // Disable scrolling when menu is open
+            // Disable scrolling
             document.body.style.overflow = 'hidden';
         });
         
-        // Close menu
-        closeButton.addEventListener('click', function() {
-            menuOverlay.classList.remove('active');
-            // Wait for the animation to complete before showing menu button again
-            setTimeout(() => {
-                menuToggle.style.opacity = '1';
-                menuToggle.style.visibility = 'visible';
-            }, 600);
-            // Re-enable scrolling
-            document.body.style.overflow = '';
+        // Close menu with fallback inline handler
+        if (closeButton) {
+            closeButton.addEventListener('click', function() {
+                console.log("Close button clicked via listener");
+                closeMenu(); // Call the global function
+            });
+        }
+        
+        // Add document click handler to close if clicking outside
+        document.addEventListener('click', function(e) {
+            // If menu is active and click target is the overlay (not its children)
+            if (menuOverlay.classList.contains('active') && e.target === menuOverlay) {
+                console.log("Clicking outside menu content");
+                closeMenu();
+            }
         });
     }
 
