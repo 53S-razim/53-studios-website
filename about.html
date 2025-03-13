@@ -1,0 +1,54 @@
+// src/app/about/page.tsx
+export default function AboutPage() {
+  return (
+    <main className="pt-32 pb-20">
+      <div className="container">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-24">
+          <div>
+            <img 
+              src="https://web-assets.same.dev/1927858068/1059453972.avif" 
+              alt="53 Studios Team" 
+              className="w-full aspect-square object-cover"
+            />
+          </div>
+          <div className="flex flex-col justify-center">
+            <h1 className="text-3xl mb-6 font-canela">About</h1>
+            <h2 className="text-3xl mb-12 font-canela">53 Studios</h2>
+            
+            <p className="text-body mb-6">
+              Founded in 2021, 53 Studios started as a close-knit team of architects and designers with a shared passion for creating functional, aesthetically pleasing spaces. Over time, the firm has grown from a small collective to managing over 10 projects, delivering high-quality designs that blend innovation with craftsmanship. Based in Chennai, India, we specialize in architectural design, interior solutions, and construction, ensuring each project reflects our commitment to excellence.
+            </p>
+            <p className="text-body">
+              At 53 Studios, our architectural philosophy is rooted in the seamless integration of form and function. We believe that exceptional architecture should not only captivate visually but also enhance the daily experiences of those who inhabit the spaces we create. Drawing inspiration from both contemporary trends and timeless principles, our design approach prioritizes sustainability, context-sensitivity, and human-centered solutions. Each project begins with a deep understanding of the client's needs and the site's unique characteristics, allowing us to craft spaces that are both innovative and intimately connected to their surroundings. Through meticulous attention to detail and a collaborative design process, we transform conceptual visions into tangible environments that stand the test of time.
+            </p>
+          </div>
+        </div>
+        
+        <div className="mb-24">
+          <h2 className="text-xl mb-12 text-small uppercase tracking-wider">Our Expertise</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div>
+              <p className="text-body">
+                We approach each architectural project with a fresh perspective, diving deep into the unique requirements and context. Our process is driven by thoughtful questioning and exploration that uncovers innovative solutions. With a comprehensive understanding of each project's scope, we develop designs that are both creative and practical, resulting in spaces that truly resonate with their users and environment.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <p className="text-body mb-2">Architectural Design</p>
+                <p className="text-body mb-2">Interior Design</p>
+                <p className="text-body mb-2">3D Visualization</p>
+                <p className="text-body">Project Management</p>
+              </div>
+              <div>
+                <p className="text-body mb-2">Construction Planning</p>
+                <p className="text-body mb-2">Sustainability Consulting</p>
+                <p className="text-body">Space Planning</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  )
+}

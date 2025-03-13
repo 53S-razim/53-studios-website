@@ -1,0 +1,72 @@
+// src/app/projects/page.tsx
+import Link from 'next/link'
+
+const projects = [
+  {
+    id: 1,
+    title: "Waterfront Residence",
+    slug: "waterfront-residence",
+    type: "Residential Architecture",
+    images: [
+      "https://cdn.prod.website-files.com/6783d77212b58244ace7036d/67a37b4b6d3ce6df4b8377ad_StudioOlimpo_Works_01_Retroscena_01.avif",
+      "https://cdn.prod.website-files.com/6783d77212b58244ace7036d/67a37b4e36adba2300969f5d_StudioOlimpo_Works_01_Retroscena_02.avif"
+    ]
+  },
+  {
+    id: 2,
+    title: "Modern Office Complex",
+    slug: "modern-office-complex",
+    type: "Commercial Architecture",
+    images: [
+      "https://cdn.prod.website-files.com/6783d77212b58244ace7036d/67a24d2efdad01250ef5efa1_StudioOlimpo_Works_02_ScarpeCarrioli_01-p-1080.avif",
+      "https://cdn.prod.website-files.com/6783d77212b58244ace7036d/67a24d2ece8f569de202e2a4_StudioOlimpo_Works_02_ScarpeCarrioli_02-p-500.avif"
+    ]
+  },
+  {
+    id: 3,
+    title: "Boutique Hotel Renovation",
+    slug: "boutique-hotel",
+    type: "Hospitality Design",
+    images: [
+      "https://cdn.prod.website-files.com/6783d77212b58244ace7036d/679bd61a7bf8d1806ecb0f83_Controluce%20%E2%80%93%C2%A0Portfolio_1-p-500.avif",
+      "https://cdn.prod.website-files.com/6783d77212b58244ace7036d/679bd5e8623cb61380b4a622_Controluce%20%E2%80%93%C2%A0Portfolio_11-p-1080.avif"
+    ]
+  }
+]
+
+export default function ProjectsPage() {
+  return (
+    <main className="pt-32 pb-20">
+      <div className="container">
+        {projects.map((project, index) => (
+          <div key={project.id} className="mb-24">
+            <div className="flex justify-between items-center mb-6">
+              <div>
+                <span className="text-sm opacity-70 mr-2">{String(index + 1).padStart(2, '0')}</span>
+                <h2 className="text-xl font-canela inline-block">{project.title}</h2>
+                <p className="text-sm opacity-70 mt-1">{project.type}</p>
+              </div>
+              <Link href={`/projects/${project.slug}`} className="text-sm underline">
+                See project
+              </Link>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {project.images.map((image, i) => (
+                <Link key={i} href={`/projects/${project.slug}`} className="block group">
+                  <div className="overflow-hidden bg-neutral-900 aspect-[4/3]">
+                    <img 
+                      src={image} 
+                      alt={`${project.title} preview ${i + 1}`}
+                      className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105"
+                    />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </main>
+  )
+}

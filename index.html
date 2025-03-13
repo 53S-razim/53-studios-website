@@ -1,0 +1,59 @@
+// src/app/page.tsx
+import Link from 'next/link'
+import { motion } from 'framer-motion'
+import Image from 'next/image'
+
+export default function Home() {
+  return (
+    <main className="pt-24">
+      <section className="min-h-[90vh] flex flex-col justify-center py-16">
+        <div className="container">
+          <h1 className="title-large mb-16">
+            53 STUDIOS
+          </h1>
+          <div className="max-w-3xl">
+            <p className="text-body mb-8">
+              An interactive design firm that believes in bringing client needs into functional spaces integrating Design and Craftsmanship.
+            </p>
+            <p className="text-body">
+              Our architectural approach combines innovative solutions with timeless aesthetics, creating spaces that inspire and endure.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20">
+        <div className="container">
+          <div className="flex justify-between items-center mb-12">
+            <h2 className="text-small uppercase tracking-wider">Highlights</h2>
+            <Link href="/projects" className="text-sm underline">
+              Explore projects
+            </Link>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <Link href="/projects/waterfront-residence" className="block group">
+              <div className="aspect-[4/3] overflow-hidden bg-neutral-900">
+                <img 
+                  src="https://cdn.prod.website-files.com/6783d77212b58244ace7036d/67a37b4b6d3ce6df4b8377ad_StudioOlimpo_Works_01_Retroscena_01.avif" 
+                  alt="Waterfront Residence" 
+                  className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105"
+                />
+              </div>
+            </Link>
+            
+            <Link href="/projects/modern-office" className="block group">
+              <div className="aspect-[4/3] overflow-hidden bg-neutral-900">
+                <img 
+                  src="https://cdn.prod.website-files.com/6783d77212b58244ace7036d/67a24d2efdad01250ef5efa1_StudioOlimpo_Works_02_ScarpeCarrioli_01-p-1080.avif" 
+                  alt="Modern Office Complex" 
+                  className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105"
+                />
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
+  )
+}
