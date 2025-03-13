@@ -1,46 +1,72 @@
-// Loading animation and page initialization
+// Replace the loading animation section in script.js
 document.addEventListener('DOMContentLoaded', function() {
-    let progress = 0;
+    // Simpler loading animation that doesn't depend on images
     const progressCounter = document.getElementById('progress-counter');
     const loader = document.getElementById('loader');
-    const images = [
-        document.getElementById('loader-image-1'),
-        document.getElementById('loader-image-2'),
-        document.getElementById('loader-image-3'),
-        document.getElementById('loader-image-4')
-    ];
     
-    if (progressCounter && loader && images.every(img => img)) {
+    if (progressCounter && loader) {
+        let progress = 0;
+        // Make sure loading always completes
         const interval = setInterval(() => {
-            progress += 1; // Slower progress (changed from 2 back to 1)
+            progress += 1;
             progressCounter.textContent = Math.floor(progress);
             
-            const imageIndex = Math.floor((progress / 100) * images.length);
-            
-            images.forEach((img, i) => {
-                if (i === imageIndex) {
-                    img.classList.add('active');
-                } else {
-                    img.classList.remove('active');
-                }
-            });
+            // Force display of at least one image
+            const allImages = document.querySelectorAll('.loader-image');
+            if (allImages.length > 0) {
+                const activeIndex = Math.min(Math.floor((progress / 100) * allImages.length), allImages.length - 1);
+                
+                allImages.forEach((img, i) => {
+                    if (i === activeIndex) {
+                        img.classList.add('active');
+                    } else {
+                        img.classList.remove('active');
+                    }
+                });
+            }
             
             if (progress >= 100) {
                 clearInterval(interval);
+                
+                // Ensure loader is removed
                 setTimeout(() => {
-                    loader.style.opacity = '0';
-                    loader.style.pointerEvents = 'none';
-                    setTimeout(() => {
-                        loader.style.display = 'none';
-                        // Trigger initial animation after loader is done
-                        document.querySelectorAll('.initial-animate').forEach(el => {
-                            el.classList.add('active');
-                        });
-                    }, 500);
+                    if (loader) {
+                        loader.style.opacity = '0';
+                        loader.style.pointerEvents = 'none';
+                        
+                        setTimeout(() => {
+                            loader.style.display = 'none';
+                            // Trigger initial animation
+                            document.querySelectorAll('.initial-animate').forEach(el => {
+                                el.classList.add('active');
+                            });
+                        }, 500);
+                    }
                 }, 300);
             }
-        }, 30); // Slower timing (changed from 15 to 30 milliseconds)
+        }, 30);
+        
+        // Fallback: If loading gets stuck, force completion after 5 seconds
+        setTimeout(() => {
+            if (loader && loader.style.display !== 'none') {
+                clearInterval(interval);
+                progressCounter.textContent = '100';
+                
+                loader.style.opacity = '0';
+                loader.style.pointerEvents = 'none';
+                
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    // Trigger initial animation
+                    document.querySelectorAll('.initial-animate').forEach(el => {
+                        el.classList.add('active');
+                    });
+                }, 500);
+            }
+        }, 5000);
     }
+    
+    // Rest of your script.js code...
     
     // Updated menu toggle with animation
     const menuToggle = document.getElementById('menu-toggle');
