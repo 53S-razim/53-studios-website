@@ -48,6 +48,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         document.querySelectorAll('.initial-animate').forEach(el => {
                             el.classList.add('active');
                         });
+                        
+                        // Animate main title if exists
+                        if (document.querySelector('.main-title')) {
+                            animateMainTitle();
+                        }
                     }, 500);
                 }, 300);
             }
@@ -64,6 +69,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.querySelectorAll('.initial-animate').forEach(el => {
                     el.classList.add('active');
                 });
+                
+                // Animate main title if exists
+                if (document.querySelector('.main-title')) {
+                    animateMainTitle();
+                }
             }
         }, 5000);
     } else if (loader) {
@@ -75,7 +85,23 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.initial-animate').forEach(el => {
                 el.classList.add('active');
             });
+            
+            // Animate main title if exists
+            if (document.querySelector('.main-title')) {
+                animateMainTitle();
+            }
         }, 100);
+    }
+    
+    // Main title animation function
+    function animateMainTitle() {
+        const mainTitle = document.querySelector('.main-title');
+        const mainTitleWrapper = document.querySelector('.main-title-wrapper');
+        
+        if (mainTitle && mainTitleWrapper) {
+            mainTitleWrapper.classList.add('animate');
+            mainTitle.classList.add('animate');
+        }
     }
     
     // Handle home page links to reset loading animation
@@ -85,21 +111,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Updated menu toggle with two separate buttons
-    const menuToggleOpen = document.getElementById('menu-toggle-open');
-    const menuToggleClose = document.getElementById('menu-toggle-close');
+    // Menu toggle with X button
+    const menuToggle = document.getElementById('menu-toggle');
+    const closeButton = document.getElementById('close-button');
     const menuOverlay = document.getElementById('menu-overlay');
     
-    if (menuToggleOpen && menuToggleClose && menuOverlay) {
-        // Open menu when clicking MENU
-        menuToggleOpen.addEventListener('click', () => {
+    if (menuToggle && closeButton && menuOverlay) {
+        // Open menu
+        menuToggle.addEventListener('click', () => {
             menuOverlay.classList.add('active');
             // Disable scrolling when menu is open
             document.body.style.overflow = 'hidden';
         });
         
-        // Close menu when clicking CLOSE
-        menuToggleClose.addEventListener('click', () => {
+        // Close menu
+        closeButton.addEventListener('click', () => {
             menuOverlay.classList.remove('active');
             // Re-enable scrolling
             document.body.style.overflow = '';
@@ -185,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Smooth scroll and animations
     const initScrollAnimations = () => {
         // Add animation classes to elements if they don't already have .initial-animate
-        document.querySelectorAll('.title:not(.initial-animate)').forEach(el => {
+        document.querySelectorAll('.title:not(.initial-animate):not(.main-title)').forEach(el => {
             el.classList.add('fade-in-up');
         });
         
@@ -234,6 +260,35 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Initial check for elements in view
         setTimeout(checkInView, 500);
+    };
+
+    // Menu link hover animations - enhance menu interactions
+    const initMenuHoverEffects = () => {
+        const menuLinks = document.querySelectorAll('.menu-link');
+        
+        menuLinks.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                // Add hover class to current item
+                link.classList.add('menu-link-hover');
+                
+                // Add dim class to all other menu items
+                menuLinks.forEach(otherLink => {
+                    if (otherLink !== link) {
+                        otherLink.classList.add('menu-link-dim');
+                    }
+                });
+            });
+            
+            link.addEventListener('mouseleave', () => {
+                // Remove hover class from current item
+                link.classList.remove('menu-link-hover');
+                
+                // Remove dim class from all items
+                menuLinks.forEach(otherLink => {
+                    otherLink.classList.remove('menu-link-dim');
+                });
+            });
+        });
     };
 
     // Smooth page transitions
@@ -288,11 +343,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize all features
     initCustomCursor();
     initScrollAnimations();
+    initMenuHoverEffects();
     initPageTransitions();
     
     // Add initial-animate classes programmatically if not already added in HTML
-    if (document.querySelector('.title') && !document.querySelector('.title.initial-animate')) {
-        const titleEl = document.querySelector('.title');
+    if (document.querySelector('.title:not(.main-title)') && !document.querySelector('.title:not(.main-title).initial-animate')) {
+        const titleEl = document.querySelector('.title:not(.main-title)');
         titleEl.classList.add('initial-animate', 'delay-1');
         
         // Add to adjacent intro-text elements if they exist
