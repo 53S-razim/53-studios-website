@@ -63,22 +63,14 @@ body.light-theme a::after {
     background-color: var(--color-dark);
 }
 
-body.light-theme .cursor-dot,
 body.light-theme .cursor-circle {
     mix-blend-mode: normal;
-}
-
-body.light-theme .cursor-dot {
-    background-color: var(--color-dark);
-}
-
-body.light-theme .cursor-circle {
     border-color: var(--color-dark);
 }
 
 body.light-theme .section-link::after,
 body.light-theme a:not(.logo):not(.menu-link)::after,
-body.light-theme .preferences-link::after {
+body.light-theme .social-link::after {
     background-color: var(--color-dark);
 }
 
@@ -124,63 +116,7 @@ body.light-theme .logo {
     margin: 0 6px;
 }
 
-/* Simplified menu button animation - replace the existing menu-button styles */
-.menu-button {
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-size: 0.875rem;
-    font-family: 'PP Neue Montreal', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    position: relative;
-    padding: 5px 0;
-    width: auto;
-    min-width: 60px;
-    text-align: right;
-}
-
-body.light-theme .menu-button {
-    color: var(--color-dark);
-}
-
-.menu-button::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0;
-    height: 1px;
-    background-color: white;
-    transition: width 0.3s ease;
-}
-
-.menu-button:hover::after {
-    width: 100%;
-}
-
-/* Force white color for menu button when menu is open */
-.menu-overlay.active ~ header .menu-button {
-    color: white !important;
-}
-
-.menu-overlay.active ~ header .menu-button::after {
-    background-color: white !important;
-}
-
-/* Fix menu button color when menu is open */
-.menu-overlay.active + header .menu-button,
-.menu-overlay.active + header .menu-button .text-primary,
-.menu-overlay.active + header .menu-button .text-secondary {
-    color: white !important;
-}
-
-.menu-overlay.active + header .menu-button::after {
-    background-color: white !important;
-}
-
-/* Menu button container for positioning */
+/* Menu button container and buttons */
 .menu-button-container {
     position: relative;
     width: 70px; /* Ensure enough width */
@@ -207,11 +143,7 @@ body.light-theme .menu-button {
 .menu-open {
     opacity: 1;
     visibility: visible;
-    color: var(--color-dark);
-}
-
-body:not(.light-theme) .menu-open {
-    color: white;
+    color: inherit;
 }
 
 /* CLOSE button hidden by default */
@@ -246,25 +178,6 @@ body:not(.light-theme) .menu-open {
 
 .menu-button:hover::after {
     width: 100%;
-}
-
-/* Fix for the "CLOSE" text being cut off - add this to style.css */
-.menu-button .text-content {
-    display: block;
-    position: relative;
-    overflow: hidden;
-    height: 1.2em;
-    width: auto;
-    min-width: 60px; /* Ensure enough width for "CLOSE" */
-}
-
-.menu-button .text-primary,
-.menu-button .text-secondary {
-    display: block;
-    width: 100%;
-    text-align: right; /* Align to right */
-    transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
-    white-space: nowrap; /* Prevent wrapping */
 }
 
 /* Improved menu overlay */
@@ -514,24 +427,16 @@ body.light-theme footer {
     opacity: 0.7;
 }
 
-.preferences-link {
+.social-link {
     color: white;
     text-decoration: none;
     position: relative;
+    display: inline-flex;
+    align-items: center;
 }
 
-body.light-theme .preferences-link {
+body.light-theme .social-link {
     color: var(--color-dark);
-}
-
-.preferences-link::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background-color: white;
 }
 
 /* Updated loading animation */
@@ -843,50 +748,40 @@ body.light-theme .contact-info-link {
     }
 }
 
-/* Updated cursor styles */
-.cursor-dot {
-    width: 3px; /* Smaller dot */
-    height: 3px; /* Smaller dot */
-    background-color: white;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 9999;
-    will-change: transform;
-    mix-blend-mode: difference;
-    opacity: 0.85; /* Slight transparency */
-}
-
+/* Updated 3D cursor style - just one cursor now */
 .cursor-circle {
-    width: 15px; /* Much smaller circle */
-    height: 15px; /* Much smaller circle */
-    border: 1px solid white;
+    width: 18px; /* Smaller circle */
+    height: 18px; /* Smaller circle */
+    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent fill */
+    border: 1px solid rgba(255, 255, 255, 0.7); /* More visible border */
     border-radius: 50%;
     transform: translate(-50%, -50%);
     transition: width 0.3s cubic-bezier(0.39, 0.575, 0.565, 1),
-                height 0.3s cubic-bezier(0.39, 0.575, 0.565, 1);
+                height 0.3s cubic-bezier(0.39, 0.575, 0.565, 1),
+                background-color 0.3s ease;
     pointer-events: none;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 9999;
     will-change: transform;
-    mix-blend-mode: difference;
-    opacity: 0.85; /* Slight transparency */
+    mix-blend-mode: exclusion; /* Creates contrast against any background */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2), /* Outer glow */
+                inset 0 0 4px rgba(255, 255, 255, 0.2); /* Inner glow */
+    opacity: 0.9; /* Slight transparency for 3D effect */
 }
 
 body.cursor-hover .cursor-circle {
     width: 30px; /* Smaller expansion on hover */
     height: 30px;
+    background-color: rgba(255, 255, 255, 0.1); /* More transparent on hover */
 }
 
 /* Add pointer cursor to interactive elements */
 body.has-custom-cursor a,
 body.has-custom-cursor button,
 body.has-custom-cursor [role="button"],
+body.has-custom-cursor .project-item,
 body.has-custom-cursor .clickable {
     cursor: pointer !important; /* Force pointer cursor */
 }
@@ -1103,21 +998,4 @@ button:not(.menu-button):hover::after,
 
 .opacity-70 {
     opacity: 0.7;
-}
-
-/* Fix menu button color in overlay - guaranteed to override everything */
-.menu-overlay.active ~ header .menu-button,
-.menu-overlay.active ~ header .menu-button .text-content,
-.menu-overlay.active ~ header .menu-button .text-primary,
-.menu-overlay.active ~ header .menu-button .text-secondary {
-    color: white !important;
-}
-
-.menu-overlay.active ~ header .menu-button::after {
-    background-color: white !important;
-}
-
-/* Add a delay to ensure this happens after the menu animation */
-.menu-overlay.active ~ header {
-    transition: color 0.3s 0.5s;
 }

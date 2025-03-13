@@ -3,12 +3,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const loader = document.getElementById('loader');
     const progressCounter = document.getElementById('progress-counter');
     
-    // Only show loading screen on homepage
-    const isHomePage = window.location.pathname === '/' || 
-                      window.location.pathname === '/index.html' || 
-                      window.location.pathname.endsWith('index.html');
+    // Only show loading when clicking on home link or first visit
+    const shouldShowLoader = sessionStorage.getItem('visitedBefore') !== 'true' || 
+                             window.location.pathname.endsWith('index.html') ||
+                             window.location.pathname === '/' ||
+                             window.location.pathname.endsWith('/');
     
-    if (isHomePage && loader && progressCounter) {
+    if (shouldShowLoader && loader && progressCounter) {
         // Show loader
         loader.style.display = 'flex';
         
@@ -41,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     setTimeout(() => {
                         loader.style.display = 'none';
+                        sessionStorage.setItem('visitedBefore', 'true');
                         
                         // Trigger initial animation
                         document.querySelectorAll('.initial-animate').forEach(el => {
@@ -56,6 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (loader && loader.style.display !== 'none') {
                 clearInterval(interval);
                 loader.style.display = 'none';
+                sessionStorage.setItem('visitedBefore', 'true');
                 
                 // Trigger initial animation
                 document.querySelectorAll('.initial-animate').forEach(el => {
@@ -64,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }, 5000);
     } else if (loader) {
-        // Not homepage, hide loader immediately
+        // Not first visit or homepage, hide loader immediately
         loader.style.display = 'none';
         
         // Trigger initial animation immediately
@@ -75,23 +78,31 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 100);
     }
     
+    // Handle home page links to reset loading animation
+    document.querySelectorAll('a[href="index.html"], a[href="/"], a[href="./"], a[href="./index.html"]').forEach(link => {
+        link.addEventListener('click', () => {
+            sessionStorage.removeItem('visitedBefore');
+        });
+    });
+    
     // Updated menu toggle with two separate buttons
     const menuToggleOpen = document.getElementById('menu-toggle-open');
     const menuToggleClose = document.getElementById('menu-toggle-close');
     const menuOverlay = document.getElementById('menu-overlay');
     
     if (menuToggleOpen && menuToggleClose && menuOverlay) {
-    	// Open menu when clicking MENU
+        // Open menu when clicking MENU
         menuToggleOpen.addEventListener('click', () => {
             menuOverlay.classList.add('active');
             // Disable scrolling when menu is open
             document.body.style.overflow = 'hidden';
         });
+        
         // Close menu when clicking CLOSE
         menuToggleClose.addEventListener('click', () => {
             menuOverlay.classList.remove('active');
             // Re-enable scrolling
-            document.body.style.overflow = '';    
+            document.body.style.overflow = '';
         });
     }
 
@@ -113,7 +124,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Here you would normally send data to a server
             // For demo purposes, just show a success message
             contactForm.innerHTML = `
                 <div class="form-success">
@@ -126,25 +136,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Custom cursor
+    // Custom cursor - single cursor with 3D effect
     const initCustomCursor = () => {
         // Don't add custom cursor on touch devices
         if ('ontouchstart' in window) return;
         
-        const cursorDot = document.createElement('div');
-        cursorDot.className = 'cursor-dot';
-        
+        // Only create the outer circle cursor 
         const cursorCircle = document.createElement('div');
         cursorCircle.className = 'cursor-circle';
         
-        document.body.appendChild(cursorDot);
         document.body.appendChild(cursorCircle);
         document.body.classList.add('has-custom-cursor');
         
         let mouseX = 0;
         let mouseY = 0;
-        let dotX = 0;
-        let dotY = 0;
         let circleX = 0;
         let circleY = 0;
         
@@ -165,15 +170,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         const updateCursor = () => {
-            // Precise dot position
-            dotX = mouseX;
-            dotY = mouseY;
+            // Much slower movement for circle (25% slower)
+            circleX += (mouseX - circleX) * 0.06; // Significantly slower - reduced from 0.08
+            circleY += (mouseY - circleY) * 0.06; // Significantly slower - reduced from 0.08
             
-            // Much slower movement for circle
-            circleX += (mouseX - circleX) * 0.08; // Significantly slower
-            circleY += (mouseY - circleY) * 0.08; // Significantly slower
-            
-            cursorDot.style.transform = `translate(${dotX}px, ${dotY}px)`;
             cursorCircle.style.transform = `translate(${circleX}px, ${circleY}px)`;
             
             requestAnimationFrame(updateCursor);
@@ -259,6 +259,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 
                 e.preventDefault();
+                
+                // Reset session storage for index.html to trigger loader
+                if (href === "index.html" || href === "/" || href === "./index.html" || href === "./") {
+                    sessionStorage.removeItem('visitedBefore');
+                }
                 
                 // Trigger transition animation
                 transitionEl.classList.add('active');
