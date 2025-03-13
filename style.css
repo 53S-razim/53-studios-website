@@ -158,7 +158,9 @@ body.light-theme .menu-button {
 }
 
 /* Fix menu button color when menu is open */
-.menu-overlay.active + header .menu-button {
+.menu-overlay.active + header .menu-button,
+.menu-overlay.active + header .menu-button .text-primary,
+.menu-overlay.active + header .menu-button .text-secondary {
     color: white !important;
 }
 
@@ -314,16 +316,19 @@ main {
 
 .title {
     font-family: 'Canela', serif;
-    font-size: clamp(3rem, 12vw, 9rem);
+    font-size: clamp(5rem, 17vw, 12rem); /* Much larger title */
     font-weight: 300;
-    line-height: 1;
-    margin-bottom: calc(var(--spacing-unit) * 12);
+    line-height: 0.85;
+    margin-bottom: calc(var(--spacing-unit) * 6);
+    width: 100%; /* Full width */
 }
 
 .intro-text {
+    font-family: 'Canela', serif; /* Match Studio Olimpo's body font */
     font-size: clamp(1.25rem, 2vw, 1.5rem);
     max-width: 50rem;
     margin-bottom: calc(var(--spacing-unit) * 4);
+    font-weight: 300;
 }
 
 /* Section styles */
@@ -768,10 +773,10 @@ body.light-theme .contact-info-link {
     }
 }
 
-/* Updated cursor styles to match Studio Olimpo exactly */
+/* Updated cursor styles */
 .cursor-dot {
-    width: 5px;
-    height: 5px;
+    width: 3px; /* Smaller dot */
+    height: 3px; /* Smaller dot */
     background-color: white;
     border-radius: 50%;
     transform: translate(-50%, -50%);
@@ -782,16 +787,17 @@ body.light-theme .contact-info-link {
     z-index: 9999;
     will-change: transform;
     mix-blend-mode: difference;
+    opacity: 0.85; /* Slight transparency */
 }
 
 .cursor-circle {
-    width: 25px;
-    height: 25px;
+    width: 15px; /* Much smaller circle */
+    height: 15px; /* Much smaller circle */
     border: 1px solid white;
     border-radius: 50%;
     transform: translate(-50%, -50%);
-    transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1), 
-                height 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: width 0.3s cubic-bezier(0.39, 0.575, 0.565, 1),
+                height 0.3s cubic-bezier(0.39, 0.575, 0.565, 1);
     pointer-events: none;
     position: fixed;
     top: 0;
@@ -799,11 +805,12 @@ body.light-theme .contact-info-link {
     z-index: 9999;
     will-change: transform;
     mix-blend-mode: difference;
+    opacity: 0.85; /* Slight transparency */
 }
 
 body.cursor-hover .cursor-circle {
-    width: 50px;
-    height: 50px;
+    width: 30px; /* Smaller expansion on hover */
+    height: 30px;
 }
 
 /* Add pointer cursor to interactive elements */

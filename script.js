@@ -1,12 +1,14 @@
 // Loading animation and page initialization
 document.addEventListener('DOMContentLoaded', function() {
-    // Check if this is the first visit
-    const hasVisited = localStorage.getItem('hasVisitedBefore');
     const loader = document.getElementById('loader');
     const progressCounter = document.getElementById('progress-counter');
     
-    // Only show loader on first visit
-    if (!hasVisited && loader && progressCounter) {
+    // Only show loading screen on homepage
+    const isHomePage = window.location.pathname === '/' || 
+                      window.location.pathname === '/index.html' || 
+                      window.location.pathname.endsWith('index.html');
+    
+    if (isHomePage && loader && progressCounter) {
         // Show loader
         loader.style.display = 'flex';
         
@@ -39,8 +41,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     setTimeout(() => {
                         loader.style.display = 'none';
-                        // Set flag for future visits
-                        localStorage.setItem('hasVisitedBefore', 'true');
                         
                         // Trigger initial animation
                         document.querySelectorAll('.initial-animate').forEach(el => {
@@ -53,8 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Fallback
         setTimeout(() => {
-            if (loader.style.display !== 'none') {
-                localStorage.setItem('hasVisitedBefore', 'true');
+            if (loader && loader.style.display !== 'none') {
                 clearInterval(interval);
                 loader.style.display = 'none';
                 
@@ -65,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }, 5000);
     } else if (loader) {
-        // Already visited, hide loader immediately
+        // Not homepage, hide loader immediately
         loader.style.display = 'none';
         
         // Trigger initial animation immediately
@@ -166,13 +165,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         const updateCursor = () => {
-            // Immediate position for dot (more precise)
+            // Precise dot position
             dotX = mouseX;
             dotY = mouseY;
             
-            // Smooth, slower movement for circle (more Studio Olimpo-like)
-            circleX += (mouseX - circleX) * 0.15; // Slower follow
-            circleY += (mouseY - circleY) * 0.15; // Slower follow
+            // Much slower movement for circle
+            circleX += (mouseX - circleX) * 0.08; // Significantly slower
+            circleY += (mouseY - circleY) * 0.08; // Significantly slower
             
             cursorDot.style.transform = `translate(${dotX}px, ${dotY}px)`;
             cursorCircle.style.transform = `translate(${circleX}px, ${circleY}px)`;
@@ -260,11 +259,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 
                 e.preventDefault();
-                
-                // Clear localStorage when going to home to see loading on next visit
-                if (href === "/" || href === "/index.html" || href === "index.html") {
-                    localStorage.removeItem('hasVisitedBefore');
-                }
                 
                 // Trigger transition animation
                 transitionEl.classList.add('active');
