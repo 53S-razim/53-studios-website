@@ -85,7 +85,7 @@ header {
     margin: 0 6px;
 }
 
-/* Button hover animations */
+/* Menu button with improved animation */
 .menu-button {
     background: none;
     border: none;
@@ -143,36 +143,7 @@ header {
     transform: translateY(0);
 }
 
-/* Interactive link styles */
-a:not(.logo):not(.menu-link), 
-.clickable, 
-button:not(.menu-button), 
-.section-link {
-    position: relative;
-}
-
-a:not(.logo):not(.menu-link)::after, 
-.clickable::after, 
-button:not(.menu-button)::after,
-.section-link::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -2px;
-    width: 0;
-    height: 1px;
-    background-color: white;
-    transition: width 0.3s ease;
-}
-
-a:not(.logo):not(.menu-link):hover::after, 
-.clickable:hover::after, 
-button:not(.menu-button):hover::after,
-.section-link:hover::after {
-    width: 100%;
-}
-
-/* Improved menu styling */
+/* Improved menu overlay */
 .menu-overlay {
     position: fixed;
     top: 0;
@@ -227,11 +198,39 @@ button:not(.menu-button):hover::after,
     position: relative;
 }
 
+.menu-link span {
+    display: block;
+    transform: translateY(100%);
+    opacity: 0;
+    transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1), 
+                opacity 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.menu-overlay.active .menu-link span {
+    transform: translateY(0);
+    opacity: 1;
+}
+
 .menu-number {
     font-family: 'PP Neue Montreal', sans-serif;
     font-size: 0.875rem;
     opacity: 0.7;
     margin-right: calc(var(--spacing-unit) * 3);
+}
+
+.menu-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0;
+    height: 1px;
+    background-color: white;
+    transition: width 0.3s ease;
+}
+
+.menu-link:hover::after {
+    width: 100%;
 }
 
 /* Stagger menu item animations */
@@ -396,14 +395,14 @@ footer {
     background-color: white;
 }
 
-/* Loading animation */
+/* Updated loading animation */
 .loader {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--color-light);
+    background-color: var(--color-light); /* Light background (off-white) */
     color: var(--color-dark);
     z-index: 1000;
     display: flex;
@@ -423,19 +422,19 @@ footer {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    max-width: 1200px;
+    max-width: 800px;
     padding: 0 calc(var(--spacing-unit) * 4);
     margin-bottom: calc(var(--spacing-unit) * 4);
 }
 
-/* Update in style.css */
 .loader-image-container {
     width: 100%;
-    max-width: 800px; /* Reduced from 1200px */
+    max-width: 800px;
     aspect-ratio: 16/9;
     position: relative;
     overflow: hidden;
     margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.1); /* Slight background to ensure container is visible */
 }
 
 .loader-image {
@@ -446,7 +445,12 @@ footer {
     height: 100%;
     object-fit: cover;
     opacity: 0;
-    transition: opacity 0.3s ease; /* Faster transition */
+    transition: opacity 0.8s ease; /* Longer transition for more visible image changes */
+    display: block; /* Ensure image is displayed */
+}
+
+.loader-image.active {
+    opacity: 1;
 }
 
 /* Projects page styles */
@@ -492,9 +496,11 @@ footer {
 
 .about-image {
     width: 100%;
+    max-width: 500px; /* Add this line to limit the maximum width */
     height: auto;
     aspect-ratio: 1/1;
     object-fit: cover;
+    margin: 0 auto; /* This centers the image if it's smaller than its container */
 }
 
 .about-title {
@@ -666,7 +672,18 @@ footer {
     }
 }
 
-/* Custom cursor styles - smaller size */
+/* Custom cursor styles */
+.cursor-dot,
+.cursor-circle {
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    mix-blend-mode: difference;
+    will-change: transform;
+}
+
 .cursor-dot {
     width: 4px; /* Smaller dot */
     height: 4px; /* Smaller dot */
@@ -684,10 +701,80 @@ footer {
     transition: width 0.3s, height 0.3s;
 }
 
+/* Hide default cursor when custom cursor is active */
+body.has-custom-cursor {
+    cursor: none;
+}
+
+body.has-custom-cursor a,
+body.has-custom-cursor button,
+body.has-custom-cursor [role="button"],
+body.has-custom-cursor .clickable {
+    cursor: none;
+}
+
 /* Smaller expansion on hover */
 body.cursor-hover .cursor-circle {
     width: 60px; /* Smaller hover size */
     height: 60px; /* Smaller hover size */
+}
+
+/* Interactive link styles */
+a:not(.logo):not(.menu-link), 
+.clickable, 
+button:not(.menu-button), 
+.section-link {
+    position: relative;
+}
+
+a:not(.logo):not(.menu-link)::after, 
+.clickable::after, 
+button:not(.menu-button)::after,
+.section-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 1px;
+    background-color: white;
+    transition: width 0.3s ease;
+}
+
+a:not(.logo):not(.menu-link):hover::after, 
+.clickable:hover::after, 
+button:not(.menu-button):hover::after,
+.section-link:hover::after {
+    width: 100%;
+}
+
+/* Initial page reveal animation */
+.initial-animate {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s cubic-bezier(0.165, 0.84, 0.44, 1),
+                transform 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.initial-animate.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.delay-1 {
+    transition-delay: 0.1s;
+}
+
+.delay-2 {
+    transition-delay: 0.2s;
+}
+
+.delay-3 {
+    transition-delay: 0.3s;
+}
+
+.delay-4 {
+    transition-delay: 0.4s;
 }
 
 /* Scroll animations */
@@ -750,31 +837,94 @@ body.cursor-hover .cursor-circle {
     transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-/* Initial page reveal animation */
-.initial-animate {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 1s cubic-bezier(0.165, 0.84, 0.44, 1),
-                transform 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+/* Grid utility classes */
+.grid {
+    display: grid;
 }
 
-.initial-animate.active {
-    opacity: 1;
-    transform: translateY(0);
+.grid-cols-1 {
+    grid-template-columns: 1fr;
 }
 
-.delay-1 {
-    transition-delay: 0.1s;
+.gap-4 {
+    gap: 1rem;
 }
 
-.delay-2 {
-    transition-delay: 0.2s;
+.gap-8 {
+    gap: 2rem;
 }
 
-.delay-3 {
-    transition-delay: 0.3s;
+.gap-12 {
+    gap: 3rem;
 }
 
-.delay-4 {
-    transition-delay: 0.4s;
+.mb-2 {
+    margin-bottom: 0.5rem;
+}
+
+.mb-4 {
+    margin-bottom: 1rem;
+}
+
+.mb-6 {
+    margin-bottom: 1.5rem;
+}
+
+.mb-8 {
+    margin-bottom: 2rem;
+}
+
+.mb-12 {
+    margin-bottom: 3rem;
+}
+
+.mb-16 {
+    margin-bottom: 4rem;
+}
+
+.mb-20 {
+    margin-bottom: 5rem;
+}
+
+.mb-24 {
+    margin-bottom: 6rem;
+}
+
+.mt-1 {
+    margin-top: 0.25rem;
+}
+
+.mt-2 {
+    margin-top: 0.5rem;
+}
+
+@media (min-width: 768px) {
+    .md\:grid-cols-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .md\:grid-cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.text-sm {
+    font-size: 0.875rem;
+}
+
+.text-body {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.justify-center {
+    justify-content: center;
 }

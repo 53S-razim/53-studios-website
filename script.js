@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (progressCounter && loader && images.every(img => img)) {
         const interval = setInterval(() => {
-            progress += 2; // Faster progress
-            progressCounter.textContent = progress;
+            progress += 1; // Slower progress (changed from 2 back to 1)
+            progressCounter.textContent = Math.floor(progress);
             
             const imageIndex = Math.floor((progress / 100) * images.length);
             
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }, 500);
                 }, 300);
             }
-        }, 15); // Faster timing
+        }, 30); // Slower timing (changed from 15 to 30 milliseconds)
     }
     
     // Updated menu toggle with animation
