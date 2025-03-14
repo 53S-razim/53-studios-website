@@ -143,35 +143,42 @@ body.light-theme .logo {
     width: 100%;
 }
 
-/* Close button for menu */
+/* Close button for menu - make SUPER clickable and visible */
 .close-button {
-    position: absolute;
+    position: fixed; /* Changed from absolute to fixed */
     top: 20px;
     right: 20px;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
+    width: 60px; /* Much larger button */
+    height: 60px; /* Much larger button */
+    background-color: rgba(255, 255, 255, 0.2); /* More visible background */
+    border: 2px solid rgba(255, 255, 255, 0.6); /* Add border for visibility */
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    z-index: 100; /* Ensure it's above other menu content */
-    padding: 8px; /* Larger touch target */
+    z-index: 9999; /* Maximum z-index */
+    cursor: pointer !important;
+    transform: scale(1); /* For hover animation */
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .close-button:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: rotate(90deg);
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1); /* Enlarge on hover */
 }
 
 .close-button svg {
-    width: 24px;
-    height: 24px;
-    display: block; /* Ensure SVG is properly displayed */
+    width: 30px; /* Larger SVG */
+    height: 30px; /* Larger SVG */
+    stroke: white;
+    stroke-width: 2;
+}
+
+.menu-overlay.active .close-button {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
 }
 
 /* iPhone notification style menu overlay */
@@ -350,39 +357,58 @@ main {
     padding: calc(var(--spacing-unit) * 4) 0;
 }
 
-/* Split title layout */
+.hero .container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 calc(var(--spacing-unit) * 4);
+}
+
+/* Split title layout - full width span */
 .split-title-container {
     width: 100%;
     display: flex;
     flex-direction: column;
     margin-bottom: 4rem;
+    position: relative;
+    overflow: visible;
 }
 
 .main-title-wrapper {
-    overflow: hidden;
+    overflow: visible;
     width: 100%;
+    padding: 0;
+    position: relative;
 }
 
 .left-title {
     margin-bottom: 1rem;
+    padding-left: 0;
+}
+
+.right-title {
+    padding-right: 0;
 }
 
 .left-title .main-title {
-    font-size: clamp(6rem, 25vw, 20rem);
+    font-size: clamp(6rem, 30vw, 28rem);
     text-align: left;
     transform: translateY(100%);
     opacity: 0;
     transition: transform 1.5s cubic-bezier(0.23, 1, 0.32, 1),
                 opacity 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+    padding-left: 0;
+    margin-left: -5vw; /* Pull left to expand beyond container */
 }
 
 .right-title .main-title {
-    font-size: clamp(6rem, 25vw, 20rem);
+    font-size: clamp(6rem, 30vw, 28rem);
     text-align: right;
     transform: translateY(100%);
     opacity: 0;
     transition: transform 1.5s cubic-bezier(0.23, 1, 0.32, 1),
                 opacity 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+    padding-right: 0;
+    margin-right: -5vw; /* Pull right to expand beyond container */
 }
 
 .main-title.animate {
@@ -392,19 +418,18 @@ main {
 
 .title {
     font-family: 'Canela', serif;
-    font-size: clamp(5rem, 17vw, 12rem);
     font-weight: 300;
     line-height: 0.85;
     margin-bottom: calc(var(--spacing-unit) * 6);
     width: 100%;
 }
 
-.intro-text {
-    font-family: 'Canela', serif;
-    font-size: clamp(1.25rem, 2vw, 1.5rem);
-    max-width: 50rem;
-    margin-bottom: calc(var(--spacing-unit) * 4);
-    font-weight: 300;
+@media (max-width: 768px) {
+    .left-title .main-title,
+    .right-title .main-title {
+        margin-left: 0;
+        margin-right: 0;
+    }
 }
 
 /* Section styles */
@@ -566,7 +591,7 @@ body.light-theme .social-link {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--color-light); /* Light background (off-white) */
+    background-color: var(--color-light);
     color: var(--color-dark);
     z-index: 1000;
     display: flex;
@@ -598,7 +623,7 @@ body.light-theme .social-link {
     position: relative;
     overflow: hidden;
     margin: 0 auto;
-    background-color: rgba(0, 0, 0, 0.1); /* Slight background to ensure container is visible */
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .loader-image {
@@ -609,8 +634,8 @@ body.light-theme .social-link {
     height: 100%;
     object-fit: cover;
     opacity: 0;
-    transition: opacity 0.8s ease; /* Longer transition for more visible image changes */
-    display: block; /* Ensure image is displayed */
+    transition: opacity 0.8s ease;
+    display: block;
 }
 
 .loader-image.active {
@@ -660,11 +685,11 @@ body.light-theme .social-link {
 
 .about-image {
     width: 100%;
-    max-width: 500px; /* Limit the maximum width */
+    max-width: 500px;
     height: auto;
     aspect-ratio: 1/1;
     object-fit: cover;
-    margin: 0 auto; /* Center the image */
+    margin: 0 auto;
     transition: transform 1s ease;
 }
 
@@ -917,7 +942,7 @@ body.light-theme .contact-info-link:hover {
     will-change: transform;
     mix-blend-mode: exclusion;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.2),
-                inset 0 0 6px rgba(255, 255, 255, 0.4); /* Stronger inner glow for 3D effect */
+                inset 0 0 6px rgba(255, 255, 255, 0.4);
     opacity: 0.9;
 }
 
