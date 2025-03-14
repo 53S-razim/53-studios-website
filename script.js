@@ -13,19 +13,35 @@
                 
                 // Set button properties and styles
                 closeBtn.id = 'guaranteed-close-btn';
-                closeBtn.innerHTML = 'CLOSE MENU';
+                closeBtn.innerHTML = '✕'; // Simple X character
                 closeBtn.style.position = 'fixed';
                 closeBtn.style.top = '20px';
                 closeBtn.style.right = '20px';
                 closeBtn.style.zIndex = '999999';
-                closeBtn.style.padding = '10px 20px';
-                closeBtn.style.fontSize = '16px';
-                closeBtn.style.fontWeight = 'bold';
-                closeBtn.style.backgroundColor = 'white';
-                closeBtn.style.color = 'black';
-                closeBtn.style.border = 'none';
-                closeBtn.style.borderRadius = '5px';
+                closeBtn.style.width = '50px';
+                closeBtn.style.height = '50px';
+                closeBtn.style.fontSize = '24px';
+                closeBtn.style.fontWeight = 'normal';
+                closeBtn.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+                closeBtn.style.color = 'white';
+                closeBtn.style.border = '2px solid white';
+                closeBtn.style.borderRadius = '50%';
                 closeBtn.style.cursor = 'pointer';
+                closeBtn.style.display = 'flex';
+                closeBtn.style.alignItems = 'center';
+                closeBtn.style.justifyContent = 'center';
+                closeBtn.style.transition = 'all 0.3s ease';
+                
+                // Add hover effect - handled in JavaScript since we're not using CSS classes
+                closeBtn.onmouseover = function() {
+                    this.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
+                    this.style.transform = 'scale(1.1)';
+                };
+                
+                closeBtn.onmouseout = function() {
+                    this.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+                    this.style.transform = 'scale(1)';
+                };
                 
                 // Add click event
                 closeBtn.onclick = function() {
