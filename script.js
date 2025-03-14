@@ -1,28 +1,64 @@
-// Global function that will definitely close the menu
-window.closeMenu = function() {
-    var menuOverlay = document.getElementById('menu-overlay');
-    var menuToggle = document.getElementById('menu-toggle');
-    
-    // Force-remove the active class (multiple methods)
-    if (menuOverlay) {
-        menuOverlay.classList.remove('active');
-        menuOverlay.style.visibility = 'hidden';
-        menuOverlay.style.opacity = '0';
-        menuOverlay.style.display = 'none';
-        
-        // Re-enable scrolling
-        document.body.style.overflow = '';
-        
-        // Make menu button visible again
-        if (menuToggle) {
-            menuToggle.style.opacity = '1';
-            menuToggle.style.visibility = 'visible';
+// Immediately-invoked function to add a guaranteed clickable close button
+(function() {
+    // Add close button after DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        // Function to create and add close button
+        function addCloseButton() {
+            // First, check if menu is open
+            var menuOverlay = document.getElementById('menu-overlay');
+            
+            if (menuOverlay && menuOverlay.classList.contains('active')) {
+                // Create button element
+                var closeBtn = document.createElement('button');
+                
+                // Set button properties and styles
+                closeBtn.id = 'guaranteed-close-btn';
+                closeBtn.innerHTML = 'CLOSE MENU';
+                closeBtn.style.position = 'fixed';
+                closeBtn.style.top = '20px';
+                closeBtn.style.right = '20px';
+                closeBtn.style.zIndex = '999999';
+                closeBtn.style.padding = '10px 20px';
+                closeBtn.style.fontSize = '16px';
+                closeBtn.style.fontWeight = 'bold';
+                closeBtn.style.backgroundColor = 'white';
+                closeBtn.style.color = 'black';
+                closeBtn.style.border = 'none';
+                closeBtn.style.borderRadius = '5px';
+                closeBtn.style.cursor = 'pointer';
+                
+                // Add click event
+                closeBtn.onclick = function() {
+                    menuOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                    var menuToggle = document.getElementById('menu-toggle');
+                    if (menuToggle) {
+                        menuToggle.style.opacity = '1';
+                        menuToggle.style.visibility = 'visible';
+                    }
+                    // Remove this button
+                    this.remove();
+                };
+                
+                // Add to body
+                document.body.appendChild(closeBtn);
+            }
         }
         
-        // Alert for debugging
-        console.log("Menu closed successfully");
-    }
-};
+        // Function to handle menu button click
+        function handleMenuToggleClick() {
+            setTimeout(function() {
+                addCloseButton();
+            }, 100);
+        }
+        
+        // Add click listener to menu toggle button
+        var menuToggle = document.getElementById('menu-toggle');
+        if (menuToggle) {
+            menuToggle.addEventListener('click', handleMenuToggleClick);
+        }
+    });
+})();
 
 // Loading animation and page initialization
 document.addEventListener('DOMContentLoaded', function() {
