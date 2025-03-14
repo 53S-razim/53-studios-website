@@ -1,5 +1,6 @@
 // Global function to close menu
 function closeMenu() {
+    console.log("CLOSE MENU FUNCTION CALLED");
     const menuToggle = document.getElementById('menu-toggle');
     const menuOverlay = document.getElementById('menu-overlay');
     
@@ -224,9 +225,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         const updateCursor = () => {
-            // Slower movement for cursor (following the mouse tip)
-            circleX += (mouseX - circleX) * 0.12;
-            circleY += (mouseY - circleY) * 0.12;
+            // Precise movement for cursor to follow mouse tip
+            circleX += (mouseX - circleX) * 0.12; // Smoother follow
+            circleY += (mouseY - circleY) * 0.12; // Smoother follow
             
             cursorCircle.style.transform = `translate(${circleX}px, ${circleY}px)`;
             
