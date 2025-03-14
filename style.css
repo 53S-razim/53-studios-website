@@ -390,7 +390,7 @@ main {
 }
 
 .left-title .main-title {
-    font-size: clamp(6rem, 30vw, 28rem);
+    font-size: clamp(3rem, 15vw, 14rem);
     text-align: left;
     transform: translateY(100%);
     opacity: 0;
@@ -401,7 +401,7 @@ main {
 }
 
 .right-title .main-title {
-    font-size: clamp(6rem, 30vw, 28rem);
+    font-size: clamp(3rem, 15vw, 14rem);
     text-align: right;
     transform: translateY(100%);
     opacity: 0;
