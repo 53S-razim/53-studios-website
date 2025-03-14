@@ -1,11 +1,14 @@
-// Global function to close menu directly on window
+// Global function that will definitely close the menu
 window.closeMenu = function() {
     var menuOverlay = document.getElementById('menu-overlay');
     var menuToggle = document.getElementById('menu-toggle');
     
+    // Force-remove the active class (multiple methods)
     if (menuOverlay) {
-        // Remove active class from menu
         menuOverlay.classList.remove('active');
+        menuOverlay.style.visibility = 'hidden';
+        menuOverlay.style.opacity = '0';
+        menuOverlay.style.display = 'none';
         
         // Re-enable scrolling
         document.body.style.overflow = '';
@@ -15,6 +18,9 @@ window.closeMenu = function() {
             menuToggle.style.opacity = '1';
             menuToggle.style.visibility = 'visible';
         }
+        
+        // Alert for debugging
+        console.log("Menu closed successfully");
     }
 };
 
