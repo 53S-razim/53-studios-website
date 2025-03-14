@@ -19,7 +19,7 @@ function closeMenu() {
             }, 600);
         }
     }
-}
+};
 
 // Loading animation and page initialization
 document.addEventListener('DOMContentLoaded', function() {
