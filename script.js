@@ -1,11 +1,10 @@
-// Global function to close menu
-function closeMenu() {
-    console.log("CLOSE MENU FUNCTION CALLED");
-    const menuToggle = document.getElementById('menu-toggle');
-    const menuOverlay = document.getElementById('menu-overlay');
+// Global function to close menu directly on window
+window.closeMenu = function() {
+    var menuOverlay = document.getElementById('menu-overlay');
+    var menuToggle = document.getElementById('menu-toggle');
     
     if (menuOverlay) {
-        console.log("Closing menu from global function");
+        // Remove active class from menu
         menuOverlay.classList.remove('active');
         
         // Re-enable scrolling
@@ -13,10 +12,8 @@ function closeMenu() {
         
         // Make menu button visible again
         if (menuToggle) {
-            setTimeout(() => {
-                menuToggle.style.opacity = '1';
-                menuToggle.style.visibility = 'visible';
-            }, 600);
+            menuToggle.style.opacity = '1';
+            menuToggle.style.visibility = 'visible';
         }
     }
 };
