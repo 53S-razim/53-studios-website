@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact - 53 Studios</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="quote-form.css">
 </head>
 <body>
     <!-- Loading screen -->
@@ -29,7 +30,12 @@
 
     <!-- Menu overlay -->
     <div class="menu-overlay" id="menu-overlay">
-        <!-- IMPORTANT CHANGE: Completely revised close button -->
+        <button class="close-button" id="close-button" onclick="closeMenu()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 6L18 18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
         <ul class="menu-list">
             <li class="menu-item">
                 <a href="projects.html" class="menu-link">
@@ -49,9 +55,16 @@
                     <span class="menu-text">Contact</span>
                 </a>
             </li>
+            <!-- Add Get Quote item -->
+            <li class="menu-item">
+                <a href="#" class="menu-link get-quote-link" id="get-quote-button">
+                    <span class="menu-number">04</span>
+                    <span class="menu-text">Get Quote</span>
+                </a>
+            </li>
         </ul>
         <div class="menu-footer">
-            <a href="tel:+917395853673" class="menu-social-link phone-link">
+            <a href="tel:+919876543210" class="menu-social-link phone-link">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M22 16.92V19.92C22.0001 20.1985 21.9423 20.4741 21.8326 20.7293C21.7229 20.9845 21.5641 21.2136 21.3659 21.4019C21.1677 21.5901 20.9346 21.7335 20.6825 21.8227C20.4304 21.9119 20.1649 21.9451 19.9 21.92C16.7428 21.5856 13.7869 20.5341 11.19 18.85C8.77383 17.3147 6.72534 15.2662 5.19 12.85C3.49998 10.2412 2.44824 7.27097 2.12 4.1C2.09501 3.83588 2.12788 3.57066 2.2165 3.31913C2.30512 3.06761 2.44756 2.83492 2.63476 2.63654C2.82196 2.43815 3.04981 2.27887 3.30379 2.16846C3.55778 2.05804 3.83234 1.99938 4.11 2H7.11C7.59531 1.99522 8.06578 2.16708 8.43422 2.48353C8.80266 2.79999 9.04379 3.23945 9.11 3.72C9.23008 4.68007 9.47143 5.62273 9.83 6.53C9.95284 6.88792 9.96779 7.27691 9.87302 7.64391C9.77825 8.01092 9.57698 8.34099 9.29 8.6L8.11 9.78C9.51354 12.2729 11.5271 14.2865 14.02 15.69L15.2 14.51C15.459 14.223 15.7891 14.0218 16.1561 13.927C16.5231 13.8322 16.9121 13.8472 17.27 13.97C18.1773 14.3286 19.1199 14.5699 20.08 14.69C20.5707 14.7563 21.0101 14.9975 21.3266 15.366C21.643 15.7345 21.8149 16.2049 21.81 16.69L22 16.92Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -63,15 +76,233 @@
             </a>
         </div>
     </div>
-
-    <!-- Main content -->
+<!-- Quote Form Modal -->
+    <div class="quote-modal" id="quote-modal">
+        <button class="close-button quote-close-button" id="quote-close-button" onclick="closeQuoteModal()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 6L18 18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        
+        <div class="quote-background-wrapper">
+            <div class="quote-overlay"></div>
+            <div class="quote-background" id="quote-background"></div>
+        </div>
+        
+        <div class="quote-content">
+            <div class="quote-steps-container">
+                <!-- Step 1: Project Type -->
+                <div class="quote-step" id="quote-step-1">
+                    <div class="quote-step-header">
+                        <h2 class="quote-step-title">What type of project are you planning?</h2>
+                        <p class="quote-step-description">Select the option that best describes your project</p>
+                    </div>
+                    
+                    <div class="quote-options-grid">
+                        <button class="quote-option-button" data-value="residential" data-background="https://cdn.prod.website-files.com/6783d77212b58244ace7036d/67a37b4b6d3ce6df4b8377ad_StudioOlimpo_Works_01_Retroscena_01.avif">
+                            <div class="quote-option-icon">🏠</div>
+                            <div class="quote-option-label">Residential</div>
+                        </button>
+                        <button class="quote-option-button" data-value="commercial" data-background="https://cdn.prod.website-files.com/6783d77212b58244ace7036d/67a24d2efdad01250ef5efa1_StudioOlimpo_Works_02_ScarpeCarrioli_01-p-1080.avif">
+                            <div class="quote-option-icon">🏢</div>
+                            <div class="quote-option-label">Commercial</div>
+                        </button>
+                        <button class="quote-option-button" data-value="hospitality" data-background="https://cdn.prod.website-files.com/6783d77212b58244ace7036d/679bd61a7bf8d1806ecb0f83_Controluce%20%E2%80%93%C2%A0Portfolio_1-p-500.avif">
+                            <div class="quote-option-icon">🏨</div>
+                            <div class="quote-option-label">Hospitality</div>
+                        </button>
+                        <button class="quote-option-button" data-value="other" data-background="https://cdn.prod.website-files.com/6783d77212b58244ace7036d/679bd5e8623cb61380b4a622_Controluce%20%E2%80%93%C2%A0Portfolio_11-p-1080.avif">
+                            <div class="quote-option-icon">🔍</div>
+                            <div class="quote-option-label">Other</div>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Step 2: Size of Space -->
+                <div class="quote-step" id="quote-step-2">
+                    <div class="quote-step-header">
+                        <h2 class="quote-step-title">What is the approximate size of your space?</h2>
+                        <p class="quote-step-description">Select the size range that best fits your project</p>
+                    </div>
+                    
+                    <div class="quote-options-grid">
+                        <button class="quote-option-button" data-value="small">
+                            <div class="quote-option-label">Below 500 sqft</div>
+                        </button>
+                        <button class="quote-option-button" data-value="medium">
+                            <div class="quote-option-label">500-1000 sqft</div>
+                        </button>
+                        <button class="quote-option-button" data-value="large">
+                            <div class="quote-option-label">1000-2000 sqft</div>
+                        </button>
+                        <button class="quote-option-button" data-value="xlarge">
+                            <div class="quote-option-label">2000+ sqft</div>
+                        </button>
+                    </div>
+                </div>
+<!-- Step 3: Key Features Required -->
+                <div class="quote-step" id="quote-step-3">
+                    <div class="quote-step-header">
+                        <h2 class="quote-step-title">Which key features are important for your project?</h2>
+                        <p class="quote-step-description">Select all that apply</p>
+                    </div>
+                    
+                    <div class="quote-options-grid quote-checkbox-grid">
+                        <label class="quote-checkbox-option">
+                            <input type="checkbox" value="sustainable-design">
+                            <span class="quote-checkbox-label">Sustainable Design</span>
+                        </label>
+                        <label class="quote-checkbox-option">
+                            <input type="checkbox" value="smart-home">
+                            <span class="quote-checkbox-label">Smart Home/Office</span>
+                        </label>
+                        <label class="quote-checkbox-option">
+                            <input type="checkbox" value="luxury-finishes">
+                            <span class="quote-checkbox-label">Luxury Finishes</span>
+                        </label>
+                        <label class="quote-checkbox-option">
+                            <input type="checkbox" value="outdoor-space">
+                            <span class="quote-checkbox-label">Outdoor Space</span>
+                        </label>
+                        <label class="quote-checkbox-option">
+                            <input type="checkbox" value="energy-efficient">
+                            <span class="quote-checkbox-label">Energy Efficiency</span>
+                        </label>
+                        <label class="quote-checkbox-option">
+                            <input type="checkbox" value="custom-furniture">
+                            <span class="quote-checkbox-label">Custom Furniture</span>
+                        </label>
+                    </div>
+                    
+                    <div class="quote-button-container">
+                        <button class="quote-next-button">Continue</button>
+                    </div>
+                </div>
+                
+                <!-- Step 4: Budget Range -->
+                <div class="quote-step" id="quote-step-4">
+                    <div class="quote-step-header">
+                        <h2 class="quote-step-title">What is your approximate budget range?</h2>
+                        <p class="quote-step-description">Select the option that best matches your budget</p>
+                    </div>
+                    
+                    <div class="quote-options-grid">
+                        <button class="quote-option-button" data-value="budget-basic">
+                            <div class="quote-option-label">₹5-15 Lakhs</div>
+                        </button>
+                        <button class="quote-option-button" data-value="budget-standard">
+                            <div class="quote-option-label">₹15-30 Lakhs</div>
+                        </button>
+                        <button class="quote-option-button" data-value="budget-premium">
+                            <div class="quote-option-label">₹30-50 Lakhs</div>
+                        </button>
+                        <button class="quote-option-button" data-value="budget-luxury">
+                            <div class="quote-option-label">₹50+ Lakhs</div>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Step 5: Timeline -->
+                <div class="quote-step" id="quote-step-5">
+                    <div class="quote-step-header">
+                        <h2 class="quote-step-title">What is your preferred timeline?</h2>
+                        <p class="quote-step-description">Select the timeline that works best for you</p>
+                    </div>
+                    
+                    <div class="quote-options-grid">
+                        <button class="quote-option-button" data-value="urgent">
+                            <div class="quote-option-label">Urgent (ASAP)</div>
+                        </button>
+                        <button class="quote-option-button" data-value="short">
+                            <div class="quote-option-label">1-3 months</div>
+                        </button>
+                        <button class="quote-option-button" data-value="medium">
+                            <div class="quote-option-label">3-6 months</div>
+                        </button>
+                        <button class="quote-option-button" data-value="flexible">
+                            <div class="quote-option-label">Flexible</div>
+                        </button>
+                    </div>
+                </div>
+<!-- Step 6: Contact Information -->
+                <div class="quote-step" id="quote-step-6">
+                    <div class="quote-step-header">
+                        <h2 class="quote-step-title">Share your contact details</h2>
+                        <p class="quote-step-description">We'll get back to you with a custom quote</p>
+                    </div>
+                    
+                    <div class="quote-form">
+                        <div class="form-group">
+                            <label for="quote-name">Your Name</label>
+                            <input type="text" id="quote-name" class="quote-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="quote-email">Email Address</label>
+                            <input type="email" id="quote-email" class="quote-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="quote-phone">Phone Number</label>
+                            <input type="tel" id="quote-phone" class="quote-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="quote-location">Location</label>
+                            <input type="text" id="quote-location" class="quote-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="quote-message">Additional Details (Optional)</label>
+                            <textarea id="quote-message" class="quote-textarea"></textarea>
+                        </div>
+                        
+                        <div class="quote-submit-container">
+                            <button type="submit" class="quote-submit-button" id="quote-submit">Get My Quote</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Step 7: Thank You / Confirmation -->
+                <div class="quote-step" id="quote-step-7">
+                    <div class="quote-success">
+                        <div class="quote-success-icon">✓</div>
+                        <h2 class="quote-success-title">Thank you for your submission!</h2>
+                        <p class="quote-success-text">We've received your details and will get back to you shortly with a customized quote for your project.</p>
+                        
+                        <div class="quote-whatsapp-container">
+                            <p>For faster response, connect with us on WhatsApp:</p>
+                            <a href="https://wa.me/919876543210" target="_blank" class="quote-whatsapp-button">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12C2 13.9 2.5 15.6 3.4 17.1L2.1 21.4L6.4 20.1C7.9 21 9.6 21.5 11.5 21.5C17.02 21.5 21.5 17.02 21.5 11.5C21.5 5.98 17.02 2 12 2ZM12 20C10.4 20 8.9 19.5 7.6 18.6L7.3 18.4L4.6 19.2L5.4 16.5L5.2 16.2C4.3 14.9 3.8 13.4 3.8 11.8C3.8 7.4 7.4 3.8 11.8 3.8C16.2 3.8 19.8 7.4 19.8 11.8C19.8 16.2 16.2 19.8 12 19.8Z" fill="currentColor"/>
+                                    <path d="M15.2 13.4C15 13.3 14.1 12.9 14 12.8C13.9 12.7 13.7 12.7 13.6 12.9C13.5 13.1 13.1 13.4 13 13.5C12.9 13.6 12.8 13.6 12.6 13.5C12.4 13.4 11.8 13.2 11.2 12.6C10.7 12.1 10.4 11.6 10.3 11.4C10.2 11.2 10.3 11.1 10.4 11C10.5 10.9 10.6 10.8 10.7 10.7C10.8 10.6 10.8 10.5 10.9 10.4C11 10.3 10.9 10.2 10.9 10.1C10.9 10 10.6 9.1 10.4 8.7C10.2 8.3 10 8.4 9.9 8.4C9.8 8.4 9.7 8.4 9.5 8.4C9.3 8.4 9.1 8.5 9 8.7C8.9 8.9 8.4 9.3 8.4 10.2C8.4 11.1 9.1 12 9.2 12.1C9.3 12.2 10.4 14 12.2 14.8C13.8 15.5 13.9 15.3 14.2 15.3C14.5 15.3 15.2 14.9 15.4 14.4C15.6 13.9 15.6 13.5 15.5 13.5C15.4 13.4 15.3 13.4 15.1 13.3L15.2 13.4Z" fill="currentColor"/>
+                                </svg>
+                                Connect on WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Progress bar -->
+            <div class="quote-progress-container">
+                <div class="quote-progress-bar" id="quote-progress-bar"></div>
+                <div class="quote-nav-buttons">
+                    <button class="quote-prev-button" id="quote-prev-button">Previous</button>
+                    <button class="quote-next-button" id="quote-next-button">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Main content -->
     <main>
         <section class="contact-section">
             <div class="container">
                 <h1 class="contact-title initial-animate delay-1">Let's discuss your project</h1>
                 
-                <a href="mailto:syed@53studios.in" class="contact-email initial-animate delay-2">
-                    Syed@53studios.in
+                <a href="mailto:info@53studios.in" class="contact-email initial-animate delay-2">
+                    info@53studios.in
                 </a>
                 
                 <p class="contact-description initial-animate delay-3">
@@ -103,18 +334,17 @@
                     
                     <button type="submit" class="form-submit">Send Message</button>
                 </form>
-                
-                <div class="contact-info">
+<div class="contact-info">
                     <div class="contact-info-item">
                         <h2 class="contact-info-title">Phone</h2>
-                        <a href="tel:+917395853673" class="contact-info-link">+917395853673</a>
+                        <a href="tel:+919876543210" class="contact-info-link">+91 98765 43210</a>
                     </div>
                     
                     <div class="contact-info-item">
                         <h2 class="contact-info-title">Visit Our Studio</h2>
                         <p class="contact-info-text">
-                            53 Studios, T Nagar<br>
-                            Chennai, Tamil Nadu 600017<br>
+                            53 Studios, Anna Nagar<br>
+                            Chennai, Tamil Nadu 600040<br>
                             India
                         </p>
                     </div>
@@ -144,7 +374,7 @@
                 <div class="copyright">© 2025 53 Studios</div>
                 <a href="https://www.instagram.com/53studiosin" target="_blank" rel="noopener noreferrer" class="social-link">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2.163C15.204 2.163 15.584 2.175 16.85 2.233C20.102 2.381 21.621 3.924 21.769 7.152C21.827 8.417 21.838 8.797 21.838 12.001C21.838 15.206 21.826 15.585 21.769 16.85C21.62 20.075 20.105 21.621 16.85 21.769C15.584 21.827 15.206 21.839 12 21.839C8.796 21.839 8.416 21.827 7.151 21.769C3.891 21.62 2.38 20.07 2.232 16.849C2.174 15.584 2.162 15.205 2.162 12C2.162 8.796 2.175 8.417 2.232 7.151C2.381 3.924 3.896 2.38 7.151 2.232C8.417 2.175 8.796 2.163 12 2.163ZM12 0C8.741 0 8.333 0.014 7.053 0.072C2.695 0.272 0.273 2.69 0.073 7.052C0.014 8.333 0 8.741 0 12C0 15.259 0.014 15.668 0.072 16.948C0.272 21.306 2.69 23.728 7.052 23.928C8.333 23.986 8.741 24 12 24C15.259 24 15.668 23.986 16.948 23.928C21.302 23.728 23.73 21.31 23.927 16.948C23.986 15.668 24 15.259 24 12C24 8.741 23.986 8.333 23.928 7.053C23.732 2.699 21.311 0.273 16.949 0.073C15.668 0.014 15.259 0 12 0ZM12 5.838C8.597 5.838 5.838 8.597 5.838 12C5.838 15.403 8.597 18.163 12 18.163C15.403 18.163 18.162 15.404 18.162 12C18.162 8.597 15.403 5.838 12 5.838ZM12 16C9.791 16 8 14.21 8 12C8 9.791 9.791 8 12 8C14.209 8 16 9.791 16 12C16 14.21 14.209 16 12 16ZM18.406 4.155C17.61 4.155 16.965 4.8 16.965 5.595C16.965 6.39 17.61 7.035 18.406 7.035C19.201 7.035 19.845 6.39 19.845 5.595C19.845 4.8 19.201 4.155 18.406 4.155Z" fill="currentColor"/>
+                        <path d="M12 2.163C15.204 2.163 15.584 2.175 16.85 2.233C20.102 2.381 21.621 3.924 21.769 7.152C21.827 8.417 21.838 8.797 21.838 12.001C21.838 15.206 21.826 15.585 21.769 16.85C21.62 20.075 20.105 21.621 16.85 21.769C15.584 21.827 15.206 21.839 12 21.839C8.796 21.839 8.416 21.827 7.151 21.769C3.891 21.62 2.38 20.07 2.232 16.849C2.174 15.584 2.162 15.205 2.162 12C2.162 8.796 2.175 8.417 2.232 7.151C2.381 3.924 3.896 2.38 7.151 2.232C8.417 2.175 8.796 2.163 12 2.163Z" fill="currentColor"/>
                     </svg>
                 </a>
             </div>
@@ -152,5 +382,6 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="quote-form.js"></script>
 </body>
 </html>

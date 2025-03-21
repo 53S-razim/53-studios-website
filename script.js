@@ -1,3 +1,20 @@
+// Global function to close quote modal
+function closeQuoteModal() {
+    const quoteModal = document.getElementById('quote-modal');
+    if (quoteModal) {
+        quoteModal.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+        
+        // Reset form after closing if quote-form.js hasn't done it yet
+        setTimeout(() => {
+            // Reset to first step if resetQuoteForm exists
+            if (typeof resetQuoteForm === 'function') {
+                resetQuoteForm();
+            }
+        }, 600);
+    }
+}
+
 // Immediately-invoked function to add a guaranteed clickable close button
 (function() {
     // Add close button after DOM is fully loaded
