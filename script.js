@@ -226,53 +226,58 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Custom cursor with 3D effect - adjusted size and position
-    const initCustomCursor = () => {
-        // Don't add custom cursor on touch devices
-        if ('ontouchstart' in window) return;
-        
-        // Only create the outer circle cursor 
+// Custom cursor with 3D effect - adjusted size and position
+const initCustomCursor = () => {
+    // Don't add custom cursor on touch devices
+    if ('ontouchstart' in window) return;
+    
+    // Create cursor element if it doesn't exist
+    if (!document.querySelector('.cursor-circle')) {
         const cursorCircle = document.createElement('div');
         cursorCircle.className = 'cursor-circle';
-        
         document.body.appendChild(cursorCircle);
         document.body.classList.add('has-custom-cursor');
-        
-        let mouseX = 0;
-        let mouseY = 0;
-        let circleX = 0;
-        let circleY = 0;
-        
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
+    }
+    
+    // Initialize cursor movement
+    const cursorCircle = document.querySelector('.cursor-circle');
+    let mouseX = 0;
+    let mouseY = 0;
+    let circleX = 0;
+    let circleY = 0;
+    
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+    
+    // Enhanced hover effect with more dramatic cursor changes
+    const interactiveElements = document.querySelectorAll('a, button, [role="button"], .project-item, .menu-link, .clickable, input, textarea');
+    interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            document.body.classList.add('cursor-hover');
+            el.classList.add('element-hover');
         });
-        
-        // Enhanced hover effect with more dramatic cursor changes
-        const interactiveElements = document.querySelectorAll('a, button, [role="button"], .project-item, .menu-link, .clickable');
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                document.body.classList.add('cursor-hover');
-                el.classList.add('element-hover');
-            });
-            el.addEventListener('mouseleave', () => {
-                document.body.classList.remove('cursor-hover');
-                el.classList.remove('element-hover');
-            });
+        el.addEventListener('mouseleave', () => {
+            document.body.classList.remove('cursor-hover');
+            el.classList.remove('element-hover');
         });
+    });
+    
+    const updateCursor = () => {
+        // Slower movement for cursor (following the mouse tip)
+        circleX += (mouseX - circleX) * 0.12;
+        circleY += (mouseY - circleY) * 0.12;
         
-        const updateCursor = () => {
-            // Slower movement for cursor (following the mouse tip)
-            circleX += (mouseX - circleX) * 0.12;
-            circleY += (mouseY - circleY) * 0.12;
-            
+        if (cursorCircle) {
             cursorCircle.style.transform = `translate(${circleX}px, ${circleY}px)`;
-            
-            requestAnimationFrame(updateCursor);
-        };
+        }
         
         requestAnimationFrame(updateCursor);
     };
+    
+    requestAnimationFrame(updateCursor);
+};
 
 // Menu link hover animations with enhanced effects
     const initMenuHoverEffects = () => {
@@ -452,4 +457,33 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 100);
         });
     }
+// Logo animation initialization
+function initLogoAnimation() {
+    const logoContainer = document.getElementById('logo-animation');
+    if (!logoContainer) return;
+    
+    // Download and save the JSON file to your project first
+    const logoAnimation = lottie.loadAnimation({
+        container: logoContainer,
+        renderer: 'svg',
+        loop: false,
+        autoplay: false,
+        path: '53-studios-logo.json' // You'll need to download and save the JSON file with this name
+    });
+    
+    // Set animation to final frame initially (where it shows "53 Studios")
+    logoAnimation.addEventListener('DOMLoaded', () => {
+        logoAnimation.goToAndStop(logoAnimation.totalFrames - 20, true);
+    });
+    
+    // Play animation on hover
+    const logoLink = document.querySelector('.logo');
+    logoLink.addEventListener('mouseenter', () => {
+        logoAnimation.goToAndPlay(0, true);
+    });
+}
+
+// Call initialization
+initLogoAnimation();
+
 });
