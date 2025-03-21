@@ -1,97 +1,33 @@
+// Global function to close menu
+function closeMenu() {
+    const menuToggle = document.getElementById('menu-toggle');
+    const menuOverlay = document.getElementById('menu-overlay');
+    
+    if (menuOverlay) {
+        console.log("Closing menu from global function");
+        menuOverlay.classList.remove('active');
+        
+        // Re-enable scrolling
+        document.body.style.overflow = '';
+        
+        // Make menu button visible again
+        if (menuToggle) {
+            setTimeout(() => {
+                menuToggle.style.opacity = '1';
+                menuToggle.style.visibility = 'visible';
+            }, 600);
+        }
+    }
+}
+
 // Global function to close quote modal
 function closeQuoteModal() {
     const quoteModal = document.getElementById('quote-modal');
     if (quoteModal) {
         quoteModal.classList.remove('active');
         document.body.style.overflow = ''; // Restore scrolling
-        
-        // Reset form after closing if quote-form.js hasn't done it yet
-        setTimeout(() => {
-            // Reset to first step if resetQuoteForm exists
-            if (typeof resetQuoteForm === 'function') {
-                resetQuoteForm();
-            }
-        }, 600);
     }
 }
-
-// Immediately-invoked function to add a guaranteed clickable close button
-(function() {
-    // Add close button after DOM is fully loaded
-    document.addEventListener('DOMContentLoaded', function() {
-        // Function to create and add close button
-        function addCloseButton() {
-            // First, check if menu is open
-            var menuOverlay = document.getElementById('menu-overlay');
-            
-            if (menuOverlay && menuOverlay.classList.contains('active')) {
-                // Create button element
-                var closeBtn = document.createElement('button');
-                
-                // Set button properties and styles
-                closeBtn.id = 'guaranteed-close-btn';
-                closeBtn.innerHTML = '✕'; // Simple X character
-                closeBtn.style.position = 'fixed';
-                closeBtn.style.top = '20px';
-                closeBtn.style.right = '20px';
-                closeBtn.style.zIndex = '999999';
-                closeBtn.style.width = '50px';
-                closeBtn.style.height = '50px';
-                closeBtn.style.fontSize = '24px';
-                closeBtn.style.fontWeight = 'normal';
-                closeBtn.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
-                closeBtn.style.color = 'white';
-                closeBtn.style.border = '2px solid white';
-                closeBtn.style.borderRadius = '50%';
-                closeBtn.style.cursor = 'pointer';
-                closeBtn.style.display = 'flex';
-                closeBtn.style.alignItems = 'center';
-                closeBtn.style.justifyContent = 'center';
-                closeBtn.style.transition = 'all 0.3s ease';
-                
-                // Add hover effect - handled in JavaScript since we're not using CSS classes
-                closeBtn.onmouseover = function() {
-                    this.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
-                    this.style.transform = 'scale(1.1)';
-                };
-                
-                closeBtn.onmouseout = function() {
-                    this.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
-                    this.style.transform = 'scale(1)';
-                };
-                
-                // Add click event
-                closeBtn.onclick = function() {
-                    menuOverlay.classList.remove('active');
-                    document.body.style.overflow = '';
-                    var menuToggle = document.getElementById('menu-toggle');
-                    if (menuToggle) {
-                        menuToggle.style.opacity = '1';
-                        menuToggle.style.visibility = 'visible';
-                    }
-                    // Remove this button
-                    this.remove();
-                };
-                
-                // Add to body
-                document.body.appendChild(closeBtn);
-            }
-        }
-        
-        // Function to handle menu button click
-        function handleMenuToggleClick() {
-            setTimeout(function() {
-                addCloseButton();
-            }, 100);
-        }
-        
-        // Add click listener to menu toggle button
-        var menuToggle = document.getElementById('menu-toggle');
-        if (menuToggle) {
-            menuToggle.addEventListener('click', handleMenuToggleClick);
-        }
-    });
-})();
 
 // Loading animation and page initialization
 document.addEventListener('DOMContentLoaded', function() {
@@ -108,8 +44,10 @@ document.addEventListener('DOMContentLoaded', function() {
         loader.style.display = 'flex';
         
         let progress = 0;
+        // Make loading faster (change interval from 30ms to 20ms)
         const interval = setInterval(() => {
-            progress += 1;
+            // Accelerate progress a bit
+            progress += 1.5;
             progressCounter.textContent = Math.floor(progress);
             
             // Force display of at least one image
@@ -146,10 +84,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         if (document.querySelector('.split-title-container')) {
                             animateSplitTitle();
                         }
-                    }, 500);
-                }, 300);
+                    }, 400); // Reduced from 500ms for faster transition
+                }, 200); // Reduced from 300ms for faster transition
             }
-        }, 30);
+        }, 20); // Faster interval (was 30ms)
         
         // Fallback
         setTimeout(() => {
@@ -167,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     animateSplitTitle();
                 }
             }
-        }, 5000);
+        }, 4000); // Slightly reduced from 5000ms
     } else if (loader) {
         // Not homepage, hide loader immediately
         loader.style.display = 'none';
@@ -179,8 +117,8 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }, 100);
     }
-    
-    // Split title animation function
+
+// Split title animation function
     function animateSplitTitle() {
         const leftTitle = document.querySelector('.left-title .main-title');
         const rightTitle = document.querySelector('.right-title .main-title');
@@ -231,7 +169,34 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Contact form handling
+    // Get Quote button functionality
+    const getQuoteButton = document.getElementById('get-quote-button');
+    const quoteModal = document.getElementById('quote-modal');
+    const quoteCloseButton = document.getElementById('quote-close-button');
+    
+    if (getQuoteButton && quoteModal) {
+        getQuoteButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log("Get Quote button clicked");
+            
+            // Close menu first
+            closeMenu();
+            
+            // After menu closes, open quote modal
+            setTimeout(() => {
+                quoteModal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            }, 600);
+        });
+    }
+    
+    if (quoteCloseButton) {
+        quoteCloseButton.addEventListener('click', function() {
+            closeQuoteModal();
+        });
+    }
+
+// Contact form handling
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
@@ -297,9 +262,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         const updateCursor = () => {
-            // Precise movement for cursor to follow mouse tip
-            circleX += (mouseX - circleX) * 0.12; // Smoother follow
-            circleY += (mouseY - circleY) * 0.12; // Smoother follow
+            // Slower movement for cursor (following the mouse tip)
+            circleX += (mouseX - circleX) * 0.12;
+            circleY += (mouseY - circleY) * 0.12;
             
             cursorCircle.style.transform = `translate(${circleX}px, ${circleY}px)`;
             
@@ -309,7 +274,7 @@ document.addEventListener('DOMContentLoaded', function() {
         requestAnimationFrame(updateCursor);
     };
 
-    // Menu link hover animations with enhanced effects
+// Menu link hover animations with enhanced effects
     const initMenuHoverEffects = () => {
         const menuLinks = document.querySelectorAll('.menu-link');
         
@@ -348,7 +313,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add click handlers to all internal links with enhanced animation
         document.querySelectorAll('a[href^="/"], a[href^="./"], a[href^="../"], a[href$=".html"]').forEach(link => {
             // Skip links that should open in new tabs or external links
-            if (link.getAttribute('target') === '_blank' || link.getAttribute('rel') === 'external') {
+            if (link.getAttribute('target') === '_blank' || link.getAttribute('rel') === 'external' ||
+                link.classList.contains('get-quote-link')) { // Skip quote links
                 return;
             }
             
@@ -456,4 +422,34 @@ document.addEventListener('DOMContentLoaded', function() {
             el.classList.add('active');
         });
     }, 800);
+});
+
+// Add this to your script.js file
+document.addEventListener('DOMContentLoaded', function() {
+    // More Projects button functionality
+    const loadMoreButton = document.getElementById('load-more-projects');
+    const hiddenProjects = document.getElementById('hidden-projects');
+    
+    if (loadMoreButton && hiddenProjects) {
+        loadMoreButton.addEventListener('click', function() {
+            // Show hidden projects with animation
+            hiddenProjects.classList.add('visible');
+            
+            // Animate new projects into view
+            setTimeout(() => {
+                const newProjects = hiddenProjects.querySelectorAll('.project-row');
+                newProjects.forEach((project, index) => {
+                    setTimeout(() => {
+                        project.classList.add('animate');
+                    }, index * 200);
+                });
+                
+                // Hide the button after animation
+                loadMoreButton.style.opacity = '0';
+                setTimeout(() => {
+                    loadMoreButton.style.display = 'none';
+                }, 300);
+            }, 100);
+        });
+    }
 });

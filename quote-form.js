@@ -36,25 +36,49 @@ document.addEventListener('DOMContentLoaded', function() {
         hospitality: 'https://cdn.prod.website-files.com/6783d77212b58244ace7036d/679bd61a7bf8d1806ecb0f83_Controluce%20%E2%80%93%C2%A0Portfolio_1-p-500.avif',
         other: 'https://cdn.prod.website-files.com/6783d77212b58244ace7036d/679bd5e8623cb61380b4a622_Controluce%20%E2%80%93%C2%A0Portfolio_11-p-1080.avif'
     };
-    
-    // Open quote modal
+
+// Additional click handler for Get Quote button (for redundancy)
     if (getQuoteButton) {
+        console.log("Quote button found, adding extra handler");
         getQuoteButton.addEventListener('click', function(e) {
             e.preventDefault();
-            closeMenu(); // Close menu if open
-            openQuoteModal();
+            console.log("Get Quote button clicked (from quote-form.js)");
+            
+            // Close menu first if it's open
+            if (typeof closeMenu === 'function') {
+                closeMenu();
+            }
+            
+            // After menu closes, open quote modal
+            setTimeout(() => {
+                if (quoteModal) {
+                    console.log("Opening quote modal");
+                    quoteModal.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                    
+                    // Initialize form
+                    initQuoteForm();
+                } else {
+                    console.error("Quote modal not found");
+                }
+            }, 600);
         });
+    } else {
+        console.warn("Get Quote button not found");
     }
     
     // Close quote modal
     if (quoteCloseButton) {
         quoteCloseButton.addEventListener('click', function() {
+            console.log("Quote close button clicked");
             closeQuoteModal();
         });
     }
     
     // Initialize the form
     function initQuoteForm() {
+        console.log("Initializing quote form");
+        
         // Set initial background
         if (quoteBackground) {
             quoteBackground.style.backgroundImage = `url('${backgroundImages.default}')`;
@@ -66,8 +90,14 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add event listeners to option buttons
         document.querySelectorAll('.quote-option-button').forEach(button => {
             button.addEventListener('click', function() {
-                const step = parseInt(this.closest('.quote-step').id.split('-')[2]);
+                const stepElement = this.closest('.quote-step');
+                if (!stepElement) return;
+                
+                const stepId = stepElement.id;
+                const step = parseInt(stepId.split('-')[2]);
                 const value = this.dataset.value;
+                
+                console.log(`Step ${step} option selected: ${value}`);
                 
                 // Handle background change for project type
                 if (step === 1) {
@@ -94,8 +124,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         });
-        
-        // Handle checkboxes in step 3
+
+// Handle checkboxes in step 3
         document.querySelectorAll('.quote-checkbox-option input[type="checkbox"]').forEach(checkbox => {
             checkbox.addEventListener('change', function() {
                 const value = this.value;
@@ -108,8 +138,18 @@ document.addEventListener('DOMContentLoaded', function() {
                         formData.features.splice(index, 1);
                     }
                 }
+                
+                console.log(`Feature ${value} ${this.checked ? 'selected' : 'deselected'}`);
             });
         });
+        
+        // Find the continue button in step 3 and add click handler
+        const step3ContinueButton = document.querySelector('#quote-step-3 .quote-next-button');
+        if (step3ContinueButton) {
+            step3ContinueButton.addEventListener('click', function() {
+                goToNextStep();
+            });
+        }
         
         // Handle navigation buttons
         if (quotePrevButton) {
@@ -138,7 +178,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     return;
                 }
                 
-                // Submit form - in a real implementation this would send data to a server
                 console.log('Form submitted:', formData);
                 
                 // Show success step
@@ -151,10 +190,11 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
-    
-    // Show step
+
+// Show step
     function showStep(step) {
         currentStep = step;
+        console.log(`Showing step ${step}`);
         
         // Hide all steps
         document.querySelectorAll('.quote-step').forEach(el => {
@@ -165,6 +205,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const currentStepEl = document.getElementById(`quote-step-${step}`);
         if (currentStepEl) {
             currentStepEl.classList.add('active');
+        } else {
+            console.error(`Step element #quote-step-${step} not found`);
         }
         
         // Update progress bar
@@ -222,30 +264,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Open quote modal
-    function openQuoteModal() {
-        if (quoteModal) {
-            quoteModal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
-            initQuoteForm();
-        }
-    }
-    
-    // Close quote modal
-    function closeQuoteModal() {
-        if (quoteModal) {
-            quoteModal.classList.remove('active');
-            document.body.style.overflow = ''; // Restore scrolling
-            
-            // Reset form after closing
-            setTimeout(() => {
-                resetQuoteForm();
-            }, 600);
-        }
-    }
-    
     // Reset quote form
     function resetQuoteForm() {
+        console.log("Resetting quote form");
+        
         // Reset form data
         Object.keys(formData).forEach(key => {
             if (Array.isArray(formData[key])) {
@@ -286,9 +308,69 @@ document.addEventListener('DOMContentLoaded', function() {
         if (quoteProgressBar) quoteProgressBar.style.display = 'block';
     }
     
-    // Initialize if elements exist
-    if (quoteModal && getQuoteButton) {
-        // Add global function to close quote modal
-        window.closeQuoteModal = closeQuoteModal;
-    }
+    // Make resetQuoteForm globally available
+    window.resetQuoteForm = resetQuoteForm;
+    
+    // Expose closeQuoteModal for redundancy
+    window.closeQuoteModal = function() {
+        if (quoteModal) {
+            quoteModal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+            
+            // Reset form after closing
+            setTimeout(() => {
+                resetQuoteForm();
+            }, 600);
+        }
+    };
 });
+
+/* Add these to quote-form.css */
+
+/* Fix hover state of get-quote-button */
+#get-quote-button {
+    display: inline-block;
+    text-decoration: none;
+}
+
+/* Enhanced animations for quote form */
+.quote-modal.active .quote-content {
+    animation: slideUpIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideUpIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.quote-option-button:hover {
+    transform: translateY(-8px) scale(1.02);
+    background-color: rgba(255, 255, 255, 0.18);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.quote-option-button:active {
+    transform: translateY(-3px) scale(0.98);
+}
+
+.quote-option-button.selected {
+    animation: pulse-light 1s;
+}
+
+@keyframes pulse-light {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
+}
