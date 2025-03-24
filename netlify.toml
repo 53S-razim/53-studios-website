@@ -1,8 +1,4 @@
-[images]
-  remote_images = [
-    "https://images.unsplash.com/photo-*",
-    "https://ext.same-assets.com/*"
-  ]
+# Netlify configuration for 53 Studios website
 
 [build]
   command = "bun run build"
@@ -15,6 +11,29 @@
   publish = "dist"
   autoLaunch = true
 
+[images]
+  remote_images = [
+    "https://images.unsplash.com/photo-*",
+    "https://ext.same-assets.com/*"
+  ]
+
+# Clean URLs configuration
+[[redirects]]
+  from = "/about"
+  to = "/about.html"
+  status = 200
+
+[[redirects]]
+  from = "/projects"
+  to = "/projects.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 200
+
+# 404 handling
 [[redirects]]
   from = "/*"
   to = "/404.html"

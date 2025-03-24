@@ -1,5 +1,6 @@
 // Import styles
 import './styles/main.css';
+import './styles/fixes.css'; // Add the fixes CSS
 
 // Import scripts
 import './scripts/loader.js';
