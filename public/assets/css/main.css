@@ -1,0 +1,346 @@
+/* Global variables */
+:root {
+  --color-background: #f4f3ec;
+  --color-text: #1e1c1b;
+  --color-accent: #817068;
+  --color-border: rgba(30, 28, 27, 0.1);
+  --font-primary: 'PP Neue Montreal', sans-serif;
+  --font-secondary: 'Canela', serif;
+}
+
+/* Font imports */
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('/assets/fonts/PPNeueMontreal-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Canela';
+  src: url('/assets/fonts/Canela-Light-Web.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Canela';
+  src: url('/assets/fonts/Canela-LightItalic-Web.woff2') format('woff2');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Critical fixes for 53 Studios website */
+body {
+  overflow-x: hidden;
+  min-height: 100vh;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-primary);
+  padding: 0;
+  margin: 0;
+}
+
+/* Reset any animations that might hide content */
+main, section, .container, .about-content, .contact-grid, .project-grid {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  transition: none !important;
+  animation: none !important;
+  display: block !important;
+}
+
+/* Force reasonable z-index values */
+main {
+  position: relative;
+  z-index: 5;
+  display: block;
+  background-color: var(--color-background);
+}
+
+section {
+  position: relative;
+  z-index: 5;
+  padding: 6rem 0;
+  display: block;
+  margin-bottom: 2rem;
+  background-color: var(--color-background);
+}
+
+.container {
+  position: relative;
+  z-index: 5;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+h1, h2, h3, p {
+  position: relative;
+  z-index: 5;
+}
+
+/* Force loader to be hidden */
+.loader {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  z-index: -100 !important;
+}
+
+/* Header styles */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+}
+
+.logo {
+  text-decoration: none;
+  color: var(--color-text);
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.menu-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text);
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-family: var(--font-primary);
+}
+
+/* Hero section styles */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 10vh;
+}
+
+.hero-title {
+  font-family: var(--font-secondary);
+  font-size: clamp(3.5rem, 10vw, 8rem);
+  font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.hero-text {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  line-height: 1.5;
+  max-width: 36rem;
+  margin-bottom: 2rem;
+}
+
+/* Specific fixes for project grid */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.project-item {
+  position: relative;
+  overflow: hidden;
+  background-color: #1a1a1a;
+  border-radius: 0;
+  aspect-ratio: 16/9;
+}
+
+.project-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.project-item:hover .project-image {
+  transform: scale(1.05);
+}
+
+.project-title {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 500;
+  z-index: 2;
+}
+
+/* Fix the more projects button */
+.more-projects {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.more-projects-button {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background-color: var(--color-text);
+  color: var(--color-background);
+  text-decoration: none;
+  border-radius: 2rem;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.more-projects-button:hover {
+  background-color: var(--color-accent);
+}
+
+/* Quote Modal Container fixes */
+.quote-modal-container {
+  position: relative;
+  padding: 40px 30px 80px;
+  max-width: 640px;
+  margin: 4vh auto;
+  border-radius: 12px;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  overflow-y: auto;
+  max-height: 92vh;
+}
+
+.quote-close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.form-progress-container {
+  position: fixed;
+  bottom: 125px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: var(--color-border);
+  margin: 0.5rem 0;
+  z-index: 10;
+}
+
+.form-progress-bar {
+  height: 100%;
+  background-color: var(--color-text);
+  transition: width 0.4s ease;
+}
+
+.form-buttons {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background-color: var(--color-background);
+  border-top: 1px solid var(--color-border);
+  z-index: 10;
+}
+
+/* Footer styling */
+footer {
+  padding: 4rem 0;
+  background-color: var(--color-background);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.footer-logo {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.footer-tagline {
+  font-size: 1rem;
+  max-width: 20rem;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+
+.footer-social a {
+  margin-right: 1rem;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .project-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  section {
+    padding: 4rem 0;
+  }
+
+  .quote-modal-container {
+    padding: 40px 20px 80px;
+    max-height: 90vh;
+    margin: 5vh auto;
+  }
+
+  .form-progress-container {
+    bottom: 115px;
+  }
+
+  .footer-content {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 428px) {
+  .quote-modal-container {
+    padding: 40px 20px 90px;
+    margin-top: 2vh;
+    border-radius: 8px;
+    max-height: 94vh;
+  }
+
+  .form-progress-container {
+    bottom: 125px;
+  }
+
+  .form-buttons {
+    padding: 1.5rem 1.25rem 2rem;
+  }
+}
