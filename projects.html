@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Projects | 53 Studios – Architecture & Design</title>
   <meta name="description" content="Browse through our portfolio of architectural and design projects.">
+
+  <!-- Fixed paths and updated styling -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
   <style>
     /* Base styles */
     :root {
@@ -12,36 +16,19 @@
       --color-text: #1e1c1b;
       --color-accent: #817068;
       --color-border: rgba(30, 28, 27, 0.1);
-      --font-primary: 'PP Neue Montreal', sans-serif;
-      --font-secondary: 'Canela', serif;
-    }
-
-    @font-face {
-      font-family: 'PP Neue Montreal';
-      src: url('https://storage.googleapis.com/joshwcomeau/fonts/PPNeueMontreal-Medium.woff2') format('woff2');
-      font-weight: 500;
-      font-style: normal;
-      font-display: swap;
-    }
-
-    @font-face {
-      font-family: 'Canela';
-      src: url('https://storage.googleapis.com/joshwcomeau/fonts/Canela-Light-Web.woff2') format('woff2');
-      font-weight: 300;
-      font-style: normal;
-      font-display: swap;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+      --font-primary: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --font-secondary: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --font-weight-light: 300;
+      --font-weight-regular: 400;
+      --font-weight-medium: 500;
+      --font-weight-bold: 700;
     }
 
     body {
       background-color: var(--color-background);
       color: var(--color-text);
       font-family: var(--font-primary);
+      font-weight: var(--font-weight-regular);
       line-height: 1.5;
       overflow-x: hidden;
       min-height: 100vh;
@@ -52,59 +39,9 @@
       display: none !important;
     }
 
-    /* Header styles */
-    .header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      padding: 1.5rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 100;
-    }
-
-    .logo {
-      text-decoration: none;
-      color: var(--color-text);
-      font-size: 1.1rem;
-      font-weight: 500;
-    }
-
-    .menu-button {
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      color: var(--color-text);
-      font-size: 1rem;
-      font-family: var(--font-primary);
-    }
-
     /* Main content styles */
     main {
       padding-top: 80px;
-    }
-
-    .container {
-      max-width: 1440px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-
-    /* Section styles */
-    section {
-      padding: 6rem 0;
-    }
-
-    h1, h2, h3 {
-      font-family: var(--font-secondary);
-      font-weight: 300;
-    }
-
-    h1 {
-      font-size: 3.5rem;
-      margin-bottom: 2rem;
     }
 
     /* Projects styles */
@@ -113,41 +50,12 @@
       margin-bottom: 4rem;
     }
 
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 3rem 2rem;
-    }
-
-    .project-item {
-      position: relative;
-      overflow: hidden;
-      background-color: #1a1a1a;
-      border-radius: 0;
-      aspect-ratio: 16/9;
-      text-decoration: none;
-      display: block;
-    }
-
-    .project-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.6s ease;
-    }
-
-    .project-item:hover .project-image {
-      transform: scale(1.05);
-    }
-
-    .project-title {
-      position: absolute;
-      bottom: 1.5rem;
-      left: 1.5rem;
-      color: white;
-      font-size: 1.5rem;
-      font-weight: 400;
-      z-index: 2;
+    h1 {
+      font-family: var(--font-primary);
+      font-size: 3.5rem;
+      font-weight: var(--font-weight-light);
+      margin-bottom: 2rem;
+      letter-spacing: -0.02em;
     }
 
     .project-category {
@@ -161,64 +69,93 @@
       z-index: 2;
     }
 
-    /* Footer styles */
-    footer {
-      padding: 4rem 0;
+    /* More projects button */
+    .more-projects {
+      margin-top: 3rem;
+      text-align: center;
     }
 
-    .footer-logo {
-      font-size: 1.2rem;
-      display: block;
-      margin-bottom: 1rem;
+    .more-projects-button {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background-color: var(--color-text);
+      color: var(--color-background);
       text-decoration: none;
-      color: var(--color-text);
-    }
-
-    .footer-tagline {
+      border-radius: 2rem;
       font-size: 1rem;
-      max-width: 20rem;
-      line-height: 1.5;
-      margin-bottom: 2rem;
+      font-weight: var(--font-weight-medium);
+      transition: background-color 0.3s ease;
     }
 
-    .footer-bottom {
+    .more-projects-button:hover {
+      background-color: var(--color-accent);
+    }
+
+    /* Project popup styles */
+    .project-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 300;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-top: 2rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--color-border);
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
-    .copyright {
-      font-size: 0.9rem;
+    .project-popup.active {
+      opacity: 1;
+      visibility: visible;
     }
 
-    .footer-social-links {
-      display: flex;
-      gap: 1rem;
+    .project-popup-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
     }
 
-    .social-link {
-      color: var(--color-text);
-      text-decoration: none;
+    .project-popup-container {
+      position: relative;
+      background-color: var(--color-background);
+      border-radius: 8px;
+      padding: 2.5rem;
+      max-width: 600px;
+      width: 90%;
+      z-index: 1;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
     }
 
-    /* Responsive styles */
-    @media (max-width: 768px) {
-      .project-grid {
-        grid-template-columns: 1fr;
-      }
+    .project-popup.active .project-popup-container {
+      transform: translateY(0);
+      opacity: 1;
+    }
 
-      section {
-        padding: 4rem 0;
-      }
+    .project-popup-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
 
-      .footer-bottom {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-      }
+    .project-popup-title {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-popup-text {
+      font-size: 1.1rem;
+      line-height: 1.6;
     }
   </style>
 </head>
@@ -228,10 +165,82 @@
     <a href="/" class="logo">
       <span>53 Studios</span>
     </a>
-    <button class="menu-button" id="menuButton">
-      <span>Menu</span>
+    <button class="menu-button" data-menu-toggle>
+      <span>MENU</span>
+      <span class="menu-button-line"></span>
     </button>
   </header>
+
+  <!-- Menu Overlay -->
+  <div class="menu-overlay dark-background">
+    <button class="close-button">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <ul class="menu-list">
+      <li class="menu-item">
+        <a href="/projects" class="menu-link">
+          <span class="menu-number">01</span>
+          <span class="menu-text">Projects</span>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="/about" class="menu-link">
+          <span class="menu-number">02</span>
+          <span class="menu-text">About</span>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="/contact" class="menu-link">
+          <span class="menu-number">03</span>
+          <span class="menu-text">Contact</span>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="#" class="menu-link get-quote-button" id="get-quote-button">
+          <span class="menu-number">04</span>
+          <span class="menu-text">Get Quote</span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="menu-footer">
+      <div class="copyright">© 2025 53 Studios</div>
+      <div class="menu-social-links">
+        <a href="tel:+919876543210" class="social-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+        </a>
+        <a href="https://www.instagram.com/53studiosin" target="_blank" rel="noopener noreferrer" class="social-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quote Modal -->
+  <div class="quote-modal" id="quote-modal">
+    <div class="quote-modal-overlay"></div>
+    <div class="quote-modal-container">
+      <button class="quote-close-button">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="quote-content">
+        <!-- The quote form will be dynamically generated by JavaScript -->
+      </div>
+    </div>
+  </div>
 
   <!-- Main Content -->
   <main>
@@ -244,37 +253,45 @@
         </div>
 
         <div class="project-grid">
-          <a href="#" class="project-item">
+          <a href="#" class="project-item" data-project="retroscena">
             <div class="project-category">Residential</div>
             <img src="https://ext.same-assets.com/2675109532/3664562763.avif" alt="Retroscena Project" class="project-image">
             <h3 class="project-title">Retroscena</h3>
           </a>
 
-          <a href="#" class="project-item">
+          <a href="#" class="project-item" data-project="scarpe-artigianali">
             <div class="project-category">Commercial</div>
             <img src="https://ext.same-assets.com/2675109532/436441059.avif" alt="Scarpe Artigianali Project" class="project-image">
             <h3 class="project-title">Scarpe Artigianali</h3>
           </a>
 
-          <a href="#" class="project-item">
+          <a href="#" class="project-item" data-project="waterfront-residence">
             <div class="project-category">Residential</div>
             <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Waterfront Residence" class="project-image">
             <h3 class="project-title">Waterfront Residence</h3>
           </a>
 
-          <a href="#" class="project-item">
+          <a href="#" class="project-item" data-project="modern-office">
             <div class="project-category">Commercial</div>
             <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" alt="Modern Office" class="project-image">
             <h3 class="project-title">Modern Office</h3>
           </a>
+        </div>
 
-          <a href="#" class="project-item">
+        <!-- More Projects Button after the 4th project -->
+        <div class="more-projects">
+          <a href="#" id="load-more-projects" class="more-projects-button">Load More Projects</a>
+        </div>
+
+        <!-- Hidden projects that will be shown when "Load More" is clicked -->
+        <div class="project-grid" id="additional-projects" style="display: none; margin-top: 3rem;">
+          <a href="#" class="project-item" data-project="boutique-hotel">
             <div class="project-category">Hospitality</div>
             <img src="https://images.unsplash.com/photo-1629140727571-9b5c6f6267b4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Boutique Hotel" class="project-image">
             <h3 class="project-title">Boutique Hotel</h3>
           </a>
 
-          <a href="#" class="project-item">
+          <a href="#" class="project-item" data-project="fashion-store">
             <div class="project-category">Retail</div>
             <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1158&q=80" alt="Fashion Store" class="project-image">
             <h3 class="project-title">Fashion Store</h3>
@@ -284,24 +301,46 @@
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <a href="/" class="footer-logo">
-        <span>53 Studios</span>
-      </a>
+  <!-- Project Popup -->
+  <div class="project-popup">
+    <div class="project-popup-overlay"></div>
+    <div class="project-popup-container">
+      <button class="project-popup-close">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="project-popup-content">
+        <h2 class="project-popup-title">Project details coming soon</h2>
+        <p class="project-popup-text">We're currently working on putting together detailed information about this project. Please check back later for more content.</p>
+      </div>
+    </div>
+  </div>
 
-      <p class="footer-tagline">
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-logo premium-text">
+        <span>53 Studios</span>
+      </div>
+
+      <p class="footer-tagline premium-text">
         Functional design <em>and</em> timeless craftsmanship.
       </p>
 
-      <p class="footer-tagline">
+      <p class="footer-tagline premium-text">
         Striving <em>for</em> innovation, grounded <em>in</em> practicality, guided <em>by</em> client needs
       </p>
 
       <div class="footer-bottom">
         <div class="copyright">© 2025 53 Studios</div>
         <div class="footer-social-links">
+          <a href="tel:+919876543210" class="social-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+          </a>
           <a href="https://www.instagram.com/53studiosin" target="_blank" rel="noopener noreferrer" class="social-link">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -314,17 +353,26 @@
     </div>
   </footer>
 
+  <!-- Scripts -->
+  <script src="/assets/js/main.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       console.log('53 Studios - Projects Page Initialized');
 
-      // Basic menu toggle
-      const menuButton = document.getElementById('menuButton');
-      if (menuButton) {
-        menuButton.addEventListener('click', function() {
-          alert('Menu functionality will be implemented in a future update');
+      // Load More Projects functionality
+      const loadMoreButton = document.getElementById('load-more-projects');
+      const additionalProjects = document.getElementById('additional-projects');
+
+      if (loadMoreButton && additionalProjects) {
+        loadMoreButton.addEventListener('click', function(e) {
+          e.preventDefault();
+          additionalProjects.style.display = 'grid';
+          loadMoreButton.parentElement.style.display = 'none';
         });
       }
+
+      // Project popup functionality (already handled by main.js)
+      // This is just in case we need additional project-specific functionality
     });
   </script>
 </body>

@@ -5,9 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>53 Studios – Architecture & Design</title>
   <meta name="description" content="An interactive design firm that believes in bringing client needs into functional spaces integrating Design and Craftsmanship.">
-  <link rel="stylesheet" href="src/styles/main.css">
-  <link rel="stylesheet" href="src/styles/fixes.css">
-  <script type="module" src="src/main.ts"></script>
+
+  <!-- Fixed paths to load CSS files correctly -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!-- Inline critical CSS for fonts -->
+  <style>
+    :root {
+      --color-background: #f4f3ec;
+      --color-text: #1e1c1b;
+      --color-accent: #817068;
+      --color-border: rgba(30, 28, 27, 0.1);
+      --font-primary: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --font-secondary: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      font-family: var(--font-primary);
+      background-color: var(--color-background);
+      color: var(--color-text);
+      overflow-x: hidden;
+    }
+
+    .premium-text {
+      font-family: var(--font-secondary);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+    }
+  </style>
+
+  <!-- Load scripts properly -->
+  <script type="module" src="/assets/js/main.js"></script>
+  <script type="module" crossorigin src="/assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
 </head>
 <body>
   <!-- Loading Screen -->
@@ -17,10 +46,10 @@
       <div class="loader-number text-small">0</div>
     </div>
     <div class="loader-visual">
-      <img src="src/images/loading-01.jpg" alt="" class="loader-visual-img">
-      <img src="src/images/loading-02.jpg" alt="" class="loader-visual-img">
-      <img src="src/images/loading-03.jpg" alt="" class="loader-visual-img">
-      <img src="src/images/loading-04.jpg" alt="" class="loader-visual-img">
+      <img src="/assets/images/loading-01.jpg" alt="" class="loader-visual-img">
+      <img src="/assets/images/loading-02.jpg" alt="" class="loader-visual-img">
+      <img src="/assets/images/loading-03.jpg" alt="" class="loader-visual-img">
+      <img src="/assets/images/loading-04.jpg" alt="" class="loader-visual-img">
     </div>
   </div>
 
@@ -124,11 +153,11 @@
       <div class="container">
         <h2 class="animate-on-scroll">Highlights</h2>
         <div class="project-grid animate-on-scroll">
-          <a href="/projects" class="project-item">
+          <a href="#" class="project-item" data-project="retroscena">
             <img src="https://ext.same-assets.com/2675109532/3664562763.avif" alt="Project 1" class="project-image">
             <h3 class="project-title">Retroscena</h3>
           </a>
-          <a href="/projects" class="project-item">
+          <a href="#" class="project-item" data-project="scarpe-artigianali">
             <img src="https://ext.same-assets.com/2675109532/436441059.avif" alt="Project 2" class="project-image">
             <h3 class="project-title">Scarpe Artigianali</h3>
           </a>
@@ -139,6 +168,23 @@
       </div>
     </section>
   </main>
+
+  <!-- Project Popup -->
+  <div class="project-popup">
+    <div class="project-popup-overlay"></div>
+    <div class="project-popup-container">
+      <button class="project-popup-close">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="project-popup-content">
+        <h2 class="project-popup-title">Project details coming soon</h2>
+        <p class="project-popup-text">We're currently working on putting together detailed information about this project. Please check back later for more content.</p>
+      </div>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer class="footer">

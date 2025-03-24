@@ -2,7 +2,9 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
 export default defineConfig({
+  // Configure public directory for assets
   publicDir: 'public',
+
   build: {
     // Generate source maps for better debugging
     sourcemap: true,

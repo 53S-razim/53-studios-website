@@ -4,7 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact | 53 Studios – Architecture & Design</title>
-  <meta name="description" content="Get in touch with us to discuss your architectural and design needs.">
+  <meta name="description" content="Get in touch with 53 Studios for your architectural and design needs.">
+
+  <!-- Fixed paths to load CSS files correctly -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
   <style>
     /* Base styles */
     :root {
@@ -14,6 +18,7 @@
       --color-border: rgba(30, 28, 27, 0.1);
       --font-primary: 'PP Neue Montreal', sans-serif;
       --font-secondary: 'Canela', serif;
+      --font-weight-medium: 500;
     }
 
     @font-face {
@@ -108,89 +113,112 @@
     }
 
     /* Contact styles */
-    .contact-intro {
-      max-width: 600px;
-      margin-bottom: 4rem;
+    .contact-section {
+      padding-top: 120px; /* Adjust for fixed header */
     }
 
     .contact-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr 2fr;
       gap: 4rem;
+      margin-top: 3rem;
+    }
+
+    .contact-info-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
     }
 
     .contact-info {
-      margin-bottom: 2rem;
-    }
-
-    .contact-info h3 {
-      margin-bottom: 1rem;
-      font-size: 1.5rem;
-    }
-
-    .contact-link {
-      color: var(--color-text);
-      text-decoration: none;
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-
-    .contact-link:hover {
-      text-decoration: underline;
-    }
-
-    /* Form styles */
-    .contact-form {
-      margin-top: 1rem;
-    }
-
-    .form-group {
       margin-bottom: 1.5rem;
     }
 
-    label {
+    .contact-info h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      font-weight: var(--font-weight-medium);
+    }
+
+    .contact-link {
       display: block;
+      margin-bottom: 0.5rem;
+      text-decoration: none;
+      color: var(--color-text);
+      transition: color 0.3s ease;
+    }
+
+    .contact-link:hover {
+      color: var(--color-accent);
+    }
+
+    /* Form styles */
+    .contact-form-container {
+      max-width: 100%;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
       margin-bottom: 0.5rem;
       font-size: 0.9rem;
     }
 
-    input, textarea, select {
-      width: 100%;
-      padding: 0.75rem;
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 0.75rem 1rem;
       border: 1px solid var(--color-border);
-      background-color: transparent;
+      border-radius: 4px;
       font-family: var(--font-primary);
       font-size: 1rem;
-      color: var(--color-text);
     }
 
-    textarea {
+    .form-group textarea {
       min-height: 150px;
       resize: vertical;
     }
 
-    button {
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--color-accent);
+    }
+
+    button[type="submit"] {
+      padding: 1rem 2rem;
       background-color: var(--color-text);
       color: var(--color-background);
       border: none;
-      padding: 0.75rem 2rem;
-      font-family: var(--font-primary);
+      border-radius: 2rem;
       font-size: 1rem;
+      font-weight: var(--font-weight-medium);
       cursor: pointer;
       transition: background-color 0.3s ease;
+      align-self: flex-start;
     }
 
-    button:hover {
+    button[type="submit"]:hover {
       background-color: var(--color-accent);
     }
 
-    /* Success message */
     .form-success {
       display: none;
-      padding: 2rem;
-      background-color: var(--color-text);
-      color: var(--color-background);
       margin-top: 2rem;
+      padding: 2rem;
+      text-align: center;
+      border: 1px solid var(--color-accent);
+      border-radius: 8px;
     }
 
     .form-success h3 {
@@ -244,17 +272,7 @@
     @media (max-width: 768px) {
       .contact-grid {
         grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-
-      section {
-        padding: 4rem 0;
-      }
-
-      .footer-bottom {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
+        gap: 3rem;
       }
     }
   </style>
@@ -352,23 +370,28 @@
   </main>
 
   <!-- Footer -->
-  <footer>
+  <footer class="footer">
     <div class="container">
-      <a href="/" class="footer-logo">
+      <div class="footer-logo premium-text">
         <span>53 Studios</span>
-      </a>
+      </div>
 
-      <p class="footer-tagline">
+      <p class="footer-tagline premium-text">
         Functional design <em>and</em> timeless craftsmanship.
       </p>
 
-      <p class="footer-tagline">
+      <p class="footer-tagline premium-text">
         Striving <em>for</em> innovation, grounded <em>in</em> practicality, guided <em>by</em> client needs
       </p>
 
       <div class="footer-bottom">
         <div class="copyright">© 2025 53 Studios</div>
         <div class="footer-social-links">
+          <a href="tel:+919876543210" class="social-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+          </a>
           <a href="https://www.instagram.com/53studiosin" target="_blank" rel="noopener noreferrer" class="social-link">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -376,28 +399,27 @@
               <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
             </svg>
           </a>
+          <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" class="social-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+            </svg>
+          </a>
         </div>
       </div>
     </div>
   </footer>
 
+  <!-- Scripts -->
+  <script src="/assets/js/main.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       console.log('53 Studios - Contact Page Initialized');
-
-      // Basic menu toggle
-      const menuButton = document.getElementById('menuButton');
-      if (menuButton) {
-        menuButton.addEventListener('click', function() {
-          alert('Menu functionality will be implemented in a future update');
-        });
-      }
 
       // Form submission
       const contactForm = document.getElementById('contactForm');
       const formSuccess = document.getElementById('formSuccess');
 
-      if (contactForm) {
+      if (contactForm && formSuccess) {
         contactForm.addEventListener('submit', function(e) {
           e.preventDefault();
 

@@ -1,11 +1,11 @@
 {
   "name": "53-studios",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "tsc && vite build --outDir dist --assetsDir assets --emptyOutDir",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
