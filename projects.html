@@ -5,223 +5,303 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Projects | 53 Studios – Architecture & Design</title>
   <meta name="description" content="Browse through our portfolio of architectural and design projects.">
-  <link rel="stylesheet" href="/assets/css/main.css">
-  <script src="/assets/js/main.js" defer></script>
+  <style>
+    /* Base styles */
+    :root {
+      --color-background: #f4f3ec;
+      --color-text: #1e1c1b;
+      --color-accent: #817068;
+      --color-border: rgba(30, 28, 27, 0.1);
+      --font-primary: 'PP Neue Montreal', sans-serif;
+      --font-secondary: 'Canela', serif;
+    }
+
+    @font-face {
+      font-family: 'PP Neue Montreal';
+      src: url('https://storage.googleapis.com/joshwcomeau/fonts/PPNeueMontreal-Medium.woff2') format('woff2');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Canela';
+      src: url('https://storage.googleapis.com/joshwcomeau/fonts/Canela-Light-Web.woff2') format('woff2');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--color-background);
+      color: var(--color-text);
+      font-family: var(--font-primary);
+      line-height: 1.5;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Hide loader */
+    .loader {
+      display: none !important;
+    }
+
+    /* Header styles */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .logo {
+      text-decoration: none;
+      color: var(--color-text);
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    .menu-button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--color-text);
+      font-size: 1rem;
+      font-family: var(--font-primary);
+    }
+
+    /* Main content styles */
+    main {
+      padding-top: 80px;
+    }
+
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Section styles */
+    section {
+      padding: 6rem 0;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-secondary);
+      font-weight: 300;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Projects styles */
+    .projects-intro {
+      max-width: 600px;
+      margin-bottom: 4rem;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem 2rem;
+    }
+
+    .project-item {
+      position: relative;
+      overflow: hidden;
+      background-color: #1a1a1a;
+      border-radius: 0;
+      aspect-ratio: 16/9;
+      text-decoration: none;
+      display: block;
+    }
+
+    .project-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .project-item:hover .project-image {
+      transform: scale(1.05);
+    }
+
+    .project-title {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 400;
+      z-index: 2;
+    }
+
+    .project-category {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      color: white;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      z-index: 2;
+    }
+
+    /* Footer styles */
+    footer {
+      padding: 4rem 0;
+    }
+
+    .footer-logo {
+      font-size: 1.2rem;
+      display: block;
+      margin-bottom: 1rem;
+      text-decoration: none;
+      color: var(--color-text);
+    }
+
+    .footer-tagline {
+      font-size: 1rem;
+      max-width: 20rem;
+      line-height: 1.5;
+      margin-bottom: 2rem;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .copyright {
+      font-size: 0.9rem;
+    }
+
+    .footer-social-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-link {
+      color: var(--color-text);
+      text-decoration: none;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 4rem 0;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Loading Screen -->
-  <div class="loader">
-    <div class="loader-header">
-      <div class="loader-text text-small">53 Studios</div>
-      <div class="loader-number text-small">0</div>
-    </div>
-    <div class="loader-visual">
-      <img src="/assets/images/loading-01.jpg" alt="" class="loader-visual-img">
-      <img src="/assets/images/loading-02.jpg" alt="" class="loader-visual-img">
-      <img src="/assets/images/loading-03.jpg" alt="" class="loader-visual-img">
-      <img src="/assets/images/loading-04.jpg" alt="" class="loader-visual-img">
-    </div>
-  </div>
-
   <!-- Header -->
   <header class="header">
     <a href="/" class="logo">
       <span>53 Studios</span>
     </a>
-    <button class="menu-button" data-menu-toggle>
+    <button class="menu-button" id="menuButton">
       <span>Menu</span>
     </button>
   </header>
 
-  <!-- Menu Overlay -->
-  <div class="menu-overlay">
-    <button class="close-button">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </button>
-
-    <ul class="menu-list">
-      <li class="menu-item">
-        <a href="/projects.html" class="menu-link">
-          <span class="menu-number">01</span>
-          <span class="menu-text">Projects</span>
-        </a>
-      </li>
-      <li class="menu-item">
-        <a href="/about.html" class="menu-link">
-          <span class="menu-number">02</span>
-          <span class="menu-text">About</span>
-        </a>
-      </li>
-      <li class="menu-item">
-        <a href="/contact.html" class="menu-link">
-          <span class="menu-number">03</span>
-          <span class="menu-text">Contact</span>
-        </a>
-      </li>
-      <li class="menu-item">
-        <a href="#" class="menu-link get-quote-button" id="get-quote-button">
-          <span class="menu-number">04</span>
-          <span class="menu-text">Get Quote</span>
-        </a>
-      </li>
-    </ul>
-
-    <div class="menu-footer">
-      <div class="copyright">© 2025 53 Studios</div>
-      <div class="menu-social-links">
-        <a href="tel:+919876543210" class="social-link">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-          </svg>
-        </a>
-        <a href="https://www.instagram.com/53studiosin" target="_blank" rel="noopener noreferrer" class="social-link">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </div>
-
   <!-- Main Content -->
   <main>
-    <section class="section">
+    <section class="projects-section">
       <div class="container">
-        <h1 class="animate-on-load">Projects</h1>
-      </div>
-    </section>
+        <h1>Our Projects</h1>
 
-    <!-- Project List -->
-    <section class="section" style="padding-top: 0;">
-      <div class="container">
-        <!-- Project 1 -->
-        <div class="project-row animate-on-scroll">
-          <div class="project-header flex-between" style="margin-bottom: 1rem;">
-            <div class="project-number text-small">01</div>
-            <a href="/projects/residential-villa.html" class="button-link">See project</a>
-          </div>
-          <a href="/projects/residential-villa.html" class="project-showcase" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; background-color: #1e1c1b;">
-            <div class="project-showcase-image" style="position: relative; min-height: 400px; overflow: hidden;">
-              <img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&q=80&w=1470" alt="Residential Villa Project" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
-            </div>
-            <div class="project-showcase-image" style="position: relative; min-height: 400px; overflow: hidden;">
-              <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=1470" alt="Residential Villa Project Interior" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
-            </div>
-          </a>
-          <h2 style="margin-top: 1rem;">Residential Villa</h2>
+        <div class="projects-intro">
+          <p>We approach each project with a commitment to thoughtful design, environmental responsibility, and client satisfaction. Browse through our featured projects to see our design philosophy in action.</p>
         </div>
 
-        <div class="divider"></div>
-
-        <!-- Project 2 -->
-        <div class="project-row animate-on-scroll">
-          <div class="project-header flex-between" style="margin-bottom: 1rem;">
-            <div class="project-number text-small">02</div>
-            <a href="/projects/modern-office.html" class="button-link">See project</a>
-          </div>
-          <a href="/projects/modern-office.html" class="project-showcase" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; background-color: #1e1c1b;">
-            <div class="project-showcase-image" style="position: relative; min-height: 400px; overflow: hidden;">
-              <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&q=80&w=1469" alt="Modern Office Project" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
-            </div>
-            <div class="project-showcase-image" style="position: relative; min-height: 400px; overflow: hidden;">
-              <img src="https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&q=80&w=1632" alt="Modern Office Project Interior" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
-            </div>
+        <div class="project-grid">
+          <a href="#" class="project-item">
+            <div class="project-category">Residential</div>
+            <img src="https://ext.same-assets.com/2675109532/3664562763.avif" alt="Retroscena Project" class="project-image">
+            <h3 class="project-title">Retroscena</h3>
           </a>
-          <h2 style="margin-top: 1rem;">Modern Office</h2>
-        </div>
 
-        <div class="divider"></div>
-
-        <!-- Project 3 -->
-        <div class="project-row animate-on-scroll">
-          <div class="project-header flex-between" style="margin-bottom: 1rem;">
-            <div class="project-number text-small">03</div>
-            <a href="/projects/minimalist-apartment.html" class="button-link">See project</a>
-          </div>
-          <a href="/projects/minimalist-apartment.html" class="project-showcase" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; background-color: #1e1c1b;">
-            <div class="project-showcase-image" style="position: relative; min-height: 400px; overflow: hidden;">
-              <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&q=80&w=1470" alt="Minimalist Apartment Project" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
-            </div>
-            <div class="project-showcase-image" style="position: relative; min-height: 400px; overflow: hidden;">
-              <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=1474" alt="Minimalist Apartment Project Interior" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
-            </div>
+          <a href="#" class="project-item">
+            <div class="project-category">Commercial</div>
+            <img src="https://ext.same-assets.com/2675109532/436441059.avif" alt="Scarpe Artigianali Project" class="project-image">
+            <h3 class="project-title">Scarpe Artigianali</h3>
           </a>
-          <h2 style="margin-top: 1rem;">Minimalist Apartment</h2>
-        </div>
 
-        <div class="divider"></div>
-
-        <!-- Project 4 -->
-        <div class="project-row animate-on-scroll">
-          <div class="project-header flex-between" style="margin-bottom: 1rem;">
-            <div class="project-number text-small">04</div>
-            <a href="/projects/urban-cafe.html" class="button-link">See project</a>
-          </div>
-          <a href="/projects/urban-cafe.html" class="project-showcase" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; background-color: #1e1c1b;">
-            <div class="project-showcase-image" style="position: relative; min-height: 400px; overflow: hidden;">
-              <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&q=80&w=1470" alt="Urban Café Project" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
-            </div>
-            <div class="project-showcase-image" style="position: relative; min-height: 400px; overflow: hidden;">
-              <img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?auto=format&fit=crop&q=80&w=1470" alt="Urban Café Project Interior" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
-            </div>
+          <a href="#" class="project-item">
+            <div class="project-category">Residential</div>
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Waterfront Residence" class="project-image">
+            <h3 class="project-title">Waterfront Residence</h3>
           </a>
-          <h2 style="margin-top: 1rem;">Urban Café</h2>
-        </div>
 
-        <div class="divider"></div>
+          <a href="#" class="project-item">
+            <div class="project-category">Commercial</div>
+            <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" alt="Modern Office" class="project-image">
+            <h3 class="project-title">Modern Office</h3>
+          </a>
 
-        <!-- More Projects Button -->
-        <div class="more-projects">
-          <a href="javascript:void(0);" class="button-link">More Projects</a>
+          <a href="#" class="project-item">
+            <div class="project-category">Hospitality</div>
+            <img src="https://images.unsplash.com/photo-1629140727571-9b5c6f6267b4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Boutique Hotel" class="project-image">
+            <h3 class="project-title">Boutique Hotel</h3>
+          </a>
+
+          <a href="#" class="project-item">
+            <div class="project-category">Retail</div>
+            <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1158&q=80" alt="Fashion Store" class="project-image">
+            <h3 class="project-title">Fashion Store</h3>
+          </a>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Quote Modal -->
-  <div class="quote-modal" id="quote-modal">
-    <div class="quote-modal-overlay"></div>
-    <div class="quote-modal-container">
-      <button class="quote-close-button">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-      <div class="quote-content">
-        <!-- The quote form will be dynamically generated by JavaScript -->
-      </div>
-    </div>
-  </div>
-
   <!-- Footer -->
-  <footer class="footer">
+  <footer>
     <div class="container">
       <a href="/" class="footer-logo">
         <span>53 Studios</span>
       </a>
 
       <p class="footer-tagline">
-        Timeless design <em>and</em> architectural excellence.
+        Functional design <em>and</em> timeless craftsmanship.
       </p>
 
       <p class="footer-tagline">
-        Aiming <em>for</em> beauty, rooted <em>in</em> simplicity, guided <em>by</em> craftsmanship
+        Striving <em>for</em> innovation, grounded <em>in</em> practicality, guided <em>by</em> client needs
       </p>
 
       <div class="footer-bottom">
         <div class="copyright">© 2025 53 Studios</div>
         <div class="footer-social-links">
-          <a href="tel:+919876543210" class="social-link">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 16.92V19.92C22 20.4704 21.7893 20.9987 21.4142 21.3738C21.0391 21.7489 20.5108 21.9596 19.96 21.96C16.3933 21.5957 12.976 20.1652 10.1 17.84C7.463 15.729 5.347 13.0114 4.09 9.88001C2.76 7.00001 1.33 3.59002 1.02 0.0400195" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
           <a href="https://www.instagram.com/53studiosin" target="_blank" rel="noopener noreferrer" class="social-link">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -233,5 +313,19 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('53 Studios - Projects Page Initialized');
+
+      // Basic menu toggle
+      const menuButton = document.getElementById('menuButton');
+      if (menuButton) {
+        menuButton.addEventListener('click', function() {
+          alert('Menu functionality will be implemented in a future update');
+        });
+      }
+    });
+  </script>
 </body>
 </html>

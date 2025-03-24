@@ -5,203 +5,370 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact | 53 Studios – Architecture & Design</title>
   <meta name="description" content="Get in touch with us to discuss your architectural and design needs.">
-  <link rel="stylesheet" href="/assets/css/main.css">
-  <script src="/assets/js/main.js" defer></script>
+  <style>
+    /* Base styles */
+    :root {
+      --color-background: #f4f3ec;
+      --color-text: #1e1c1b;
+      --color-accent: #817068;
+      --color-border: rgba(30, 28, 27, 0.1);
+      --font-primary: 'PP Neue Montreal', sans-serif;
+      --font-secondary: 'Canela', serif;
+    }
+
+    @font-face {
+      font-family: 'PP Neue Montreal';
+      src: url('https://storage.googleapis.com/joshwcomeau/fonts/PPNeueMontreal-Medium.woff2') format('woff2');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Canela';
+      src: url('https://storage.googleapis.com/joshwcomeau/fonts/Canela-Light-Web.woff2') format('woff2');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--color-background);
+      color: var(--color-text);
+      font-family: var(--font-primary);
+      line-height: 1.5;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Hide loader */
+    .loader {
+      display: none !important;
+    }
+
+    /* Header styles */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .logo {
+      text-decoration: none;
+      color: var(--color-text);
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    .menu-button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--color-text);
+      font-size: 1rem;
+      font-family: var(--font-primary);
+    }
+
+    /* Main content styles */
+    main {
+      padding-top: 80px;
+    }
+
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Section styles */
+    section {
+      padding: 6rem 0;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-secondary);
+      font-weight: 300;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Contact styles */
+    .contact-intro {
+      max-width: 600px;
+      margin-bottom: 4rem;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4rem;
+    }
+
+    .contact-info {
+      margin-bottom: 2rem;
+    }
+
+    .contact-info h3 {
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .contact-link {
+      color: var(--color-text);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Form styles */
+    .contact-form {
+      margin-top: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--color-border);
+      background-color: transparent;
+      font-family: var(--font-primary);
+      font-size: 1rem;
+      color: var(--color-text);
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    button {
+      background-color: var(--color-text);
+      color: var(--color-background);
+      border: none;
+      padding: 0.75rem 2rem;
+      font-family: var(--font-primary);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: var(--color-accent);
+    }
+
+    /* Success message */
+    .form-success {
+      display: none;
+      padding: 2rem;
+      background-color: var(--color-text);
+      color: var(--color-background);
+      margin-top: 2rem;
+    }
+
+    .form-success h3 {
+      margin-bottom: 1rem;
+    }
+
+    /* Footer styles */
+    footer {
+      padding: 4rem 0;
+    }
+
+    .footer-logo {
+      font-size: 1.2rem;
+      display: block;
+      margin-bottom: 1rem;
+      text-decoration: none;
+      color: var(--color-text);
+    }
+
+    .footer-tagline {
+      font-size: 1rem;
+      max-width: 20rem;
+      line-height: 1.5;
+      margin-bottom: 2rem;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .copyright {
+      font-size: 0.9rem;
+    }
+
+    .footer-social-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-link {
+      color: var(--color-text);
+      text-decoration: none;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      section {
+        padding: 4rem 0;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Loading Screen -->
-  <div class="loader">
-    <div class="loader-header">
-      <div class="loader-text text-small">53 Studios</div>
-      <div class="loader-number text-small">0</div>
-    </div>
-    <div class="loader-visual">
-      <img src="/assets/images/loading-01.jpg" alt="" class="loader-visual-img">
-      <img src="/assets/images/loading-02.jpg" alt="" class="loader-visual-img">
-      <img src="/assets/images/loading-03.jpg" alt="" class="loader-visual-img">
-      <img src="/assets/images/loading-04.jpg" alt="" class="loader-visual-img">
-    </div>
-  </div>
-
   <!-- Header -->
   <header class="header">
     <a href="/" class="logo">
       <span>53 Studios</span>
     </a>
-    <button class="menu-button" data-menu-toggle>
+    <button class="menu-button" id="menuButton">
       <span>Menu</span>
     </button>
   </header>
 
-  <!-- Menu Overlay -->
-  <div class="menu-overlay">
-    <button class="close-button">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </button>
-
-    <ul class="menu-list">
-      <li class="menu-item">
-        <a href="/projects.html" class="menu-link">
-          <span class="menu-number">01</span>
-          <span class="menu-text">Projects</span>
-        </a>
-      </li>
-      <li class="menu-item">
-        <a href="/about.html" class="menu-link">
-          <span class="menu-number">02</span>
-          <span class="menu-text">About</span>
-        </a>
-      </li>
-      <li class="menu-item">
-        <a href="/contact.html" class="menu-link">
-          <span class="menu-number">03</span>
-          <span class="menu-text">Contact</span>
-        </a>
-      </li>
-      <li class="menu-item">
-        <a href="#" class="menu-link get-quote-button" id="get-quote-button">
-          <span class="menu-number">04</span>
-          <span class="menu-text">Get Quote</span>
-        </a>
-      </li>
-    </ul>
-
-    <div class="menu-footer">
-      <div class="copyright">© 2025 53 Studios</div>
-      <div class="menu-social-links">
-        <a href="tel:+919876543210" class="social-link">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-          </svg>
-        </a>
-        <a href="https://www.instagram.com/53studiosin" target="_blank" rel="noopener noreferrer" class="social-link">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </div>
-
   <!-- Main Content -->
   <main>
-    <section class="section contact-hero" style="min-height: 80vh; display: flex; flex-direction: column; justify-content: center;">
+    <section class="contact-section">
       <div class="container">
-        <h1 class="hero-title animate-on-load">Let's have a chat</h1>
+        <h1>Contact Us</h1>
 
-        <a href="mailto:info@53studios.in" class="contact-email text-display animate-on-load" style="display: block; margin: 2rem 0 4rem;">info@53studios.in</a>
+        <div class="contact-intro">
+          <p>We'd love to hear about your project. Feel free to reach out to us through the form below or via email, phone, or visit our office.</p>
+        </div>
 
-        <div class="grid" style="margin-top: 2rem;">
-          <div class="contact-message animate-on-scroll" style="grid-column: 1 / span 12;">
-            <p>
-              Reach out with your name and your company details–any helpful insights about your project and vision are appreciated. We'd love to connect and help elevate your architectural dreams to reality.
-            </p>
+        <div class="contact-grid">
+          <div class="contact-details">
+            <div class="contact-info">
+              <h3>Address</h3>
+              <p>123 Design Street</p>
+              <p>Bangalore, Karnataka 560001</p>
+              <p>India</p>
+            </div>
+
+            <div class="contact-info">
+              <h3>Email</h3>
+              <a href="mailto:hello@53studios.in" class="contact-link">hello@53studios.in</a>
+            </div>
+
+            <div class="contact-info">
+              <h3>Phone</h3>
+              <a href="tel:+919876543210" class="contact-link">+91 98765 43210</a>
+            </div>
+
+            <div class="contact-info">
+              <h3>Social</h3>
+              <a href="https://www.instagram.com/53studiosin" target="_blank" rel="noopener noreferrer" class="contact-link">Instagram</a>
+            </div>
           </div>
 
-          <div class="contact-details" style="grid-column: 15 / span 10;">
-            <div class="contact-phone animate-on-scroll">
-              <div class="text-small">Phone</div>
-              <a href="tel:+919876543210" class="button-link">+91 987 654 3210</a>
-            </div>
+          <div class="contact-form-container">
+            <form id="contactForm" class="contact-form">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+              </div>
 
-            <div class="contact-whatsapp animate-on-scroll" style="margin-top: 2rem;">
-              <div class="text-small">WhatsApp</div>
-              <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" class="whatsapp-contact-button">
-                <span class="whatsapp-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                  </svg>
-                </span>
-                Chat on WhatsApp
-              </a>
-            </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+              </div>
 
-            <div class="contact-social animate-on-scroll" style="margin-top: 2rem;">
-              <div class="text-small">Social</div>
-              <a href="https://www.instagram.com/53studiosin" target="_blank" rel="noopener noreferrer" class="button-link">Instagram</a>
+              <div class="form-group">
+                <label for="phone">Phone (optional)</label>
+                <input type="tel" id="phone" name="phone">
+              </div>
+
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <select id="subject" name="subject" required>
+                  <option value="">Select a subject</option>
+                  <option value="New Project">New Project</option>
+                  <option value="Consultation">Consultation</option>
+                  <option value="Collaboration">Collaboration</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required></textarea>
+              </div>
+
+              <button type="submit">Send Message</button>
+            </form>
+
+            <div id="formSuccess" class="form-success">
+              <h3>Thank you for your message!</h3>
+              <p>We've received your details and will get back to you shortly.</p>
             </div>
           </div>
         </div>
       </div>
     </section>
-
-    <!-- Contact Form Section -->
-    <section class="section">
-      <div class="container">
-        <div class="divider"></div>
-
-        <form class="contact-form grid" style="margin-top: 2rem;">
-          <div style="grid-column: 1 / span 12;">
-            <h2 class="animate-on-scroll premium-text">Get in touch</h2>
-          </div>
-
-          <div class="form-group animate-on-scroll" style="grid-column: 1 / span 12; margin-top: 2rem;">
-            <label for="name" class="text-small text-uppercase">Name</label>
-            <input type="text" id="name" name="name" required style="width: 100%; padding: 0.5rem 0; border: none; border-bottom: 1px solid var(--color-divider); background: transparent; font-family: 'PP Neue Montreal', sans-serif; margin-top: 0.5rem; color: var(--color-text);">
-          </div>
-
-          <div class="form-group animate-on-scroll" style="grid-column: 13 / span 12; margin-top: 2rem;">
-            <label for="email" class="text-small text-uppercase">Email</label>
-            <input type="email" id="email" name="email" required style="width: 100%; padding: 0.5rem 0; border: none; border-bottom: 1px solid var(--color-divider); background: transparent; font-family: 'PP Neue Montreal', sans-serif; margin-top: 0.5rem; color: var(--color-text);">
-          </div>
-
-          <div class="form-group animate-on-scroll" style="grid-column: 1 / span 24; margin-top: 2rem;">
-            <label for="message" class="text-small text-uppercase">Message</label>
-            <textarea id="message" name="message" rows="4" required style="width: 100%; padding: 0.5rem 0; border: none; border-bottom: 1px solid var(--color-divider); background: transparent; font-family: 'PP Neue Montreal', sans-serif; margin-top: 0.5rem; resize: vertical; color: var(--color-text);"></textarea>
-          </div>
-
-          <div class="form-submit animate-on-scroll" style="grid-column: 1 / span 24; margin-top: 2rem; text-align: right;">
-            <button type="submit" class="modern-button">Send Message</button>
-          </div>
-        </form>
-      </div>
-    </section>
   </main>
 
-  <!-- Quote Modal -->
-  <div class="quote-modal" id="quote-modal">
-    <div class="quote-modal-overlay"></div>
-    <div class="quote-modal-container">
-      <button class="quote-close-button">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-      <div class="quote-content">
-        <!-- The quote form will be dynamically generated by JavaScript -->
-      </div>
-    </div>
-  </div>
-
   <!-- Footer -->
-  <footer class="footer">
+  <footer>
     <div class="container">
-      <a href="/" class="footer-logo premium-text">
+      <a href="/" class="footer-logo">
         <span>53 Studios</span>
       </a>
 
-      <p class="footer-tagline premium-text">
-        Timeless design <em>and</em> architectural excellence.
+      <p class="footer-tagline">
+        Functional design <em>and</em> timeless craftsmanship.
       </p>
 
-      <p class="footer-tagline premium-text">
-        Aiming <em>for</em> beauty, rooted <em>in</em> simplicity, guided <em>by</em> craftsmanship
+      <p class="footer-tagline">
+        Striving <em>for</em> innovation, grounded <em>in</em> practicality, guided <em>by</em> client needs
       </p>
 
       <div class="footer-bottom">
         <div class="copyright">© 2025 53 Studios</div>
         <div class="footer-social-links">
-          <a href="tel:+919876543210" class="social-link">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 16.92V19.92C22 20.4704 21.7893 20.9987 21.4142 21.3738C21.0391 21.7489 20.5108 21.9596 19.96 21.96C16.3933 21.5957 12.976 20.1652 10.1 17.84C7.463 15.729 5.347 13.0114 4.09 9.88001C2.76 7.00001 1.33 3.59002 1.02 0.0400195" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
           <a href="https://www.instagram.com/53studiosin" target="_blank" rel="noopener noreferrer" class="social-link">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -213,5 +380,36 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('53 Studios - Contact Page Initialized');
+
+      // Basic menu toggle
+      const menuButton = document.getElementById('menuButton');
+      if (menuButton) {
+        menuButton.addEventListener('click', function() {
+          alert('Menu functionality will be implemented in a future update');
+        });
+      }
+
+      // Form submission
+      const contactForm = document.getElementById('contactForm');
+      const formSuccess = document.getElementById('formSuccess');
+
+      if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+
+          // Show success message
+          contactForm.style.display = 'none';
+          formSuccess.style.display = 'block';
+
+          // Reset form
+          contactForm.reset();
+        });
+      }
+    });
+  </script>
 </body>
 </html>
