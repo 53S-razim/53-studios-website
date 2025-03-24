@@ -1,0 +1,21 @@
+[images]
+  remote_images = [
+    "https://images.unsplash.com/photo-*",
+    "https://ext.same-assets.com/*"
+  ]
+
+[build]
+  command = "bun run build"
+  publish = "dist"
+
+[dev]
+  command = "bun run dev"
+  port = 5173
+  targetPort = 5173
+  publish = "dist"
+  autoLaunch = true
+
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404

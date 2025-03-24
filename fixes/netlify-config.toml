@@ -1,0 +1,36 @@
+# Netlify configuration to fix 404 errors on subpages
+
+[build]
+  command = "bun run build"
+  publish = "dist"
+
+[dev]
+  command = "bun run dev"
+  port = 5173
+  targetPort = 5173
+  publish = "dist"
+  autoLaunch = true
+
+# Important: Remove any catch-all redirects that send everything to index.html
+# Instead, configure proper handling for HTML files
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Add HTML extension handling for clean URLs
+[[redirects]]
+  from = "/about"
+  to = "/about.html"
+  status = 200
+
+[[redirects]]
+  from = "/projects"
+  to = "/projects.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 200
