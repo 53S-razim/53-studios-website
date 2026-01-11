@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Phone, Mail, Instagram, MessageCircle } from "lucide-react";
+import { Phone, Mail, Instagram } from "lucide-react";
+import { WhatsAppIcon } from "./Icons";
 
 interface TeamProfileCardProps {
   name: string;
@@ -31,68 +32,73 @@ export function TeamProfileCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay }}
-      className="profile-card-glass p-4 flex items-center gap-4"
+      className="profile-card-glass p-5"
     >
-      {/* Profile Image */}
-      <div className="relative w-14 h-14 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-white/20">
-        <Image
-          src={image}
-          alt={name}
-          fill
-          className="object-cover"
-        />
-        {/* Online Indicator */}
-        <div className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-[var(--background)]" />
+      {/* Header - Profile Image & Info */}
+      <div className="flex items-center gap-4 mb-4">
+        <div className="relative w-16 h-16 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-white/20">
+          <Image
+            src={image}
+            alt={name}
+            fill
+            className="object-cover"
+          />
+          {/* Online Indicator */}
+          <div className="absolute bottom-0 right-0 w-4 h-4 bg-green-500 rounded-full border-2 border-[var(--background)]" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <h4 className="font-medium text-[var(--foreground)] text-lg">{name}</h4>
+          <p className="text-sm text-[var(--foreground-secondary)]">{role}</p>
+        </div>
       </div>
 
-      {/* Info */}
-      <div className="flex-1 min-w-0">
-        <h4 className="font-medium text-[var(--foreground)] truncate">{name}</h4>
-        <p className="text-sm text-[var(--foreground-secondary)] truncate">{role}</p>
-        
-        {/* Contact Row */}
-        <div className="flex items-center gap-2 mt-2">
-          {phone && (
-            <a
-              href={`tel:${phone.replace(/\s/g, "")}`}
-              className="p-1.5 rounded-lg bg-[var(--surface)]/50 hover:bg-[var(--surface)] transition-colors"
-              aria-label={`Call ${name}`}
-            >
-              <Phone className="w-3.5 h-3.5 text-[var(--foreground-secondary)]" />
-            </a>
-          )}
-          {email && (
-            <a
-              href={`mailto:${email}`}
-              className="p-1.5 rounded-lg bg-[var(--surface)]/50 hover:bg-[var(--surface)] transition-colors"
-              aria-label={`Email ${name}`}
-            >
-              <Mail className="w-3.5 h-3.5 text-[var(--foreground-secondary)]" />
-            </a>
-          )}
-          {whatsapp && (
-            <a
-              href={whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-1.5 rounded-lg bg-[var(--surface)]/50 hover:bg-[var(--surface)] transition-colors"
-              aria-label={`WhatsApp ${name}`}
-            >
-              <MessageCircle className="w-3.5 h-3.5 text-[var(--foreground-secondary)]" />
-            </a>
-          )}
-          {instagram && (
-            <a
-              href={instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-1.5 rounded-lg bg-[var(--surface)]/50 hover:bg-[var(--surface)] transition-colors"
-              aria-label={`Instagram ${name}`}
-            >
-              <Instagram className="w-3.5 h-3.5 text-[var(--foreground-secondary)]" />
-            </a>
-          )}
-        </div>
+      {/* Contact Details */}
+      <div className="space-y-2 mb-4">
+        {phone && (
+          <a
+            href={`tel:${phone.replace(/\s/g, "")}`}
+            className="flex items-center gap-3 text-sm text-[var(--foreground-secondary)] hover:text-[var(--foreground)] transition-colors"
+          >
+            <Phone className="w-4 h-4 flex-shrink-0" />
+            <span>{phone}</span>
+          </a>
+        )}
+        {email && (
+          <a
+            href={`mailto:${email}`}
+            className="flex items-center gap-3 text-sm text-[var(--foreground-secondary)] hover:text-[var(--foreground)] transition-colors"
+          >
+            <Mail className="w-4 h-4 flex-shrink-0" />
+            <span className="truncate">{email}</span>
+          </a>
+        )}
+      </div>
+
+      {/* Action Buttons */}
+      <div className="flex items-center gap-2 pt-4 border-t border-[var(--border)]">
+        {whatsapp && (
+          <a
+            href={whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 py-2.5 px-4 rounded-xl bg-[#25D366] text-white text-sm font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+            aria-label={`WhatsApp ${name}`}
+          >
+            <WhatsAppIcon className="w-4 h-4" />
+            <span>WhatsApp</span>
+          </a>
+        )}
+        {instagram && (
+          <a
+            href={instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2.5 rounded-xl bg-[var(--surface)] hover:bg-[var(--surface-elevated)] transition-colors"
+            aria-label={`Instagram ${name}`}
+          >
+            <Instagram className="w-5 h-5 text-[var(--foreground-secondary)]" />
+          </a>
+        )}
       </div>
     </motion.div>
   );

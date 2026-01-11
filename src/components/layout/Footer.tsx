@@ -4,8 +4,9 @@ import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { useRef } from "react";
-import { Instagram, MessageCircle, ArrowUpRight, MapPin } from "lucide-react";
+import { Instagram, ArrowUpRight, MapPin } from "lucide-react";
 import { TeamProfileCard } from "@/components/ui/TeamProfileCard";
+import { WhatsAppIcon } from "@/components/ui/Icons";
 import { team } from "@/content/team";
 
 const footerLinks = [
@@ -54,7 +55,7 @@ export function Footer() {
       </div>
 
       <div className="container-main relative z-10 py-16 md:py-24">
-        {/* Top Section - Large Email CTA */}
+        {/* Top Section - Simple CTA without email */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
@@ -64,15 +65,9 @@ export function Footer() {
           <p className="text-overline text-[var(--background)]/50 tracking-[0.2em] mb-4">
             LET&apos;S WORK TOGETHER
           </p>
-          <a
-            href="mailto:syed@53studios.in"
-            className="group inline-flex items-center gap-4"
-          >
-            <span className="text-3xl md:text-5xl lg:text-6xl font-light text-[var(--background)] hover:text-[var(--background)]/80 transition-colors break-all">
-              syed@53studios.in
-            </span>
-            <ArrowUpRight className="w-8 h-8 md:w-10 md:h-10 opacity-50 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0" />
-          </a>
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-medium text-[var(--background)] tracking-tight max-w-3xl">
+            Ready to transform your space? Get in touch with our team.
+          </h2>
         </motion.div>
 
         {/* Divider */}
@@ -139,19 +134,19 @@ export function Footer() {
                 href="https://www.instagram.com/53studiosin"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-xl border border-[var(--background)]/20 flex items-center justify-center hover:bg-[var(--background)]/10 transition-colors"
+                className="w-11 h-11 rounded-xl border border-[var(--background)]/20 flex items-center justify-center hover:bg-[var(--background)]/10 transition-colors"
                 aria-label="Instagram"
               >
-                <Instagram className="w-4 h-4" />
+                <Instagram className="w-5 h-5" />
               </a>
               <a
                 href="https://wa.me/917395853673"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-xl border border-[var(--background)]/20 flex items-center justify-center hover:bg-[var(--background)]/10 transition-colors"
+                className="w-11 h-11 rounded-xl border border-[var(--background)]/20 flex items-center justify-center hover:bg-[var(--background)]/10 transition-colors"
                 aria-label="WhatsApp"
               >
-                <MessageCircle className="w-4 h-4" />
+                <WhatsAppIcon className="w-5 h-5" />
               </a>
             </div>
           </motion.div>

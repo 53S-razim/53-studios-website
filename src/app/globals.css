@@ -199,6 +199,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  /* 2px margin from screen edges */
+  padding: 2px;
 }
 
 /* Selection */
@@ -247,32 +249,35 @@ body {
   -webkit-backdrop-filter: blur(20px) saturate(150%);
 }
 
-/* Typography Classes - Enhanced for Impact */
+/* Typography Classes - Enhanced for Impact with proper spacing */
 .text-display {
   font-size: clamp(2.5rem, 8vw, 5.5rem);
   font-weight: 500;
-  line-height: 1.02;
+  line-height: 1.1;
   letter-spacing: -0.04em;
+  padding-bottom: 0.1em; /* Prevent descender clipping */
 }
 
 .text-display-bold {
   font-size: clamp(3rem, 10vw, 7rem);
   font-weight: 700;
-  line-height: 0.95;
+  line-height: 1.05;
   letter-spacing: -0.05em;
+  padding-bottom: 0.1em;
 }
 
 .text-headline {
   font-size: clamp(1.75rem, 5vw, 3rem);
   font-weight: 500;
-  line-height: 1.1;
+  line-height: 1.2;
   letter-spacing: -0.03em;
+  padding-bottom: 0.05em;
 }
 
 .text-title {
   font-size: clamp(1.25rem, 3vw, 1.75rem);
   font-weight: 500;
-  line-height: 1.2;
+  line-height: 1.3;
   letter-spacing: -0.02em;
 }
 
@@ -483,4 +488,60 @@ a {
   box-shadow: 
     0 8px 32px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* ============================================
+   Button Visibility Fix - Ensure text is always visible
+   ============================================ */
+
+/* Primary button on dark backgrounds */
+.btn-primary-on-dark {
+  background: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+/* Outline button visibility */
+.btn-outline {
+  border: 1px solid currentColor;
+}
+
+/* FAQ Section button fix */
+section .bg-\[var\(--accent\)\] {
+  color: var(--accent-foreground);
+}
+
+/* Ensure buttons in footer have visible text */
+footer button,
+footer .btn {
+  color: inherit;
+}
+
+/* WhatsApp button always green with white text */
+.btn-whatsapp {
+  background-color: #25D366 !important;
+  color: white !important;
+}
+
+/* ============================================
+   Spacing and Breathing Room
+   ============================================ */
+
+/* Ensure proper margins from edges */
+.container-main {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 max(var(--container-padding), env(safe-area-inset-left, 24px));
+}
+
+/* Section spacing */
+section {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+/* Card breathing room */
+.card,
+[class*="glass"] {
+  overflow: visible;
 }

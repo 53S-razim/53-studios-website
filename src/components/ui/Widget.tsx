@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Clock, MapPin, Sun } from "lucide-react";
+import { Clock, MapPin, Sun, Navigation } from "lucide-react";
 
 // Chennai Time Widget
 export function TimeWidget() {
@@ -36,13 +36,13 @@ export function TimeWidget() {
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="widget-glass rounded-2xl p-4 min-w-[140px]"
+      className="widget-glass rounded-2xl p-5"
     >
-      <div className="flex items-center gap-2 mb-2">
+      <div className="flex items-center gap-2 mb-3">
         <Clock className="w-4 h-4 text-[var(--foreground-muted)]" />
-        <span className="text-xs text-[var(--foreground-muted)] uppercase tracking-wider">Chennai</span>
+        <span className="text-xs text-[var(--foreground-muted)] uppercase tracking-wider font-medium">Chennai Time</span>
       </div>
-      <div className="text-2xl font-medium text-[var(--foreground)] tracking-tight">
+      <div className="text-3xl font-medium text-[var(--foreground)] tracking-tight">
         {time || "--:--"}
       </div>
       <div className="text-sm text-[var(--foreground-secondary)] mt-1">
@@ -52,7 +52,7 @@ export function TimeWidget() {
   );
 }
 
-// Weather Widget (Static for now - can be connected to API)
+// Weather Widget
 export function WeatherWidget() {
   const [weather] = useState({
     temp: "28°",
@@ -66,27 +66,57 @@ export function WeatherWidget() {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: 0.1 }}
-      className="widget-glass rounded-2xl p-4 min-w-[140px]"
+      className="widget-glass rounded-2xl p-5"
     >
-      <div className="flex items-center gap-2 mb-2">
-        <MapPin className="w-4 h-4 text-[var(--foreground-muted)]" />
-        <span className="text-xs text-[var(--foreground-muted)] uppercase tracking-wider">Chennai</span>
+      <div className="flex items-center gap-2 mb-3">
+        <Sun className="w-4 h-4 text-amber-500" />
+        <span className="text-xs text-[var(--foreground-muted)] uppercase tracking-wider font-medium">Weather</span>
       </div>
       <div className="flex items-center gap-3">
-        <Sun className="w-8 h-8 text-amber-400" />
-        <div>
-          <div className="text-2xl font-medium text-[var(--foreground)] tracking-tight">
-            {weather.temp}
-          </div>
-          <div className="text-xs text-[var(--foreground-secondary)]">
-            {weather.condition}
-          </div>
+        <div className="text-3xl font-medium text-[var(--foreground)] tracking-tight">
+          {weather.temp}
+        </div>
+        <div className="text-sm text-[var(--foreground-secondary)]">
+          {weather.condition}
         </div>
       </div>
       <div className="flex items-center gap-3 mt-2 text-xs text-[var(--foreground-muted)]">
         <span>H: {weather.high}</span>
         <span>L: {weather.low}</span>
       </div>
+    </motion.div>
+  );
+}
+
+// Location Widget - Office Address
+export function LocationWidget() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: 0.2 }}
+      className="widget-glass rounded-2xl p-5 col-span-2 md:col-span-1"
+    >
+      <div className="flex items-center gap-2 mb-3">
+        <Navigation className="w-4 h-4 text-blue-500" />
+        <span className="text-xs text-[var(--foreground-muted)] uppercase tracking-wider font-medium">Office</span>
+      </div>
+      <a
+        href="https://www.google.com/maps/place/No.+1+Melony+Road,+T-Nagar,+Chennai,+Tamil+Nadu+600035"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block group"
+      >
+        <p className="text-sm font-medium text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">
+          No. 1 Melony Road
+        </p>
+        <p className="text-sm text-[var(--foreground-secondary)]">
+          T-Nagar, Chennai-600035
+        </p>
+        <p className="text-xs text-[var(--foreground-muted)] mt-1">
+          Tamil Nadu, India
+        </p>
+      </a>
     </motion.div>
   );
 }
@@ -98,11 +128,11 @@ export function ContactWidget() {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: 0.2 }}
-      className="widget-glass rounded-2xl p-4"
+      className="widget-glass rounded-2xl p-5"
     >
       <div className="flex items-center gap-2 mb-3">
         <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-        <span className="text-xs text-[var(--foreground-muted)] uppercase tracking-wider">Available</span>
+        <span className="text-xs text-[var(--foreground-muted)] uppercase tracking-wider font-medium">Available</span>
       </div>
       <p className="text-sm text-[var(--foreground-secondary)]">
         Ready to discuss your project
