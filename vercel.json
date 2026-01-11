@@ -3,9 +3,6 @@
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
   "git": {
-    "deploymentEnabled": {
-      "main": false,
-      "v2.0": true
-    }
+    "deploymentEnabled": false
   }
 }
