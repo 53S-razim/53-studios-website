@@ -1,8 +1,0 @@
-[build]
-  publish = "."
-  command = "echo 'No build command required'"
-
-[dev]
-  framework = "#static"
-  targetPort = 3999
-  publish = "." 

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>53 Studios – Architecture & Design</title>
+  <meta name="description" content="53 Studios specializes in contemporary architecture and interior design, delivering premium spaces with a focus on functionality and aesthetic appeal.">
+  <link rel="stylesheet" href="style.css">
+  <!-- Preload fonts for better performance -->
+  <link rel="preload" href="fonts/helveticaneue.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/helveticaneue-bold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/helveticaneue-light.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/helveticaneue-medium.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/helveticaneue-thin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/helveticaneue-ultralight.woff2" as="font" type="font/woff2" crossorigin>
+</head>
+<body>
+  <!-- Custom Cursor -->
+  <div class="cursor-dot" id="cursor-dot"></div>
+  <div class="cursor-outer" id="cursor-outer"></div>
+
+  <!-- Loading Screen -->
+  <div class="loader">
+    <div class="loader-header">
+      <div class="loader-text">53 S T U D I O S</div>
+      <div class="loader-counter">0</div>
+    </div>
+    <div class="loader-images">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Loading image 1" class="loader-image active">
+      <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1453&q=80" alt="Loading image 2" class="loader-image">
+      <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1400&q=80" alt="Loading image 3" class="loader-image">
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <a href="index.html" class="logo">
+      <img src="images/53 logo front.JPG" alt="53 Studios Logo" class="logo-image">
+    </a>
+    <button class="menu-button" id="menu-button">
+      <img src="images/hamburger-menu.svg" alt="Menu">
+    </button>
+  </header>
+
+  <!-- Menu Overlay -->
+  <div class="menu-overlay" id="menu-overlay">
+    <button class="menu-close-button" id="menu-close-button">
+      <div class="close-circle">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </button>
+    <div class="menu-container">
+      <ul class="menu-list">
+        <li class="menu-item">
+          <a href="projects.html" class="menu-link">
+            <span class="menu-number">01</span>
+            <span class="menu-text">Projects</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="contact.html" class="menu-link">
+            <span class="menu-number">02</span>
+            <span class="menu-text">Contact</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="about.html" class="menu-link">
+            <span class="menu-number">03</span>
+            <span class="menu-text">About</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="#" class="menu-link" id="menu-quote-button" data-action="open-quote">
+            <span class="menu-number">04</span>
+            <span class="menu-text">Get Quote</span>
+          </a>
+        </li>
+      </ul>
+      <div class="menu-footer">
+        <div class="menu-social-links">
+          <a href="https://www.instagram.com/53studiosin" class="social-link instagram" target="_blank" rel="noopener noreferrer">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="currentColor"/>
+            </svg>
+          </a>
+          <a href="https://wa.me/917395853673" class="social-link whatsapp" target="_blank" rel="noopener noreferrer">
+            <img src="images/WhatsApp_icon.png" alt="WhatsApp">
+            <img src="images/whatsapp_icon.svg" alt="WhatsApp">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1 class="hero-title">DESIGNING SPACES,<br>CRAFTING EXPERIENCES</h1>
+        <p class="hero-subtitle">Premium architecture and interior design solutions</p>
+        <a href="#" class="hero-cta" id="get-quote-button" data-action="open-quote">Get Free Quote</a>
+      </div>
+      <div class="hero-media">
+        <img src="images/liv3.jpg" alt="Luxury Interior" class="hero-image">
+      </div>
+    </section>
+
+    <!-- Featured Projects -->
+    <section class="projects">
+      <div class="section-header">
+        <h2 class="section-title">Featured Projects</h2>
+      </div>
+      <div class="project-grid">
+        <a href="projects.html#modern-villa" class="project-item">
+          <div class="project-image-container">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1000&auto=format&fit=crop" alt="Modern Villa">
+            <div class="project-info">
+              <p class="project-category">Residential</p>
+              <span class="project-view-btn">View Projects</span>
+            </div>
+          </div>
+        </a>
+        <a href="projects.html#luxury-apartment" class="project-item">
+          <div class="project-image-container">
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1000&auto=format&fit=crop" alt="Luxury Apartment">
+            <div class="project-info">
+              <p class="project-category">Interiors</p>
+              <span class="project-view-btn">View Projects</span>
+            </div>
+          </div>
+        </a>
+        <a href="projects.html#office-space" class="project-item">
+          <div class="project-image-container">
+            <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1000&auto=format&fit=crop" alt="Office Space">
+            <div class="project-info">
+              <p class="project-category">Office</p>
+              <span class="project-view-btn">View Projects</span>
+            </div>
+          </div>
+        </a>
+        <a href="projects.html#restaurant-design" class="project-item">
+          <div class="project-image-container">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1000&auto=format&fit=crop" alt="Restaurant Design">
+            <div class="project-info">
+              <p class="project-category">Commercial</p>
+              <span class="project-view-btn">View Projects</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+      <div class="container">
+      <div class="about-grid">
+        <div class="about-image">
+          <img src="https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="53 Studios Office" class="full-width-image">
+        </div>
+        <div class="about-text-block">
+            <h2 class="section-heading">About <img src="images/53 logo front.JPG" alt="53 Studios Logo" class="logo-image"></h2>
+          <p>Founded with a clear vision: to create spaces that foster connection, inspire creativity, and enhance the human experience. We believe that thoughtful design has the power to transform not just physical spaces, but the way people live, work, and interact.</p>
+          <p>Our approach combines technical expertise with artistic sensibility, resulting in designs that are both functional and beautiful.</p>
+          <a href="about.html" class="text-link">Learn more about our studio</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section">
+      <div class="container">
+        <h2 class="section-title">Our Services</h2>
+        <div class="services-list">
+          <div class="service-item">
+            <h3>Architectural Design</h3>
+            <p>Comprehensive architectural services from concept development through to construction documentation and administration.</p>
+          </div>
+          <div class="service-item">
+            <h3>Interior Design</h3>
+            <p>Thoughtful interior design that creates cohesive, functional, and aesthetically pleasing spaces tailored to client needs.</p>
+          </div>
+          <div class="service-item">
+            <h3>Urban Planning</h3>
+            <p>Strategic planning services focusing on sustainable development and community-centered design approaches.</p>
+          </div>
+          <div class="service-item">
+            <h3>Design Consultation</h3>
+            <p>Expert consultation on design direction, material selection, and spatial planning for both new builds and renovations.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+      <div class="cta-content">
+        <h2>Ready to start your project?</h2>
+        <div class="cta-buttons">
+          <a href="contact.html" class="cta-button">Contact Us</a>
+          <a href="#" class="cta-button cta-button-secondary" id="quote-button" data-action="open-quote">Get a Quote</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <a href="index.html" class="footer-logo">
+        <img src="images/53 logo front.JPG" alt="53 Studios Logo">
+      </a>
+      <div class="footer-content">
+        <p class="footer-tagline">Functional design <em>and</em> timeless craftsmanship.</p>
+      </div>
+      <div class="footer-bottom">
+        <p class="copyright">© 2025 53 Studios</p>
+        <div class="footer-contact-info">
+          <p><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> <a href="https://www.google.com/maps/place/No.+1+Melony+Road,+T-Nagar,+Chennai,+Tamil+Nadu+600035" target="_blank" rel="noopener noreferrer">No. 1 Melony Road, T-Nagar, Chennai-600035</a></p>
+          <p><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> <a href="tel:+917395853673">+91 73958 53673</a> <a href="tel:+919500045144">+91 95000 45144</a> <a href="tel:+918056043110">+91 80560 43110</a></p>
+          <p><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> <a href="mailto:syed@53studios.in">syed@53studios.in</a> <a href="mailto:sanjay@53studios.in">sanjay@53studios.in</a> <a href="mailto:nancy@53studios.in">nancy@53studios.in</a></p>
+        </div>
+        <div class="social-links">
+          <a href="https://www.instagram.com/53studiosin" class="social-link instagram" target="_blank" rel="noopener noreferrer">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="currentColor"/>
+            </svg>
+          </a>
+          <a href="https://wa.me/917395853673" class="social-link whatsapp" target="_blank" rel="noopener noreferrer">
+            <img src="images/WhatsApp_icon.png" alt="WhatsApp">
+            <img src="images/whatsapp_icon.svg" alt="WhatsApp">
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Quote Modal -->
+  <div class="quote-modal" id="quote-modal">
+    <div class="quote-modal-overlay"></div>
+    <div class="quote-modal-container">
+      <button class="quote-close-button">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <div class="quote-content">
+        <div class="step-content" id="step-1">
+          <h2>Step 1: Choose Service</h2>
+          <div class="option-cards">
+            <div class="option-card" data-value="interior-design">
+              <h3>Interior Design</h3>
+              <p>Space planning and interior styling</p>
+            </div>
+            <div class="option-card" data-value="architecture">
+              <h3>Architecture</h3>
+              <p>Building design and planning</p>
+            </div>
+            <div class="option-card" data-value="renovation">
+              <h3>Renovation</h3>
+              <p>Space transformation and updates</p>
+            </div>
+            <div class="option-card" data-value="consultation">
+              <h3>Consultation</h3>
+              <p>Expert advice and guidance</p>
+            </div>
+          </div>
+        </div>
+        <div class="step-content" id="step-2">
+          <h2>Step 2: Choose Budget</h2>
+          <div class="option-cards">
+            <div class="option-card" data-value="5-10">
+              <h3>₹5-10Lakhs</h3>
+              <p>Basic to moderate project scope</p>
+            </div>
+            <div class="option-card" data-value="10-25">
+              <h3>₹10-25Lakhs</h3>
+              <p>Moderate to substantial project scope</p>
+            </div>
+            <div class="option-card" data-value="25-50">
+              <h3>₹25-50Lakhs</h3>
+              <p>Substantial to high-end project scope</p>
+            </div>
+            <div class="option-card" data-value="50+">
+              <h3>Over ₹50Lakhs</h3>
+              <p>Premium and luxury project scope</p>
+            </div>
+          </div>
+        </div>
+        <div class="step-content" id="step-3" style="display: none;">
+          <div class="step-indicator">
+            <div class="step-progress">
+              <div class="progress-bar" style="width: 75%"></div>
+            </div>
+            <div class="step-text">Step 3 of 4</div>
+          </div>
+          <h2>Your Contact Information</h2>
+          <p>Please provide your details so we can get in touch.</p>
+          <form id="quoteForm" name="quote" netlify>
+            <div class="form-group">
+              <label for="name">Full Name <span class="required">*</span></label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email <span class="required">*</span></label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number <span class="required">*</span></label>
+              <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+              <label for="projectDetails">Project Details</label>
+              <textarea id="projectDetails" name="projectDetails" rows="4"></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Submit</button>
+          </form>
+          <div class="step-buttons">
+            <button class="button button-secondary" id="step-3-back">Back</button>
+            <button class="button button-primary" id="step-3-next">Next</button>
+          </div>
+        </div>
+        <div class="step-content" id="step-4">
+          <h2>Step 4: Review and Submit</h2>
+          <!-- Add review and submit form here -->
+    </div>
+  </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBPH_T4qhXrMsAINfbKsC_aqTpJVtOmYUc",
+      authDomain: "test53s.firebaseapp.com",
+      projectId: "test53s",
+      storageBucket: "test53s.firebasestorage.app",
+      messagingSenderId: "672164580616",
+      appId: "1:672164580616:web:3f5351bd759178b50d70bd",
+      measurementId: "G-WK0Q228HC9"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Function to submit quote form
+    async function submitQuoteForm(formData) {
+      try {
+        console.log('Preparing to submit quote form with data:', formData);
+        
+        // Ensure all required fields are present and not undefined
+        const submissionData = {
+          name: formData.name || '',
+          email: formData.email || '',
+          phone: formData.phone || '',
+          projectDetails: formData.message || '',
+          projectType: formData.projectType || 'Not specified',
+          budget: formData.budget || 'Not specified',
+          timeline: formData.timeline || 'Not specified',
+          selectedFeatures: formData.selectedFeatures || [],
+          timestamp: serverTimestamp()
+        };
+
+        console.log('Submitting to Firestore with data:', submissionData);
+        
+        const docRef = await addDoc(collection(db, "quoteSubmissions"), submissionData);
+        console.log("Quote form submitted with ID: ", docRef.id);
+        
+        return { success: true, id: docRef.id };
+      } catch (error) {
+        console.error("Error submitting quote form:", error);
+        return { success: false, error: error.message };
+      }
+    }
+
+    // Make the function available globally
+    window.submitQuoteForm = submitQuoteForm;
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      const quoteForm = document.getElementById('quoteForm');
+      const phoneInput = document.getElementById('phone');
+      const phoneError = document.getElementById('phoneError');
+      const submitBtn = document.querySelector('#quoteForm .submit-btn');
+      const buttonText = submitBtn.querySelector('.button-text');
+      const loadingSpinner = submitBtn.querySelector('.loading-spinner');
+      const successMessage = document.querySelector('.form-success-message');
+
+      function validatePhoneNumber(phone) {
+        // Remove all non-digit characters and check length
+        const digits = phone.replace(/\D/g, '');
+        return digits.length >= 10;
+      }
+
+      phoneInput.addEventListener('input', function() {
+        const phoneNumber = this.value;
+        if (!validatePhoneNumber(phoneNumber)) {
+          phoneError.textContent = 'Please enter a valid phone number with at least 10 digits';
+          phoneError.style.display = 'block';
+        } else {
+          phoneError.style.display = 'none';
+        }
+      });
+
+      quoteForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        // Validate phone number
+        if (!validatePhoneNumber(phoneInput.value)) {
+          phoneError.textContent = 'Please enter a valid phone number with at least 10 digits';
+          phoneError.style.display = 'block';
+          return;
+        }
+
+        // Show loading state
+        buttonText.style.display = 'none';
+        loadingSpinner.style.display = 'inline';
+        submitBtn.disabled = true;
+
+        try {
+          const formData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            projectDetails: document.getElementById('projectDetails').value,
+            projectType: document.querySelector('.option-card.selected')?.dataset.value || 'Not specified',
+            budget: 'Not specified',
+            timeline: 'Not specified',
+            selectedFeatures: []
+          };
+
+          console.log('Submitting quote form with data:', formData);
+          const result = await submitQuoteForm(formData);
+          console.log('Form submission result:', result);
+
+          if (result.success) {
+            // Show success message
+            successMessage.style.display = 'block';
+            quoteForm.reset();
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+              successMessage.style.display = 'none';
+            }, 5000);
+          } else {
+            throw new Error(result.error || 'Failed to submit form');
+          }
+        } catch (error) {
+          console.error('Error submitting form:', error);
+          alert('There was an error submitting your form. Please try again later.');
+        } finally {
+          // Reset button state
+          buttonText.style.display = 'inline';
+          loadingSpinner.style.display = 'none';
+          submitBtn.disabled = false;
+        }
+      });
+    });
+  </script>
+  <script type="module" src="/scripts/index.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/quoteFormMultistep.js"></script>
+</body>
+</html> 

@@ -1,15 +1,31 @@
 {
   "name": "53-studios-website",
-  "version": "1.0.0",
-  "description": "53 Studios Architecture & Design Website",
-  "main": "index.js",
+  "version": "2.0.0",
+  "private": true,
   "scripts": {
-    "start": "netlify dev",
-    "build": "echo 'No build step required'"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
   },
-  "author": "",
-  "license": "ISC",
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "firebase": "^11.3.1",
+    "framer-motion": "^12.4.10",
+    "lucide-react": "^0.474.0",
+    "next": "16.1.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "tailwind-merge": "^3.0.2"
+  },
   "devDependencies": {
-    "netlify-cli": "^17.0.0"
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.1",
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
-} 
+}
