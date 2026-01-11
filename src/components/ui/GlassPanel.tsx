@@ -1,16 +1,18 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { motion, HTMLMotionProps } from "framer-motion";
-import { forwardRef } from "react";
+import { motion } from "framer-motion";
+import { forwardRef, ReactNode } from "react";
 
-interface GlassPanelProps extends HTMLMotionProps<"div"> {
+interface GlassPanelProps {
   variant?: "default" | "subtle" | "strong" | "macos" | "widget";
   hover?: boolean;
+  className?: string;
+  children?: ReactNode;
 }
 
 export const GlassPanel = forwardRef<HTMLDivElement, GlassPanelProps>(
-  ({ className, variant = "default", hover = false, children, ...props }, ref) => {
+  ({ className, variant = "default", hover = false, children }, ref) => {
     const variants = {
       default: "liquid-glass",
       subtle: "glass-subtle",
@@ -23,16 +25,15 @@ export const GlassPanel = forwardRef<HTMLDivElement, GlassPanelProps>(
       <motion.div
         ref={ref}
         className={cn(
-          "rounded-2xl",
+          "relative rounded-2xl",
           variants[variant],
           hover && "transition-all duration-300 hover:shadow-lg hover:scale-[1.01]",
           className
         )}
-        {...props}
       >
         {/* Specular Highlight - Apple-style top shine */}
         <div 
-          className="absolute inset-x-0 top-0 h-[1px] rounded-t-2xl pointer-events-none"
+          className="absolute inset-x-0 top-0 h-[1px] rounded-t-2xl pointer-events-none z-10"
           style={{
             background: "linear-gradient(90deg, transparent 0%, var(--glass-specular) 50%, transparent 100%)",
           }}
