@@ -85,22 +85,30 @@
   --accent: #0a0a0a;
   --accent-foreground: #fafafa;
   
-  /* Glass Effect */
+  /* Enhanced Liquid Glass Effect - Apple Style */
   --glass-background: rgba(255, 255, 255, 0.72);
   --glass-border: rgba(255, 255, 255, 0.5);
   --glass-shadow: rgba(0, 0, 0, 0.08);
-  --glass-blur: 20px;
-  --glass-specular: rgba(255, 255, 255, 0.6);
+  --glass-blur: 40px;
+  --glass-specular: rgba(255, 255, 255, 0.8);
+  --glass-saturation: 180%;
   
   /* Borders */
   --border: rgba(0, 0, 0, 0.08);
   --border-strong: rgba(0, 0, 0, 0.15);
   
-  /* Shadows */
+  /* Shadows - Enhanced for depth */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.12);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.12);
   --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.08), inset 0 1px 0 var(--glass-specular);
+  
+  /* macOS-style Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
   
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -127,17 +135,19 @@
   --accent: #fafafa;
   --accent-foreground: #0a0a0a;
   
+  /* Enhanced Dark Mode Liquid Glass */
   --glass-background: rgba(26, 26, 26, 0.72);
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-shadow: rgba(0, 0, 0, 0.4);
-  --glass-specular: rgba(255, 255, 255, 0.08);
+  --glass-specular: rgba(255, 255, 255, 0.1);
+  --glass-saturation: 150%;
   
   --border: rgba(255, 255, 255, 0.08);
   --border-strong: rgba(255, 255, 255, 0.15);
   
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
   --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 var(--glass-specular);
 }
 
@@ -222,41 +232,48 @@ body {
   background: var(--foreground-secondary);
 }
 
-/* Glass Panel Base */
+/* Glass Panel Base - Enhanced Apple-style */
 .glass {
   background: var(--glass-background);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
   border: 1px solid var(--glass-border);
   box-shadow: var(--shadow-glass);
 }
 
 .glass-subtle {
   background: var(--glass-background);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
 }
 
-/* Typography Classes - Housemood Inspired */
+/* Typography Classes - Enhanced for Impact */
 .text-display {
   font-size: clamp(2.5rem, 8vw, 5.5rem);
-  font-weight: 300;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+.text-display-bold {
+  font-size: clamp(3rem, 10vw, 7rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
 }
 
 .text-headline {
   font-size: clamp(1.75rem, 5vw, 3rem);
-  font-weight: 400;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
 }
 
 .text-title {
   font-size: clamp(1.25rem, 3vw, 1.75rem);
   font-weight: 500;
-  line-height: 1.25;
-  letter-spacing: -0.01em;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
 .text-body-lg {
@@ -346,4 +363,124 @@ a {
 .page-transition-exit-active {
   opacity: 0;
   transition: opacity var(--transition-base);
+}
+
+/* ============================================
+   macOS / iOS Liquid Glass Components
+   ============================================ */
+
+/* macOS Panel - Dropdown Menu Style */
+.macos-panel {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.85) 100%
+  );
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 
+    0 24px 80px rgba(0, 0, 0, 0.15),
+    0 8px 24px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .macos-panel {
+  background: linear-gradient(
+    145deg,
+    rgba(40, 40, 45, 0.95) 0%,
+    rgba(30, 30, 35, 0.9) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 24px 80px rgba(0, 0, 0, 0.5),
+    0 8px 24px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Widget Glass - Nested Glass Effect */
+.widget-glass {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+[data-theme="dark"] .widget-glass {
+  background: linear-gradient(
+    145deg,
+    rgba(60, 60, 65, 0.6) 0%,
+    rgba(40, 40, 45, 0.5) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Enhanced Liquid Glass Panel */
+.liquid-glass {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.6) 100%
+  );
+  backdrop-filter: blur(40px) saturate(150%);
+  -webkit-backdrop-filter: blur(40px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.03);
+  border-radius: 20px;
+}
+
+[data-theme="dark"] .liquid-glass {
+  background: linear-gradient(
+    145deg,
+    rgba(45, 45, 50, 0.8) 0%,
+    rgba(30, 30, 35, 0.7) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Profile Card Glass */
+.profile-card-glass {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  border-radius: 24px;
+}
+
+[data-theme="dark"] .profile-card-glass {
+  background: linear-gradient(
+    145deg,
+    rgba(50, 50, 55, 0.7) 0%,
+    rgba(35, 35, 40, 0.6) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }

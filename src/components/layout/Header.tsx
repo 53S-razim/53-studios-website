@@ -9,12 +9,14 @@ import { useState } from "react";
 import { ThemeToggle } from "./ThemeToggle";
 import { MenuOverlay } from "./MenuOverlay";
 import { ScrollProgress } from "./ScrollProgress";
+import { useQuoteModal } from "@/context/QuoteModalContext";
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const { scrollY } = useScroll();
+  const { openModal } = useQuoteModal();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0;
@@ -47,8 +49,8 @@ export function Header() {
       >
         <div className="container-main">
           <div className="flex items-center justify-between h-20">
-            {/* Logo */}
-            <Link href="/" className="relative z-10 flex items-center gap-3">
+            {/* Logo - Larger size, no text */}
+            <Link href="/" className="relative z-10">
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -57,20 +59,12 @@ export function Header() {
                 <Image
                   src="/images/53 logo front.JPG"
                   alt="53 Studios"
-                  width={50}
-                  height={50}
-                  className="rounded-lg"
+                  width={64}
+                  height={64}
+                  className="rounded-xl"
                   priority
                 />
               </motion.div>
-              <motion.span
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                className="hidden sm:block text-sm font-medium text-[var(--foreground)]"
-              >
-                53 Studios
-              </motion.span>
             </Link>
 
             {/* Center - Hidden nav links for desktop */}
@@ -80,7 +74,7 @@ export function Header() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="hidden lg:flex items-center gap-8"
             >
-              {["Projects", "About", "Contact"].map((item, index) => (
+              {["Projects", "About", "Contact"].map((item) => (
                 <Link
                   key={item}
                   href={`/${item.toLowerCase()}`}
@@ -102,19 +96,19 @@ export function Header() {
                 <ThemeToggle />
               </motion.div>
 
-              {/* CTA Button - Desktop */}
+              {/* CTA Button - Desktop - Opens Quote Modal */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
                 className="hidden md:block"
               >
-                <Link
-                  href="/contact"
-                  className="px-5 py-2.5 rounded-full bg-[var(--accent)] text-[var(--accent-foreground)] text-sm font-medium hover:opacity-90 transition-opacity"
+                <button
+                  onClick={openModal}
+                  className="px-5 py-2.5 rounded-xl bg-[var(--accent)] text-[var(--accent-foreground)] text-sm font-medium hover:opacity-90 transition-opacity"
                 >
                   Get Quote
-                </Link>
+                </button>
               </motion.div>
               
               {/* Menu Button */}
@@ -124,7 +118,7 @@ export function Header() {
                 transition={{ duration: 0.5, delay: 0.5 }}
                 onClick={() => setMenuOpen(!menuOpen)}
                 className={cn(
-                  "relative z-10 p-3 rounded-full transition-all",
+                  "relative z-10 p-3 rounded-xl transition-all",
                   "hover:bg-[var(--surface)]",
                   menuOpen && "bg-[var(--foreground)] text-[var(--background)]"
                 )}

@@ -8,9 +8,11 @@ import { ArrowRight, ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { HeroText } from "@/components/ui/SplitText";
 import { DecorativeLine, DecorativeCorner } from "@/components/ui/DecorativeLine";
+import { useQuoteModal } from "@/context/QuoteModalContext";
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { openModal } = useQuoteModal();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
@@ -136,15 +138,14 @@ export function Hero() {
                   transition={{ duration: 0.6, delay: 1 }}
                   className="flex flex-wrap gap-4"
                 >
-                  <Link href="/contact">
-                    <Button
-                      size="lg"
-                      icon={<ArrowRight className="w-5 h-5" />}
-                      iconPosition="right"
-                    >
-                      Get Free Quote
-                    </Button>
-                  </Link>
+                  <Button
+                    size="lg"
+                    icon={<ArrowRight className="w-5 h-5" />}
+                    iconPosition="right"
+                    onClick={openModal}
+                  >
+                    Get Free Quote
+                  </Button>
                   <Link href="/projects">
                     <Button variant="outline" size="lg">
                       View Projects

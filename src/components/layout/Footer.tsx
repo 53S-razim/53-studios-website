@@ -4,8 +4,9 @@ import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { useRef } from "react";
-import { Instagram, MessageCircle, Phone, Mail, MapPin, ArrowUpRight } from "lucide-react";
-import { DecorativeLine } from "@/components/ui/DecorativeLine";
+import { Instagram, MessageCircle, ArrowUpRight, MapPin } from "lucide-react";
+import { TeamProfileCard } from "@/components/ui/TeamProfileCard";
+import { team } from "@/content/team";
 
 const footerLinks = [
   { href: "/", label: "Home" },
@@ -14,14 +15,23 @@ const footerLinks = [
   { href: "/contact", label: "Contact" },
 ];
 
-const contactInfo = {
-  address: "No. 1 Melony Road, T-Nagar, Chennai-600035",
-  phones: ["+91 73958 53673", "+91 95000 45144", "+91 80560 43110"],
-  emails: ["syed@53studios.in", "sanjay@53studios.in", "nancy@53studios.in"],
-  instagram: "https://www.instagram.com/53studiosin",
-  whatsapp: "https://wa.me/917395853673",
-  maps: "https://www.google.com/maps/place/No.+1+Melony+Road,+T-Nagar,+Chennai,+Tamil+Nadu+600035",
-};
+const teamWithContact = [
+  {
+    ...team[0],
+    phone: "+91 73958 53673",
+    whatsapp: "https://wa.me/917395853673",
+  },
+  {
+    ...team[1],
+    phone: "+91 95000 45144",
+    whatsapp: "https://wa.me/919500045144",
+  },
+  {
+    ...team[2],
+    phone: "+91 80560 43110",
+    whatsapp: "https://wa.me/918056043110",
+  },
+];
 
 export function Footer() {
   const footerRef = useRef<HTMLElement>(null);
@@ -58,10 +68,10 @@ export function Footer() {
             href="mailto:syed@53studios.in"
             className="group inline-flex items-center gap-4"
           >
-            <span className="text-4xl md:text-6xl lg:text-7xl font-light text-[var(--background)] hover:text-[var(--background)]/80 transition-colors break-all">
+            <span className="text-3xl md:text-5xl lg:text-6xl font-light text-[var(--background)] hover:text-[var(--background)]/80 transition-colors break-all">
               syed@53studios.in
             </span>
-            <ArrowUpRight className="w-8 h-8 md:w-12 md:h-12 opacity-50 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0" />
+            <ArrowUpRight className="w-8 h-8 md:w-10 md:h-10 opacity-50 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0" />
           </a>
         </motion.div>
 
@@ -73,13 +83,39 @@ export function Footer() {
           className="h-px bg-[var(--background)]/20 mb-16 origin-left"
         />
 
+        {/* Team Profile Cards Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mb-16"
+        >
+          <h4 className="text-overline text-[var(--background)]/50 tracking-[0.15em] mb-6">
+            REACH OUT TO US
+          </h4>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {teamWithContact.map((member, index) => (
+              <TeamProfileCard
+                key={member.id}
+                name={member.name}
+                role={member.role}
+                image={member.image}
+                phone={member.phone}
+                email={member.email}
+                whatsapp={member.whatsapp}
+                delay={0.1 * index}
+              />
+            ))}
+          </div>
+        </motion.div>
+
         {/* Main Footer Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
           {/* Logo & Tagline */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
             className="lg:col-span-4"
           >
             <Link href="/" className="inline-block mb-6">
@@ -100,19 +136,19 @@ export function Footer() {
             {/* Social Icons */}
             <div className="flex items-center gap-3 mt-6">
               <a
-                href={contactInfo.instagram}
+                href="https://www.instagram.com/53studiosin"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full border border-[var(--background)]/20 flex items-center justify-center hover:bg-[var(--background)]/10 transition-colors"
+                className="w-10 h-10 rounded-xl border border-[var(--background)]/20 flex items-center justify-center hover:bg-[var(--background)]/10 transition-colors"
                 aria-label="Instagram"
               >
                 <Instagram className="w-4 h-4" />
               </a>
               <a
-                href={contactInfo.whatsapp}
+                href="https://wa.me/917395853673"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full border border-[var(--background)]/20 flex items-center justify-center hover:bg-[var(--background)]/10 transition-colors"
+                className="w-10 h-10 rounded-xl border border-[var(--background)]/20 flex items-center justify-center hover:bg-[var(--background)]/10 transition-colors"
                 aria-label="WhatsApp"
               >
                 <MessageCircle className="w-4 h-4" />
@@ -124,8 +160,8 @@ export function Footer() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="lg:col-span-2"
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="lg:col-span-3"
           >
             <h4 className="text-overline text-[var(--background)]/50 tracking-[0.15em] mb-6">
               NAVIGATION
@@ -145,70 +181,29 @@ export function Footer() {
             </ul>
           </motion.div>
 
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="lg:col-span-3"
-          >
-            <h4 className="text-overline text-[var(--background)]/50 tracking-[0.15em] mb-6">
-              CONTACT
-            </h4>
-            <ul className="space-y-4">
-              <li>
-                <a
-                  href={contactInfo.maps}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-start gap-3 text-[var(--background)]/70 hover:text-[var(--background)] transition-colors group"
-                >
-                  <MapPin className="w-4 h-4 mt-1 flex-shrink-0 opacity-50 group-hover:opacity-100" />
-                  <span className="text-caption leading-relaxed">{contactInfo.address}</span>
-                </a>
-              </li>
-              <li>
-                <div className="flex items-start gap-3 text-[var(--background)]/70">
-                  <Phone className="w-4 h-4 mt-1 flex-shrink-0 opacity-50" />
-                  <div className="flex flex-col gap-1">
-                    {contactInfo.phones.map((phone) => (
-                      <a
-                        key={phone}
-                        href={`tel:${phone.replace(/\s/g, "")}`}
-                        className="text-caption hover:text-[var(--background)] transition-colors"
-                      >
-                        {phone}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </motion.div>
-
-          {/* Emails */}
+          {/* Location */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="lg:col-span-3"
+            className="lg:col-span-5"
           >
             <h4 className="text-overline text-[var(--background)]/50 tracking-[0.15em] mb-6">
-              EMAIL
+              VISIT US
             </h4>
-            <ul className="space-y-3">
-              {contactInfo.emails.map((email) => (
-                <li key={email}>
-                  <a
-                    href={`mailto:${email}`}
-                    className="text-caption text-[var(--background)]/70 hover:text-[var(--background)] transition-colors inline-flex items-center gap-2 group"
-                  >
-                    <Mail className="w-4 h-4 opacity-50 group-hover:opacity-100" />
-                    {email}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <a
+              href="https://www.google.com/maps/place/No.+1+Melony+Road,+T-Nagar,+Chennai,+Tamil+Nadu+600035"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-start gap-3 text-[var(--background)]/70 hover:text-[var(--background)] transition-colors group"
+            >
+              <MapPin className="w-5 h-5 mt-0.5 flex-shrink-0 opacity-50 group-hover:opacity-100" />
+              <div>
+                <p className="text-body leading-relaxed">No. 1 Melony Road</p>
+                <p className="text-body leading-relaxed">T-Nagar, Chennai-600035</p>
+                <p className="text-body leading-relaxed">Tamil Nadu, India</p>
+              </div>
+            </a>
           </motion.div>
         </div>
 

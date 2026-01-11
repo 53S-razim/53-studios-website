@@ -8,11 +8,7 @@ import { Input, Textarea } from "@/components/ui/Input";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { submitQuoteForm } from "@/lib/firebase";
 import { cn } from "@/lib/utils";
-
-interface QuoteModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+import { useQuoteModal } from "@/context/QuoteModalContext";
 
 const projectTypes = [
   { id: "residential", label: "Residential", description: "Homes, apartments, villas" },
@@ -42,7 +38,8 @@ const timelines = [
   { id: "flexible", label: "Flexible" },
 ];
 
-export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
+export function QuoteModal() {
+  const { isOpen, closeModal } = useQuoteModal();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     projectType: "",
@@ -98,7 +95,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
   };
 
   const handleClose = () => {
-    onClose();
+    closeModal();
     setTimeout(() => {
       setStep(1);
       setSuccess(false);

@@ -2,10 +2,10 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
 import { useEffect } from "react";
-import { Instagram, Phone, Mail, MapPin, MessageCircle, ArrowUpRight } from "lucide-react";
-import { DecorativeLine, DecorativeCorner } from "@/components/ui/DecorativeLine";
+import { Instagram, MessageCircle, ArrowUpRight, Phone, Mail, MapPin } from "lucide-react";
+import { useQuoteModal } from "@/context/QuoteModalContext";
+import { TimeWidget, WeatherWidget, ContactWidget } from "@/components/ui/Widget";
 
 interface MenuOverlayProps {
   isOpen: boolean;
@@ -20,6 +20,8 @@ const menuItems = [
 ];
 
 export function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
+  const { openModal } = useQuoteModal();
+  
   // Lock body scroll when menu is open
   useEffect(() => {
     if (isOpen) {
@@ -35,143 +37,121 @@ export function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.4 }}
-          className="fixed inset-0 z-40 bg-[var(--background)]"
-        >
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-[0.02]">
-            <div 
-              className="absolute inset-0"
-              style={{
-                backgroundImage: `radial-gradient(circle at 1px 1px, var(--foreground) 1px, transparent 0)`,
-                backgroundSize: '40px 40px'
-              }}
-            />
-          </div>
+        <>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm"
+            onClick={onClose}
+          />
 
-          <div className="h-full flex flex-col lg:flex-row relative">
-            {/* Decorative Corners */}
-            <div className="absolute top-24 left-8 z-10">
-              <DecorativeCorner position="top-left" size={40} delay={0.3} />
-            </div>
-            <div className="absolute bottom-8 right-8 z-10">
-              <DecorativeCorner position="bottom-right" size={40} delay={0.4} />
-            </div>
+          {/* macOS-style Dropdown Panel */}
+          <motion.div
+            initial={{ opacity: 0, y: -20, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.98 }}
+            transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+            className="fixed top-20 left-4 right-4 md:left-auto md:right-6 md:w-[480px] z-50 macos-panel rounded-3xl overflow-hidden"
+          >
+            <div className="p-6">
+              {/* Header */}
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-lg font-medium text-[var(--foreground)]">Menu</h2>
+                <span className="text-xs text-[var(--foreground-muted)]">53 Studios</span>
+              </div>
 
-            {/* Left Panel - Image */}
-            <motion.div
-              initial={{ x: "-100%", opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: "-100%", opacity: 0 }}
-              transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-              className="hidden lg:block lg:w-1/2 relative overflow-hidden"
-            >
-              <Image
-                src="/images/liv3.jpg"
-                alt="Interior Design"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-[var(--background)]" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-              
-              {/* Contact Info on Image */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.5 }}
-                className="absolute bottom-12 left-12 text-white space-y-4"
-              >
-                <p className="text-overline tracking-[0.2em] text-white/60 mb-4">
-                  VISIT US
-                </p>
-                <p className="text-lg">No. 1 Melony Road</p>
-                <p className="text-lg">T-Nagar, Chennai-600035</p>
-                <div className="pt-4 space-y-2">
-                  <p className="text-white/70">syed@53studios.in</p>
-                  <p className="text-white/70">+91 73958 53673</p>
-                </div>
-              </motion.div>
-            </motion.div>
+              {/* Widgets Row */}
+              <div className="grid grid-cols-2 gap-3 mb-6">
+                <TimeWidget />
+                <WeatherWidget />
+              </div>
 
-            {/* Right Panel - Navigation */}
-            <div className="flex-1 flex flex-col justify-between px-8 lg:px-16 pt-28 pb-8 lg:pt-32 lg:pb-12 overflow-y-auto">
-              {/* Navigation */}
-              <nav className="space-y-1">
+              {/* Navigation Links */}
+              <nav className="space-y-1 mb-6">
                 {menuItems.map((item, index) => (
                   <motion.div
                     key={item.href}
-                    initial={{ x: 60, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    exit={{ x: 60, opacity: 0 }}
-                    transition={{ 
-                      duration: 0.5, 
-                      delay: 0.1 + index * 0.08,
-                      ease: [0.25, 0.1, 0.25, 1]
-                    }}
-                    className="overflow-hidden"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 + index * 0.05 }}
                   >
                     <Link
                       href={item.href}
                       onClick={onClose}
-                      className="group flex items-center gap-6 py-3 transition-colors"
+                      className="group flex items-center justify-between py-3 px-4 -mx-4 rounded-xl hover:bg-[var(--surface)] transition-colors"
                     >
-                      <span className="text-caption text-[var(--foreground-muted)] font-medium w-8">
-                        {item.number}
-                      </span>
-                      <span className="text-5xl lg:text-6xl xl:text-7xl font-light text-[var(--foreground)] group-hover:text-[var(--foreground-secondary)] transition-colors tracking-tight">
-                        {item.label}
-                      </span>
-                      <ArrowUpRight className="w-6 h-6 opacity-0 -translate-y-2 translate-x-2 group-hover:opacity-50 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
+                      <div className="flex items-center gap-4">
+                        <span className="text-xs text-[var(--foreground-muted)] font-mono w-6">
+                          {item.number}
+                        </span>
+                        <span className="text-base font-medium text-[var(--foreground)]">
+                          {item.label}
+                        </span>
+                      </div>
+                      <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-50 transition-opacity" />
                     </Link>
-                    <motion.div
-                      initial={{ scaleX: 0 }}
-                      animate={{ scaleX: 1 }}
-                      transition={{ duration: 0.6, delay: 0.3 + index * 0.08 }}
-                      className="h-px bg-[var(--border)] origin-left ml-14"
-                    />
                   </motion.div>
                 ))}
               </nav>
 
-              {/* Bottom Section */}
-              <div className="mt-12 space-y-8">
-                {/* Get Quote Button */}
-                <motion.div
-                  initial={{ y: 30, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: 30, opacity: 0 }}
-                  transition={{ duration: 0.5, delay: 0.5 }}
-                >
-                  <Link
-                    href="/contact"
-                    onClick={onClose}
-                    className="inline-flex items-center gap-3 px-8 py-4 bg-[var(--accent)] text-[var(--accent-foreground)] rounded-full font-medium hover:opacity-90 transition-opacity group"
-                  >
-                    <span>Get a Quote</span>
-                    <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  </Link>
-                </motion.div>
+              {/* Divider */}
+              <div className="h-px bg-[var(--border)] mb-6" />
 
-                {/* Social Links & Contact */}
-                <motion.div
-                  initial={{ y: 30, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: 30, opacity: 0 }}
-                  transition={{ duration: 0.5, delay: 0.6 }}
-                  className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8"
-                >
+              {/* Get Quote Button */}
+              <motion.button
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                onClick={() => {
+                  onClose();
+                  setTimeout(openModal, 300);
+                }}
+                className="w-full py-3 px-6 bg-[var(--accent)] text-[var(--accent-foreground)] rounded-xl font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+              >
+                <span>Get a Quote</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </motion.button>
+
+              {/* Contact Info */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                className="mt-6 pt-6 border-t border-[var(--border)]"
+              >
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Contact Details */}
+                  <div className="space-y-3">
+                    <a 
+                      href="tel:+917395853673"
+                      className="flex items-center gap-2 text-sm text-[var(--foreground-secondary)] hover:text-[var(--foreground)] transition-colors"
+                    >
+                      <Phone className="w-4 h-4 opacity-50" />
+                      <span>+91 73958 53673</span>
+                    </a>
+                    <a 
+                      href="mailto:syed@53studios.in"
+                      className="flex items-center gap-2 text-sm text-[var(--foreground-secondary)] hover:text-[var(--foreground)] transition-colors"
+                    >
+                      <Mail className="w-4 h-4 opacity-50" />
+                      <span>syed@53studios.in</span>
+                    </a>
+                    <div className="flex items-center gap-2 text-sm text-[var(--foreground-muted)]">
+                      <MapPin className="w-4 h-4 opacity-50" />
+                      <span>Chennai, India</span>
+                    </div>
+                  </div>
+
                   {/* Social Links */}
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-end justify-end gap-2">
                     <a
                       href="https://www.instagram.com/53studiosin"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-12 h-12 rounded-full border border-[var(--border)] flex items-center justify-center text-[var(--foreground-secondary)] hover:text-[var(--foreground)] hover:border-[var(--border-strong)] transition-all"
+                      className="w-10 h-10 rounded-xl bg-[var(--surface)] flex items-center justify-center text-[var(--foreground-secondary)] hover:text-[var(--foreground)] hover:bg-[var(--surface-elevated)] transition-all"
                       aria-label="Instagram"
                     >
                       <Instagram className="w-5 h-5" />
@@ -180,47 +160,17 @@ export function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
                       href="https://wa.me/917395853673"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-12 h-12 rounded-full border border-[var(--border)] flex items-center justify-center text-[var(--foreground-secondary)] hover:text-[var(--foreground)] hover:border-[var(--border-strong)] transition-all"
+                      className="w-10 h-10 rounded-xl bg-[var(--surface)] flex items-center justify-center text-[var(--foreground-secondary)] hover:text-[var(--foreground)] hover:bg-[var(--surface-elevated)] transition-all"
                       aria-label="WhatsApp"
                     >
                       <MessageCircle className="w-5 h-5" />
                     </a>
                   </div>
-
-                  {/* Mobile Contact Info */}
-                  <div className="lg:hidden space-y-3 text-caption text-[var(--foreground-secondary)]">
-                    <div className="flex items-center gap-3">
-                      <MapPin className="w-4 h-4 opacity-50" />
-                      <span>No. 1 Melony Road, T-Nagar, Chennai-600035</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <Phone className="w-4 h-4 opacity-50" />
-                      <a href="tel:+917395853673" className="hover:text-[var(--foreground)]">
-                        +91 73958 53673
-                      </a>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <Mail className="w-4 h-4 opacity-50" />
-                      <a href="mailto:syed@53studios.in" className="hover:text-[var(--foreground)]">
-                        syed@53studios.in
-                      </a>
-                    </div>
-                  </div>
-
-                  {/* Year Badge */}
-                  <div className="hidden lg:block text-right">
-                    <p className="text-caption text-[var(--foreground-muted)]">
-                      Since 2014
-                    </p>
-                    <p className="text-caption text-[var(--foreground-muted)]">
-                      Chennai, India
-                    </p>
-                  </div>
-                </motion.div>
-              </div>
+                </div>
+              </motion.div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </>
       )}
     </AnimatePresence>
   );

@@ -3,6 +3,8 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PreloaderWrapper } from "@/components/PreloaderWrapper";
+import { QuoteModalProvider } from "@/context/QuoteModalContext";
+import { QuoteModal } from "@/components/QuoteModal";
 
 export const metadata: Metadata = {
   title: {
@@ -52,11 +54,14 @@ export default function RootLayout({
         <link rel="icon" href="/images/53 logo front.JPG" />
       </head>
       <body className="antialiased">
-        <PreloaderWrapper>
-          <Header />
-          <main className="min-h-screen">{children}</main>
-          <Footer />
-        </PreloaderWrapper>
+        <QuoteModalProvider>
+          <PreloaderWrapper>
+            <Header />
+            <main className="min-h-screen">{children}</main>
+            <Footer />
+            <QuoteModal />
+          </PreloaderWrapper>
+        </QuoteModalProvider>
       </body>
     </html>
   );
