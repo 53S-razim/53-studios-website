@@ -1,8 +1,11 @@
 "use client";
 
+import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { Instagram, MessageCircle, Phone, Mail, MapPin } from "lucide-react";
+import { useRef } from "react";
+import { Instagram, MessageCircle, Phone, Mail, MapPin, ArrowUpRight } from "lucide-react";
+import { DecorativeLine } from "@/components/ui/DecorativeLine";
 
 const footerLinks = [
   { href: "/", label: "Home" },
@@ -21,71 +24,158 @@ const contactInfo = {
 };
 
 export function Footer() {
+  const footerRef = useRef<HTMLElement>(null);
+  const isInView = useInView(footerRef, { once: true, amount: 0.1 });
+
   return (
-    <footer className="bg-[var(--background-secondary)] border-t border-[var(--border)]">
-      <div className="container-main py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+    <footer 
+      ref={footerRef}
+      className="bg-[var(--foreground)] text-[var(--background)] relative overflow-hidden"
+    >
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-[0.03]">
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)`,
+            backgroundSize: '40px 40px'
+          }}
+        />
+      </div>
+
+      <div className="container-main relative z-10 py-16 md:py-24">
+        {/* Top Section - Large Email CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+          transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+          className="mb-16 md:mb-24"
+        >
+          <p className="text-overline text-[var(--background)]/50 tracking-[0.2em] mb-4">
+            LET&apos;S WORK TOGETHER
+          </p>
+          <a
+            href="mailto:syed@53studios.in"
+            className="group inline-flex items-center gap-4"
+          >
+            <span className="text-4xl md:text-6xl lg:text-7xl font-light text-[var(--background)] hover:text-[var(--background)]/80 transition-colors break-all">
+              syed@53studios.in
+            </span>
+            <ArrowUpRight className="w-8 h-8 md:w-12 md:h-12 opacity-50 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0" />
+          </a>
+        </motion.div>
+
+        {/* Divider */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+          className="h-px bg-[var(--background)]/20 mb-16 origin-left"
+        />
+
+        {/* Main Footer Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
           {/* Logo & Tagline */}
-          <div className="lg:col-span-1">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="lg:col-span-4"
+          >
             <Link href="/" className="inline-block mb-6">
-              <Image
-                src="/images/53 logo front.JPG"
-                alt="53 Studios"
-                width={80}
-                height={80}
-                className="rounded-lg"
-              />
+              <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-[var(--background)] p-2">
+                <Image
+                  src="/images/53 logo front.JPG"
+                  alt="53 Studios"
+                  fill
+                  className="object-contain"
+                />
+              </div>
             </Link>
-            <p className="text-[var(--foreground-secondary)] leading-relaxed">
-              Functional design <em>and</em> timeless craftsmanship.
+            <p className="text-body text-[var(--background)]/70 leading-relaxed max-w-sm">
+              Functional design <em className="text-[var(--background)]/90">and</em> timeless craftsmanship. 
+              Creating spaces that inspire and endure.
             </p>
-          </div>
+            
+            {/* Social Icons */}
+            <div className="flex items-center gap-3 mt-6">
+              <a
+                href={contactInfo.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full border border-[var(--background)]/20 flex items-center justify-center hover:bg-[var(--background)]/10 transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-4 h-4" />
+              </a>
+              <a
+                href={contactInfo.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full border border-[var(--background)]/20 flex items-center justify-center hover:bg-[var(--background)]/10 transition-colors"
+                aria-label="WhatsApp"
+              >
+                <MessageCircle className="w-4 h-4" />
+              </a>
+            </div>
+          </motion.div>
 
           {/* Navigation */}
-          <div>
-            <h4 className="text-overline text-[var(--foreground-muted)] mb-6">
-              Navigation
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="lg:col-span-2"
+          >
+            <h4 className="text-overline text-[var(--background)]/50 tracking-[0.15em] mb-6">
+              NAVIGATION
             </h4>
             <ul className="space-y-3">
               {footerLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-[var(--foreground-secondary)] hover:text-[var(--foreground)] transition-colors"
+                    className="text-body text-[var(--background)]/70 hover:text-[var(--background)] transition-colors inline-flex items-center gap-1 group"
                   >
                     {link.label}
+                    <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
-          {/* Contact */}
-          <div>
-            <h4 className="text-overline text-[var(--foreground-muted)] mb-6">
-              Contact
+          {/* Contact Info */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="lg:col-span-3"
+          >
+            <h4 className="text-overline text-[var(--background)]/50 tracking-[0.15em] mb-6">
+              CONTACT
             </h4>
-            <ul className="space-y-3 text-sm">
+            <ul className="space-y-4">
               <li>
                 <a
                   href={contactInfo.maps}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-start gap-2 text-[var(--foreground-secondary)] hover:text-[var(--foreground)] transition-colors"
+                  className="flex items-start gap-3 text-[var(--background)]/70 hover:text-[var(--background)] transition-colors group"
                 >
-                  <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                  <span>{contactInfo.address}</span>
+                  <MapPin className="w-4 h-4 mt-1 flex-shrink-0 opacity-50 group-hover:opacity-100" />
+                  <span className="text-caption leading-relaxed">{contactInfo.address}</span>
                 </a>
               </li>
               <li>
-                <div className="flex items-start gap-2 text-[var(--foreground-secondary)]">
-                  <Phone className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                  <div className="flex flex-wrap gap-x-3 gap-y-1">
+                <div className="flex items-start gap-3 text-[var(--background)]/70">
+                  <Phone className="w-4 h-4 mt-1 flex-shrink-0 opacity-50" />
+                  <div className="flex flex-col gap-1">
                     {contactInfo.phones.map((phone) => (
                       <a
                         key={phone}
                         href={`tel:${phone.replace(/\s/g, "")}`}
-                        className="hover:text-[var(--foreground)] transition-colors"
+                        className="text-caption hover:text-[var(--background)] transition-colors"
                       >
                         {phone}
                       </a>
@@ -93,67 +183,54 @@ export function Footer() {
                   </div>
                 </div>
               </li>
-              <li>
-                <div className="flex items-start gap-2 text-[var(--foreground-secondary)]">
-                  <Mail className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                  <div className="flex flex-wrap gap-x-3 gap-y-1">
-                    {contactInfo.emails.map((email) => (
-                      <a
-                        key={email}
-                        href={`mailto:${email}`}
-                        className="hover:text-[var(--foreground)] transition-colors"
-                      >
-                        {email}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </li>
             </ul>
-          </div>
+          </motion.div>
 
-          {/* Social */}
-          <div>
-            <h4 className="text-overline text-[var(--foreground-muted)] mb-6">
-              Follow Us
+          {/* Emails */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="lg:col-span-3"
+          >
+            <h4 className="text-overline text-[var(--background)]/50 tracking-[0.15em] mb-6">
+              EMAIL
             </h4>
-            <div className="flex items-center gap-4">
-              <a
-                href={contactInfo.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 rounded-full bg-[var(--surface)] hover:bg-[var(--surface-elevated)] transition-colors"
-                aria-label="Instagram"
-              >
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a
-                href={contactInfo.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 rounded-full bg-[var(--surface)] hover:bg-[var(--surface-elevated)] transition-colors"
-                aria-label="WhatsApp"
-              >
-                <MessageCircle className="w-5 h-5" />
-              </a>
-            </div>
-          </div>
+            <ul className="space-y-3">
+              {contactInfo.emails.map((email) => (
+                <li key={email}>
+                  <a
+                    href={`mailto:${email}`}
+                    className="text-caption text-[var(--background)]/70 hover:text-[var(--background)] transition-colors inline-flex items-center gap-2 group"
+                  >
+                    <Mail className="w-4 h-4 opacity-50 group-hover:opacity-100" />
+                    {email}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-16 pt-8 border-t border-[var(--border)] flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-[var(--foreground-muted)]">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
+          className="pt-8 border-t border-[var(--background)]/10 flex flex-col md:flex-row justify-between items-center gap-4"
+        >
+          <p className="text-caption text-[var(--background)]/50">
             © {new Date().getFullYear()} 53 Studios. All rights reserved.
           </p>
-          <div className="flex items-center gap-6 text-sm text-[var(--foreground-muted)]">
-            <Link href="/privacy" className="hover:text-[var(--foreground)] transition-colors">
+          <div className="flex items-center gap-6 text-caption text-[var(--background)]/50">
+            <Link href="/privacy" className="hover:text-[var(--background)] transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="hover:text-[var(--foreground)] transition-colors">
+            <Link href="/terms" className="hover:text-[var(--background)] transition-colors">
               Terms of Service
             </Link>
           </div>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );

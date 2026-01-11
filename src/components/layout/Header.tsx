@@ -1,11 +1,11 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ThemeToggle } from "./ThemeToggle";
 import { MenuOverlay } from "./MenuOverlay";
 import { ScrollProgress } from "./ScrollProgress";
@@ -13,76 +13,128 @@ import { ScrollProgress } from "./ScrollProgress";
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const { scrollY } = useScroll();
-  
-  const headerBg = useTransform(
-    scrollY,
-    [0, 100],
-    ["rgba(255,255,255,0)", "var(--glass-background)"]
-  );
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = "hidden";
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() ?? 0;
+    
+    // Show/hide header based on scroll direction
+    if (latest > previous && latest > 150) {
+      setHidden(true);
     } else {
-      document.body.style.overflow = "";
+      setHidden(false);
     }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen]);
+    
+    // Add glass effect after scrolling
+    setScrolled(latest > 50);
+  });
 
   return (
     <>
       <ScrollProgress />
       <motion.header
+        variants={{
+          visible: { y: 0 },
+          hidden: { y: "-100%" },
+        }}
+        animate={hidden && !menuOpen ? "hidden" : "visible"}
+        transition={{ duration: 0.35, ease: "easeInOut" }}
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          scrolled && "glass backdrop-blur-xl"
+          scrolled && !menuOpen && "glass backdrop-blur-xl border-b border-[var(--border)]"
         )}
-        style={{ backgroundColor: scrolled ? undefined : "transparent" }}
       >
         <div className="container-main">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link href="/" className="relative z-10">
-              <Image
-                src="/images/53 logo front.JPG"
-                alt="53 Studios"
-                width={60}
-                height={60}
-                className="rounded-lg"
-                priority
-              />
+            <Link href="/" className="relative z-10 flex items-center gap-3">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                <Image
+                  src="/images/53 logo front.JPG"
+                  alt="53 Studios"
+                  width={50}
+                  height={50}
+                  className="rounded-lg"
+                  priority
+                />
+              </motion.div>
+              <motion.span
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="hidden sm:block text-sm font-medium text-[var(--foreground)]"
+              >
+                53 Studios
+              </motion.span>
             </Link>
 
+            {/* Center - Hidden nav links for desktop */}
+            <motion.nav
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="hidden lg:flex items-center gap-8"
+            >
+              {["Projects", "About", "Contact"].map((item, index) => (
+                <Link
+                  key={item}
+                  href={`/${item.toLowerCase()}`}
+                  className="text-sm text-[var(--foreground-secondary)] hover:text-[var(--foreground)] transition-colors relative group"
+                >
+                  {item}
+                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-[var(--foreground)] transition-all group-hover:w-full" />
+                </Link>
+              ))}
+            </motion.nav>
+
             {/* Right Side */}
-            <div className="flex items-center gap-4">
-              <ThemeToggle />
+            <div className="flex items-center gap-3">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
+                <ThemeToggle />
+              </motion.div>
+
+              {/* CTA Button - Desktop */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="hidden md:block"
+              >
+                <Link
+                  href="/contact"
+                  className="px-5 py-2.5 rounded-full bg-[var(--accent)] text-[var(--accent-foreground)] text-sm font-medium hover:opacity-90 transition-opacity"
+                >
+                  Get Quote
+                </Link>
+              </motion.div>
               
               {/* Menu Button */}
               <motion.button
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
                 onClick={() => setMenuOpen(!menuOpen)}
                 className={cn(
-                  "relative z-10 p-3 rounded-full transition-colors",
+                  "relative z-10 p-3 rounded-full transition-all",
                   "hover:bg-[var(--surface)]",
-                  menuOpen && "bg-[var(--surface)]"
+                  menuOpen && "bg-[var(--foreground)] text-[var(--background)]"
                 )}
                 whileTap={{ scale: 0.95 }}
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
               >
                 {menuOpen ? (
-                  <X className="w-6 h-6" />
+                  <X className="w-5 h-5" />
                 ) : (
-                  <Menu className="w-6 h-6" />
+                  <Menu className="w-5 h-5" />
                 )}
               </motion.button>
             </div>

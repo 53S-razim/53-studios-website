@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { PreloaderWrapper } from "@/components/PreloaderWrapper";
 
 export const metadata: Metadata = {
   title: {
@@ -51,9 +52,11 @@ export default function RootLayout({
         <link rel="icon" href="/images/53 logo front.JPG" />
       </head>
       <body className="antialiased">
-        <Header />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+        <PreloaderWrapper>
+          <Header />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
+        </PreloaderWrapper>
       </body>
     </html>
   );
